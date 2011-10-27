@@ -1,1 +1,10 @@
 * text=auto !eol
+ServerProject/src/FIFOHandler.java -text
+ServerProject/src/HashHandler.java -text
+ServerProject/src/ProductType.java -text
+ServerProject/src/Quotazioni.java -text
+ServerProject/src/RankElement.java -text
+ServerProject/src/RankedList.java -text
+ServerProject/src/RankingHandler.java -text
+ServerProject/src/Site.java -text
+ServerProject/src/SiteStats.java -text

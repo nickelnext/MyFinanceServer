@@ -41,4 +41,9 @@ public class SiteStats {
 			return true;
 		return false;
 	}
+	public float getHitsPercentual()
+	{
+		return (hits/total)*100;
+	}
+	
 }

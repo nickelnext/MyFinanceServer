@@ -26,5 +26,8 @@ public class RankElement {
 		siteStatsList.add(s);
 	}
 	
-	
+	public void updateRank()
+	{
+		
+	}
 }

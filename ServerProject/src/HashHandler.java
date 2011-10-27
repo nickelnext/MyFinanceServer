@@ -14,4 +14,22 @@ public class HashHandler {
 	{
 		return false;
 	}
+	
+	public Site getSiteFromIsin(String ISIN)
+	{
+		return hashtable.get(ISIN);
+	}
+	public void addISIN(String ISIN, Site s)
+	{
+		hashtable.put(ISIN, s);
+	}
+	public void removeISIN(String ISIN)
+	{
+		hashtable.remove(ISIN);
+	}
+	public void cleanHash()
+	{
+		hashtable.clear();
+	}
+	
 }

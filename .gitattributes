@@ -1,10 +1,16 @@
 * text=auto !eol
 ServerProject/src/FIFOHandler.java -text
+ServerProject/src/Handlers/Site.java -text
+ServerProject/src/Handlers/SiteInterface.java -text
 ServerProject/src/HashHandler.java -text
+ServerProject/src/MyDatabase.java -text
 ServerProject/src/ProductType.java -text
+ServerProject/src/Program.java -text
 ServerProject/src/Quotazioni.java -text
 ServerProject/src/RankElement.java -text
 ServerProject/src/RankedList.java -text
 ServerProject/src/RankingHandler.java -text
 ServerProject/src/Site.java -text
 ServerProject/src/SiteStats.java -text
+ServerProject/src/Sites/Borsaitaliana_it.java -text
+ServerProject/src/Sites/Borse_it.java -text

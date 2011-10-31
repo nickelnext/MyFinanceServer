@@ -7,6 +7,10 @@ ServerProject/src/MyDatabase.java -text
 ServerProject/src/ProductType.java -text
 ServerProject/src/Program.java -text
 ServerProject/src/Quotazioni.java -text
+ServerProject/src/Quotes/Quotation.java -text
+ServerProject/src/Quotes/Quotation_Bond.java -text
+ServerProject/src/Quotes/Quotation_Fund.java -text
+ServerProject/src/Quotes/Quotation_Share.java -text
 ServerProject/src/RankElement.java -text
 ServerProject/src/RankedList.java -text
 ServerProject/src/RankingHandler.java -text

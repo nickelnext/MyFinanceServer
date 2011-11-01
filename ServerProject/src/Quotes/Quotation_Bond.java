@@ -2,14 +2,13 @@ package Quotes;
 
 import java.util.Date;
 
-public class Quotation_Bond {
+public class Quotation_Bond extends Quotation{
 
-	private String nome;
-	private String isin;
+	
 	private String valuta;
 	private String mercato;
 	private String faseMercato;
-	private float prezzoUltimoMercato;
+	private float prezzoUltimoContratto;
 	private float variazionePercentuale;
 	private float variazioneAssoluta;
 	private Date dataUltimoContratto;
@@ -31,18 +30,12 @@ public class Quotation_Bond {
 	private float cedola;
 	private int lottoMinimo;
 	
-	public String getNome() {
-		return nome;
+
+	public Quotation_Bond(String isin) {
+		super(isin);
+		super.setType("Bond");
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getIsin() {
-		return isin;
-	}
-	public void setIsin(String isin) {
-		this.isin = isin;
-	}
+	
 	public String getValuta() {
 		return valuta;
 	}
@@ -61,11 +54,11 @@ public class Quotation_Bond {
 	public void setFaseMercato(String faseMercato) {
 		this.faseMercato = faseMercato;
 	}
-	public float getPrezzoUltimoMercato() {
-		return prezzoUltimoMercato;
+	public float getPrezzoUltimoContratto() {
+		return prezzoUltimoContratto;
 	}
-	public void setPrezzoUltimoMercato(float prezzoUltimoMercato) {
-		this.prezzoUltimoMercato = prezzoUltimoMercato;
+	public void setPrezzoUltimoContratto(float prezzoUltimoContratto) {
+		this.prezzoUltimoContratto = prezzoUltimoContratto;
 	}
 	public float getVariazionePercentuale() {
 		return variazionePercentuale;

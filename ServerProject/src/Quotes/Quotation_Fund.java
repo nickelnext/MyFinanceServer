@@ -2,10 +2,10 @@ package Quotes;
 
 import java.util.Date;
 
-public class Quotation_Fund {
+public class Quotation_Fund extends Quotation{
 
-	private String nome;
-	private String isin;
+
+	
 	private String nomeGestore;
 	private String categoriaAssociati;
 	private String benchmarkDichiarato;
@@ -19,18 +19,13 @@ public class Quotation_Fund {
 	private float performance3Mesi;
 	private float performance1Anno;
 	private float performance3Anni;
-	public String getNome() {
-		return nome;
+	
+	
+	public Quotation_Fund(String isin) {
+		super(isin);
+		this.setType("Fund");
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getIsin() {
-		return isin;
-	}
-	public void setIsin(String isin) {
-		this.isin = isin;
-	}
+	
 	public String getNomeGestore() {
 		return nomeGestore;
 	}

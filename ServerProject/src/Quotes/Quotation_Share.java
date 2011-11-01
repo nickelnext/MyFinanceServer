@@ -2,10 +2,9 @@ package Quotes;
 
 import java.util.Date;
 
-public class Quotation_Share {
+public class Quotation_Share extends Quotation{
 
-	private String nome;
-	private String isin;
+	
 	private int lottoMinimo;
 	private String faseMercato;
 	private float prezzoUltimoContratto;
@@ -26,19 +25,12 @@ public class Quotation_Share {
 	private Date dataMinAnno;
 	private float chiusuraPrecedente;
 	
+	public Quotation_Share(String isin) {
+		super(isin);
+		super.setType("Share");
+	}
 	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getIsin() {
-		return isin;
-	}
-	public void setIsin(String isin) {
-		this.isin = isin;
-	}
+
 	public int getLottoMinimo() {
 		return lottoMinimo;
 	}

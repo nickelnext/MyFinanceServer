@@ -14,12 +14,35 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
+import Quotes.Quotation;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Share;
+import Quotes.Type;
 
 
 public class Borsaitaliana_it implements SiteInterface {
 
+	public Quotation parse(URL url, String ISIN, Type type){
+		switch (type) {
+		case BTP:
+			return (Quotation)parseBTP(url, ISIN);
+		case BOT:
+			return (Quotation)parseBOT(url, ISIN);
+		case CCT:
+			return (Quotation)parseCCT(url, ISIN);
+		case CTZ:
+			return (Quotation)parseCTZ(url, ISIN);
+		case BOND:
+			return (Quotation)parseBOND(url, ISIN);
+		case AZIONE:
+			return (Quotation)parseSHARE(url, ISIN);
+		case FONDO:
+			return (Quotation)parseSHARE(url, ISIN);		
+		default:
+			return null;
+		}
+	}
+	
 	public Quotation_Share parseSHARE(URL url, String ISIN)
 	{
 		try 
@@ -117,10 +140,10 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setVariazioneAssoluta(nodes.item(17).getFirstChild().getNodeValue());	//Var Ass
 			qb.setDataUltimoContratto(nodes.item(19).getFirstChild().getNodeValue());
 			qb.setVolumeUltimo(nodes.item(21).getFirstChild().getNodeValue());
-			qb.setVolumeAcquisto(nodes.item(23).getFirstChild().getNodeValue());
+//			qb.setVolumeAcquisto(nodes.item(23).getFirstChild().getNodeValue());
 			qb.setPrezzoAcquisto(nodes.item(25).getFirstChild().getNodeValue());
-			qb.setPrezzoVendita(nodes.item(27).getFirstChild().getNodeValue());
-			qb.setVolumeVendita(nodes.item(29).getFirstChild().getNodeValue());
+//			qb.setPrezzoVendita(nodes.item(27).getFirstChild().getNodeValue());
+//			qb.setVolumeVendita(nodes.item(29).getFirstChild().getNodeValue());
 			qb.setVolumeTotale(nodes.item(31).getFirstChild().getNodeValue());
 			qb.setMaxAnno(nodes.item(39).getFirstChild().getNodeValue());
 			qb.setMaxOggi(nodes.item(37).getFirstChild().getNodeValue());

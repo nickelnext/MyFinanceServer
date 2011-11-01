@@ -14,12 +14,35 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
+import Quotes.Quotation;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Share;
+import Quotes.Type;
 
 
 public class Finanza_Repubblica_it implements SiteInterface {
 
+	public Quotation parse(URL url, String ISIN, Type type){
+		switch (type) {
+		case BTP:
+			return (Quotation)parseBTP(url, ISIN);
+		case BOT:
+			return (Quotation)parseBOT(url, ISIN);
+		case CCT:
+			return (Quotation)parseCCT(url, ISIN);
+		case CTZ:
+			return (Quotation)parseCTZ(url, ISIN);
+		case BOND:
+			return (Quotation)parseBOND(url, ISIN);
+		case AZIONE:
+			return (Quotation)parseSHARE(url, ISIN);
+		case FONDO:
+			return (Quotation)parseSHARE(url, ISIN);		
+		default:
+			return null;
+		}
+	}
+	
 	public Quotation_Bond parseBTP(URL url, String ISIN)
 	{
 		try 

@@ -64,7 +64,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setLottoMinimo(nodes.item(59).getFirstChild().getNodeValue());
 			qb.setDataStaccoCedola(nodes.item(63).getFirstChild().getNodeValue());
 			qb.setAperturaChiusuraPrecedente(nodes.item(51).getFirstChild().getNodeValue());
-			qb.setScadenza("");
+			qb.setScadenza(nodes.item(57).getFirstChild().getNodeValue());
+			
 			
 			return qb;
 			

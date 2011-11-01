@@ -57,128 +57,133 @@ public class Quotation_Bond extends Quotation{
 	public float getPrezzoUltimoContratto() {
 		return prezzoUltimoContratto;
 	}
-	public void setPrezzoUltimoContratto(float prezzoUltimoContratto) {
-		this.prezzoUltimoContratto = prezzoUltimoContratto;
+	public void setPrezzoUltimoContratto(String string) {
+		
+		this.prezzoUltimoContratto = rep(string);
 	}
+	
+
 	public float getVariazionePercentuale() {
 		return variazionePercentuale;
 	}
-	public void setVariazionePercentuale(float variazionePercentuale) {
-		this.variazionePercentuale = variazionePercentuale;
+	public void setVariazionePercentuale(String string) {
+		this.variazionePercentuale = rep(string);
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
-	public void setVariazioneAssoluta(float variazioneAssoluta) {
-		this.variazioneAssoluta = variazioneAssoluta;
+	public void setVariazioneAssoluta(String string) {
+		this.variazioneAssoluta = rep(string);
 	}
 	public Date getDataUltimoContratto() {
 		return dataUltimoContratto;
 	}
-	public void setDataUltimoContratto(Date dataUltimoContratto) {
-		this.dataUltimoContratto = dataUltimoContratto;
+	public void setDataUltimoContratto(String string) {
+		this.dataUltimoContratto = date(string);
 	}
 	public int getVolumeUltimo() {
 		return volumeUltimo;
 	}
-	public void setVolumeUltimo(int volumeUltimo) {
-		this.volumeUltimo = volumeUltimo;
+	public void setVolumeUltimo(String string) {
+		this.volumeUltimo = rep2(string);
 	}
 	public int getVolumeAcquisto() {
 		return volumeAcquisto;
 	}
-	public void setVolumeAcquisto(int volumeAcquisto) {
-		this.volumeAcquisto = volumeAcquisto;
+	public void setVolumeAcquisto(String string) {
+		this.volumeAcquisto = rep2(string);
 	}
 	public int getVolumeVendita() {
 		return volumeVendita;
 	}
-	public void setVolumeVendita(int volumeVendita) {
-		this.volumeVendita = volumeVendita;
+	public void setVolumeVendita(String string) {
+		this.volumeVendita = rep2(string);
 	}
 	public float getPrezzoAcquisto() {
 		return prezzoAcquisto;
 	}
-	public void setPrezzoAcquisto(float prezzoAcquisto) {
-		this.prezzoAcquisto = prezzoAcquisto;
+	public void setPrezzoAcquisto(String string) {
+		this.prezzoAcquisto = rep(string);
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
-	public void setPrezzoVendita(float prezzoVendita) {
-		this.prezzoVendita = prezzoVendita;
+	public void setPrezzoVendita(String string) {
+		this.prezzoVendita = rep(string);
 	}
 	public int getVolumeTotale() {
 		return volumeTotale;
 	}
-	public void setVolumeTotale(int volumeTotale) {
-		this.volumeTotale = volumeTotale;
+	public void setVolumeTotale(String string) {
+		this.volumeTotale = rep2(string);
 	}
+	
+
 	public float getMaxOggi() {
 		return maxOggi;
 	}
-	public void setMaxOggi(float maxOggi) {
-		this.maxOggi = maxOggi;
+	public void setMaxOggi(String string) {
+		this.maxOggi = rep(string);
 	}
 	public float getMaxAnno() {
 		return maxAnno;
 	}
-	public void setMaxAnno(float maxAnno) {
-		this.maxAnno = maxAnno;
+	public void setMaxAnno(String string) {
+		this.maxAnno = rep(string);
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
-	public void setMinOggi(float minOggi) {
-		this.minOggi = minOggi;
+	public void setMinOggi(String string) {
+		this.minOggi = rep(string);
 	}
 	public float getMinAnno() {
 		return minAnno;
 	}
-	public void setMinAnno(float minAnno) {
-		this.minAnno = minAnno;
+	public void setMinAnno(String string) {
+		this.minAnno = rep(string);
 	}
 	public Date getDataMinAnno() {
 		return dataMinAnno;
 	}
-	public void setDataMinAnno(Date dataMinAnno) {
-		this.dataMinAnno = dataMinAnno;
+	public void setDataMinAnno(String string) {
+		this.dataMinAnno = date(string);
 	}
 	public Date getDataMaxAnno() {
 		return dataMaxAnno;
 	}
-	public void setDataMaxAnno(Date dataMaxAnno) {
-		this.dataMaxAnno = dataMaxAnno;
+	public void setDataMaxAnno(String string) {
+		this.dataMaxAnno = date(string);
 	}
 	public float getAperturaChiusuraPrecedente() {
 		return aperturaChiusuraPrecedente;
 	}
-	public void setAperturaChiusuraPrecedente(float aperturaChiusuraPrecedente) {
-		this.aperturaChiusuraPrecedente = aperturaChiusuraPrecedente;
+	public void setAperturaChiusuraPrecedente(String string) {
+		this.aperturaChiusuraPrecedente = rep(string);
 	}
 	public Date getScadenza() {
 		return scadenza;
 	}
-	public void setScadenza(Date scadenza) {
-		this.scadenza = scadenza;
+	public void setScadenza(String string) {
+		this.scadenza = string;
 	}
 	public Date getDataStaccoCedola() {
 		return dataStaccoCedola;
 	}
-	public void setDataStaccoCedola(Date dataStaccoCedola) {
-		this.dataStaccoCedola = dataStaccoCedola;
+	public void setDataStaccoCedola(String string) {
+		this.dataStaccoCedola = date(string);
 	}
 	public float getCedola() {
 		return cedola;
 	}
-	public void setCedola(float cedola) {
-		this.cedola = cedola;
+	public void setCedola(String string) {
+		this.cedola = rep(string);
 	}
 	public int getLottoMinimo() {
 		return lottoMinimo;
 	}
-	public void setLottoMinimo(int lottoMinimo) {
-		this.lottoMinimo = lottoMinimo;
+	public void setLottoMinimo(String string) {
+		this.lottoMinimo = rep2(string);
 	}
-	
+
 }

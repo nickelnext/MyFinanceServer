@@ -3,7 +3,6 @@ package Sites;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -45,26 +44,27 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setValuta(nodes.item(5).getFirstChild().getNodeValue());		//Valuta
 			qb.setMercato(nodes.item(7).getFirstChild().getNodeValue());	//Mercato
 			qb.setFaseMercato(nodes.item(11).getFirstChild().getNodeValue());//Fase Mercato
-			qb.setPrezzoUltimoContratto(Float.valueOf(nodes.item(13).getFirstChild().getNodeValue()));	//Ultimo Prezzo
-			qb.setVariazionePercentuale(Float.valueOf(nodes.item(15).getFirstChild().getNodeValue()));	//Var %
-			qb.setVariazioneAssoluta(Float.valueOf(nodes.item(17).getFirstChild().getNodeValue()));		//Var Ass
-			qb.setDataUltimoContratto(Date.valueOf(nodes.item(19).getFirstChild().getNodeValue()));
-			qb.setVolumeUltimo(Integer.valueOf(nodes.item(21).getFirstChild().getNodeValue()));
-			qb.setVolumeAcquisto(Integer.valueOf(nodes.item(23).getFirstChild().getNodeValue()));
-			qb.setPrezzoAcquisto(Float.valueOf(nodes.item(25).getFirstChild().getNodeValue()));
-			qb.setPrezzoVendita(Float.valueOf(nodes.item(27).getFirstChild().getNodeValue()));
-			qb.setVolumeVendita(Integer.valueOf(nodes.item(29).getFirstChild().getNodeValue()));
-			qb.setVolumeTotale(Integer.valueOf(nodes.item(31).getFirstChild().getNodeValue()));
-			qb.setMaxAnno(Float.valueOf(nodes.item(39).getFirstChild().getNodeValue()));
-			qb.setMaxOggi(Float.valueOf(nodes.item(37).getFirstChild().getNodeValue()));
-			qb.setMinOggi(Float.valueOf(nodes.item(43).getFirstChild().getNodeValue()));
-			qb.setMinAnno(Float.valueOf(nodes.item(45).getFirstChild().getNodeValue()));
-			qb.setDataMinAnno(Date.valueOf(nodes.item(47).getFirstChild().getNodeValue()));
-			qb.setDataMaxAnno(Date.valueOf(nodes.item(41).getFirstChild().getNodeValue()));
-			qb.setCedola(Float.valueOf(nodes.item(61).getFirstChild().getNodeValue()));
-			qb.setLottoMinimo(Integer.valueOf(nodes.item(59).getFirstChild().getNodeValue()));
-			qb.setDataStaccoCedola(Date.valueOf(nodes.item(63).getFirstChild().getNodeValue()));
-//			qb.setAperturaChiusuraPrecedente(aperturaChiusuraPrecedente);
+			qb.setPrezzoUltimoContratto(nodes.item(13).getFirstChild().getNodeValue());	//Ultimo Prezzo
+			qb.setVariazionePercentuale(nodes.item(15).getFirstChild().getNodeValue());	//Var %
+			qb.setVariazioneAssoluta(nodes.item(17).getFirstChild().getNodeValue());	//Var Ass
+			qb.setDataUltimoContratto(nodes.item(19).getFirstChild().getNodeValue());
+			qb.setVolumeUltimo(nodes.item(21).getFirstChild().getNodeValue());
+			qb.setVolumeAcquisto(nodes.item(23).getFirstChild().getNodeValue());
+			qb.setPrezzoAcquisto(nodes.item(25).getFirstChild().getNodeValue());
+			qb.setPrezzoVendita(nodes.item(27).getFirstChild().getNodeValue());
+			qb.setVolumeVendita(nodes.item(29).getFirstChild().getNodeValue());
+			qb.setVolumeTotale(nodes.item(31).getFirstChild().getNodeValue());
+			qb.setMaxAnno(nodes.item(39).getFirstChild().getNodeValue());
+			qb.setMaxOggi(nodes.item(37).getFirstChild().getNodeValue());
+			qb.setMinOggi(nodes.item(43).getFirstChild().getNodeValue());
+			qb.setMinAnno(nodes.item(45).getFirstChild().getNodeValue());
+			qb.setDataMinAnno(nodes.item(47).getFirstChild().getNodeValue());
+			qb.setDataMaxAnno(nodes.item(41).getFirstChild().getNodeValue());
+			qb.setCedola(nodes.item(61).getFirstChild().getNodeValue());
+			qb.setLottoMinimo(nodes.item(59).getFirstChild().getNodeValue());
+			qb.setDataStaccoCedola(nodes.item(63).getFirstChild().getNodeValue());
+			qb.setAperturaChiusuraPrecedente(nodes.item(51).getFirstChild().getNodeValue());
+			qb.setScadenza("");
 			
 			return qb;
 			

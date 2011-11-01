@@ -1,5 +1,7 @@
 package Quotes;
 
+import java.util.Date;
+
 public abstract class Quotation {
 	
 	private String name;
@@ -31,5 +33,25 @@ public abstract class Quotation {
 		this.type = type;
 	}
 	
-
+	
+	
+	protected float rep(String string) {
+		string = string.replace(",", ".");
+		string = string.replace("%","");
+		if(string.isEmpty())
+			return 0;
+		return Float.valueOf(string);
+	}
+	protected int rep2(String string) {
+		if(string.isEmpty())
+			return 0;
+		string = string.replace(".", "");
+		return Integer.valueOf(string);
+	}
+	protected Date formatDate(String string)
+	{
+		String[] arr = string.split(" ");
+		return null;
+	}
+	
 }

@@ -7,87 +7,88 @@ import java.sql.*;
 import java.util.Vector;
 
 public class MyDatabase {
-   private String nomeDB;       // Nome del Database a cui connettersi
-   private String nomeUtente;   // Nome utente utilizzato per la connessione al Database
-   private String pwdUtente;    // Password usata per la connessione al Database
-   private String errore;       // Raccoglie informazioni riguardo l'ultima eccezione sollevata
+   private String dbName;       // Nome del Database a cui connettersi
+   private String userName;   // Nome utente utilizzato per la connessione al Database
+   private String userPwd;    // Password usata per la connessione al Database
+   private String error;       // Raccoglie informazioni riguardo l'ultima eccezione sollevata
    private Connection db;       // La connessione col Database
-   private boolean connesso;    // Flag che indica se la connessione è attiva o meno
+   private boolean connected;    // Flag che indica se la connessione è attiva o meno
 
-   public MyDatabase(String nomeDB) { this(nomeDB, "", ""); }
+   public MyDatabase(String dbName) { this(dbName, "", ""); }
 
-   public MyDatabase(String nomeDB, String nomeUtente, String pwdUtente) {
-      this.nomeDB = nomeDB;
-      this.nomeUtente = nomeUtente;
-      this.pwdUtente = pwdUtente;
-      connesso = false;
-      errore = "";
-   }
 
-   // Apre la connessione con il Database
-   public boolean connetti() {
-      connesso = false;
+   public MyDatabase(String dbName, String userName, String userPwd) {
+	this.dbName = dbName;
+	this.userName = userName;
+	this.userPwd = userPwd;
+	this.connected = false;
+	this.error = "";
+}
+
+// Apre la connessione con il Database
+   public boolean connect() {
+      connected = false;
       try {
 
          // Carico il driver JDBC per la connessione con il database MySQL
          Class.forName("com.mysql.jdbc.Driver");
 
          // Controllo che il nome del Database non sia nulla
-         if (!nomeDB.equals("")) {
+         if (!dbName.equals("")) {
 
             // Controllo se il nome utente va usato o meno per la connessione
-            if (nomeUtente.equals("")) {
+            if (userName.equals("")) {
 
                // La connessione non richiede nome utente e password
-               db = DriverManager.getConnection("jdbc:mysql://localhost/" + nomeDB);
+               db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName);
             } else {
 
                // La connessione richiede nome utente, controllo se necessita anche della password
-               if (pwdUtente.equals("")) {
+               if (userPwd.equals("")) {
 
                   // La connessione non necessita di password
-                  db = DriverManager.getConnection("jdbc:mysql://localhost/" + nomeDB + "?user=" + nomeUtente);
+                  db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName + "?user=" + userName);
                } else {
 
                   // La connessione necessita della password
-                  db = DriverManager.getConnection("jdbc:mysql://localhost/" + nomeDB + "?user=" + nomeUtente + "&password=" + pwdUtente);
+                  db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName + "?user=" + userName + "&password=" + userPwd);
                }
             }
 
             // La connessione è avvenuta con successo
-            connesso = true;
+            connected = true;
          } else {
             System.out.println("Manca il nome del database!!");
             System.out.println("Scrivere il nome del database da utilizzare all'interno del file \"config.xml\"");
             System.exit(0);
          }
-      } catch (Exception e) { errore = e.getMessage(); }
-      return connesso;
+      } catch (Exception e) { error = e.getMessage(); }
+      return connected;
    }
 
    // Esegue una query di selezione dati sul Database
    // query: una stringa che rappresenta un'istruzione SQL di tipo SELECT da eseguire
-   // colonne: il numero di colonne di cui sarà composta la tupla del risultato
-   // ritorna un Vector contenente tutte le tuple del risultato
-   public Vector eseguiQuery(String query) {
+   // columns: il numero di columns di cui sarà composta la tupla del result
+   // ritorna un Vector contenente tutte le tuple del result
+   public Vector execQuery(String query) {
       Vector v = null;
       String [] record;
-      int colonne = 0;
+      int columns = 0;
       try {
          Statement stmt = db.createStatement();     // Creo lo Statement per l'esecuzione della query
          ResultSet rs = stmt.executeQuery(query);   // Ottengo il ResultSet dell'esecuzione della query
          v = new Vector();
          ResultSetMetaData rsmd = rs.getMetaData();
-         colonne = rsmd.getColumnCount();
+         columns = rsmd.getColumnCount();
 
-         while(rs.next()) {   // Creo il vettore risultato scorrendo tutto il ResultSet
-            record = new String[colonne];
-            for (int i=0; i<colonne; i++) record[i] = rs.getString(i+1);
+         while(rs.next()) {   // Creo il vettore result scorrendo tutto il ResultSet
+            record = new String[columns];
+            for (int i=0; i<columns; i++) record[i] = rs.getString(i+1);
             v.add( (String[]) record.clone() );
          }
          rs.close();     // Chiudo il ResultSet
          stmt.close();   // Chiudo lo Statement
-      } catch (Exception e) { e.printStackTrace(); errore = e.getMessage(); }
+      } catch (Exception e) { e.printStackTrace(); error = e.getMessage(); }
 
       return v;
    }
@@ -95,30 +96,30 @@ public class MyDatabase {
    // Esegue una query di aggiornamento sul Database
    // query: una stringa che rappresenta un'istuzione SQL di tipo UPDATE da eseguire
    // ritorna TRUE se l'esecuzione è adata a buon fine, FALSE se c'è stata un'eccezione
-   public boolean eseguiAggiornamento(String query) {
-      int numero = 0;
-      boolean risultato = false;
+   public boolean updateQuery(String query) {
+      int number = 0;
+      boolean result = false;
       try {
          Statement stmt = db.createStatement();
-         numero = stmt.executeUpdate(query);
-         risultato = true;
+         number = stmt.executeUpdate(query);
+         result = true;
          stmt.close();
       } catch (Exception e) {
          e.printStackTrace();
-         errore = e.getMessage();
-         risultato = false;
+         error = e.getMessage();
+         result = false;
       }
-      return risultato;
+      return result;
    }
 
    // Chiude la connessione con il Database
-   public void disconnetti() {
+   public void disconnect() {
       try {
          db.close();
-         connesso = false;
+         connected = false;
       } catch (Exception e) { e.printStackTrace(); }
    }
 
-   public boolean isConnesso() { return connesso; }   // Ritorna TRUE se la connessione con il Database è attiva
-   public String getErrore() { return errore; }       // Ritorna il messaggio d'errore dell'ultima eccezione sollevata
+   public boolean isConnected() { return connected; }   // Ritorna TRUE se la connessione con il Database è attiva
+   public String getError() { return error; }       // Ritorna il messaggio d'errore dell'ultima eccezione sollevata
 }

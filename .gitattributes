@@ -7,6 +7,10 @@ ServerProject/src/Quotes/Quotation.java -text
 ServerProject/src/Quotes/Quotation_Bond.java -text
 ServerProject/src/Quotes/Quotation_Fund.java -text
 ServerProject/src/Quotes/Quotation_Share.java -text
+ServerProject/src/Request.java -text
+ServerProject/src/RequestHandler.java -text
+ServerProject/src/RequestQuotation.java -text
+ServerProject/src/RequestUpdate.java -text
 ServerProject/src/Sites/Borsaitaliana_it.java -text
 ServerProject/src/Sites/Borse_it.java -text
 ServerProject/src/Sites/Finanza_Repubblica_it.java -text

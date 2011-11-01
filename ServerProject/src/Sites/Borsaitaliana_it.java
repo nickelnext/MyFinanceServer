@@ -46,8 +46,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setMercato(nodes.item(7).getFirstChild().getNodeValue());	//Mercato
 			qb.setFaseMercato(nodes.item(11).getFirstChild().getNodeValue());//Fase Mercato
 			qb.setPrezzoUltimoContratto(Float.valueOf(nodes.item(13).getFirstChild().getNodeValue()));	//Ultimo Prezzo
-			qb.setVariazionePercentuale(Float.valueOf(nodes.item(15).getFirstChild().getNodeValue()));
-			qb.setVariazioneAssoluta(Float.valueOf(nodes.item(17).getFirstChild().getNodeValue()));
+			qb.setVariazionePercentuale(Float.valueOf(nodes.item(15).getFirstChild().getNodeValue()));	//Var %
+			qb.setVariazioneAssoluta(Float.valueOf(nodes.item(17).getFirstChild().getNodeValue()));		//Var Ass
 			qb.setDataUltimoContratto(Date.valueOf(nodes.item(19).getFirstChild().getNodeValue()));
 			qb.setVolumeUltimo(Integer.valueOf(nodes.item(21).getFirstChild().getNodeValue()));
 			qb.setVolumeAcquisto(Integer.valueOf(nodes.item(23).getFirstChild().getNodeValue()));
@@ -64,7 +64,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setCedola(Float.valueOf(nodes.item(61).getFirstChild().getNodeValue()));
 			qb.setLottoMinimo(Integer.valueOf(nodes.item(59).getFirstChild().getNodeValue()));
 			qb.setDataStaccoCedola(Date.valueOf(nodes.item(63).getFirstChild().getNodeValue()));
-						
+//			qb.setAperturaChiusuraPrecedente(aperturaChiusuraPrecedente);
+			
 			return qb;
 			
 			
@@ -74,27 +75,27 @@ public class Borsaitaliana_it implements SiteInterface {
 			
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO, passo al prossimo");	
+			System.out.println("ISIN NON TROVATO");	
 		} 
 		catch (XPathExpressionException e) {
 		}
 		return null;
 	}
-	public void parseBOT(URL url, String ISIN)
+	public Quotation_Bond parseBOT(URL url, String ISIN)
 	{
-		parseBTP(url, ISIN);
+		return parseBTP(url, ISIN);
 	}
-	public void parseCCT(URL url, String ISIN)
+	public Quotation_Bond parseCCT(URL url, String ISIN)
 	{
-		parseBTP(url, ISIN);
+		return parseBTP(url, ISIN);
 	}
-	public void parseCTZ(URL url, String ISIN)
+	public Quotation_Bond parseCTZ(URL url, String ISIN)
 	{
-		parseBTP(url, ISIN);
+		return parseBTP(url, ISIN);
 	}
-	public void parseBOND(URL url, String ISIN)
+	public Quotation_Bond parseBOND(URL url, String ISIN)
 	{
-		parseBTP(url, ISIN);
+		return parseBTP(url, ISIN);
 	}
 	public void parseSHARE(URL url, String ISIN)
 	{

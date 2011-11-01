@@ -7,10 +7,10 @@ import Quotes.Quotation_Bond;
 public interface SiteInterface {
 
 	public abstract Quotation_Bond parseBTP(URL url, String ISIN);
-	public abstract void parseBOT(URL url, String ISIN);
-	public abstract void parseCCT(URL url, String ISIN);
-	public abstract void parseCTZ(URL url, String ISIN);
-	public abstract void parseBOND(URL url, String ISIN);
+	public abstract Quotation_Bond parseBOT(URL url, String ISIN);
+	public abstract Quotation_Bond parseCCT(URL url, String ISIN);
+	public abstract Quotation_Bond parseCTZ(URL url, String ISIN);
+	public abstract Quotation_Bond parseBOND(URL url, String ISIN);
 	public abstract void parseSHARE(URL url, String ISIN);
 	public abstract void parseFUND(URL url, String ISIN);
 	

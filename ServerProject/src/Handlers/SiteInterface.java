@@ -2,6 +2,7 @@ package Handlers;
 
 import java.net.URL;
 
+import Quotes.Quotation_Share;
 import Quotes.Quotation_Bond;
 
 public interface SiteInterface {
@@ -11,7 +12,7 @@ public interface SiteInterface {
 	public abstract Quotation_Bond parseCCT(URL url, String ISIN);
 	public abstract Quotation_Bond parseCTZ(URL url, String ISIN);
 	public abstract Quotation_Bond parseBOND(URL url, String ISIN);
-	public abstract void parseSHARE(URL url, String ISIN);
+	public abstract Quotation_Share parseSHARE(URL url, String ISIN);
 	public abstract void parseFUND(URL url, String ISIN);
 	
 }

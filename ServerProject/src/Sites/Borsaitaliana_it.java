@@ -15,10 +15,78 @@ import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
+import Quotes.Quotation_Share;
 
 
 public class Borsaitaliana_it implements SiteInterface {
 
+	public Quotation_Share parseSHARE(URL url, String ISIN)
+	{
+		try 
+		{
+			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
+
+			Tidy tidy = new Tidy();
+			tidy.setQuiet(true);
+			tidy.setShowWarnings(false);
+			tidy.setFixBackslash(true);
+			Document response = tidy.parseDOM(buffInput, null);
+
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xPath=factory.newXPath();
+			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
+			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+
+			
+			Quotation_Share qs = new Quotation_Share(ISIN);
+			
+//			qs.setName(nodes.item(1).getFirstChild().getNodeValue());		//Nome			
+			qs.setISIN(nodes.item(1).getFirstChild().getNodeValue());		//ISIN
+			qs.setLottoMinimo(nodes.item(13).getFirstChild().getNodeValue());
+			qs.setFaseMercato(nodes.item(15).getFirstChild().getNodeValue());	
+			qs.setPrezzoUltimoContratto(nodes.item(17).getFirstChild().getNodeValue());
+			qs.setVariazionePercentuale(nodes.item(19).getFirstChild().getNodeValue());
+			qs.setVariazioneAssoluta(nodes.item(21).getFirstChild().getNodeValue());
+			qs.setDataOraUltimoAcquisto(nodes.item(25).getFirstChild().getNodeValue());
+			qs.setPrezzoAcquisto(nodes.item(31).getFirstChild().getNodeValue());
+			qs.setPrezzoVendita(nodes.item(33).getFirstChild().getNodeValue());
+			qs.setQuantitaUltimo(nodes.item(27).getFirstChild().getNodeValue());
+			qs.setQuantitaAcquisto(nodes.item(29).getFirstChild().getNodeValue());
+			qs.setQuantitaVendita(nodes.item(35).getFirstChild().getNodeValue());
+			qs.setQuantitaTotale(nodes.item(37).getFirstChild().getNodeValue());
+			qs.setMaxOggi(nodes.item(43).getFirstChild().getNodeValue());
+			qs.setMinOggi(nodes.item(47).getFirstChild().getNodeValue());
+//			qs.setMaxAnno(maxAnno);
+//			qs.setMinAnno(minAnno);
+//			qs.setDataMaxAnno(dataMaxAnno);
+//			qs.setDataMinAnno(dataMinAnno);
+			qs.setChiusuraPrecedente(nodes.item(51).getFirstChild().getNodeValue());
+			
+			return qs;	
+		}
+		catch (IOException e) {
+			System.out.println("ISIN NON TROVATO");	
+		} 
+		catch (XPathExpressionException e) {
+		}
+		return null;
+	}
+	public Quotation_Bond parseBOT(URL url, String ISIN)
+	{
+		return parseBTP(url, ISIN);
+	}
+	public Quotation_Bond parseCCT(URL url, String ISIN)
+	{
+		return parseBTP(url, ISIN);
+	}
+	public Quotation_Bond parseCTZ(URL url, String ISIN)
+	{
+		return parseBTP(url, ISIN);
+	}
+	public Quotation_Bond parseBOND(URL url, String ISIN)
+	{
+		return parseBTP(url, ISIN);
+	}
 	public Quotation_Bond parseBTP(URL url, String ISIN)
 	{
 		try 
@@ -66,14 +134,7 @@ public class Borsaitaliana_it implements SiteInterface {
 			qb.setAperturaChiusuraPrecedente(nodes.item(51).getFirstChild().getNodeValue());
 			qb.setScadenza(nodes.item(57).getFirstChild().getNodeValue());
 			
-			
-			return qb;
-			
-			
-			
-			
-			
-			
+			return qb;	
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
@@ -81,26 +142,6 @@ public class Borsaitaliana_it implements SiteInterface {
 		catch (XPathExpressionException e) {
 		}
 		return null;
-	}
-	public Quotation_Bond parseBOT(URL url, String ISIN)
-	{
-		return parseBTP(url, ISIN);
-	}
-	public Quotation_Bond parseCCT(URL url, String ISIN)
-	{
-		return parseBTP(url, ISIN);
-	}
-	public Quotation_Bond parseCTZ(URL url, String ISIN)
-	{
-		return parseBTP(url, ISIN);
-	}
-	public Quotation_Bond parseBOND(URL url, String ISIN)
-	{
-		return parseBTP(url, ISIN);
-	}
-	public void parseSHARE(URL url, String ISIN)
-	{
-		
 	}
 	public void parseFUND(URL url, String ISIN)
 	{

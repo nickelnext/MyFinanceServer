@@ -34,8 +34,8 @@ public class Quotation_Share extends Quotation{
 	public int getLottoMinimo() {
 		return lottoMinimo;
 	}
-	public void setLottoMinimo(int lottoMinimo) {
-		this.lottoMinimo = lottoMinimo;
+	public void setLottoMinimo(String string) {
+		this.lottoMinimo = repInteger(string);
 	}
 	public String getFaseMercato() {
 		return faseMercato;
@@ -46,74 +46,74 @@ public class Quotation_Share extends Quotation{
 	public float getPrezzoUltimoContratto() {
 		return prezzoUltimoContratto;
 	}
-	public void setPrezzoUltimoContratto(float prezzoUltimoContratto) {
-		this.prezzoUltimoContratto = prezzoUltimoContratto;
+	public void setPrezzoUltimoContratto(String string) {
+		this.prezzoUltimoContratto = repFloat(string);
 	}
 	public float getVariazionePercentuale() {
 		return variazionePercentuale;
 	}
-	public void setVariazionePercentuale(float variazionePercentuale) {
-		this.variazionePercentuale = variazionePercentuale;
+	public void setVariazionePercentuale(String string) {
+		this.variazionePercentuale = repFloat(string);
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
-	public void setVariazioneAssoluta(float variazioneAssoluta) {
-		this.variazioneAssoluta = variazioneAssoluta;
+	public void setVariazioneAssoluta(String string) {
+		this.variazioneAssoluta = repFloat(string);
 	}
 	public Date getDataOraUltimoAcquisto() {
 		return dataOraUltimoAcquisto;
 	}
-	public void setDataOraUltimoAcquisto(Date dataOraUltimoAcquisto) {
-		this.dataOraUltimoAcquisto = dataOraUltimoAcquisto;
+	public void setDataOraUltimoAcquisto(String string) {
+		this.dataOraUltimoAcquisto = formatDate(string);
 	}
 	public float getPrezzoAcquisto() {
 		return prezzoAcquisto;
 	}
-	public void setPrezzoAcquisto(float prezzoAcquisto) {
-		this.prezzoAcquisto = prezzoAcquisto;
+	public void setPrezzoAcquisto(String string) {
+		this.prezzoAcquisto = repFloat(string);
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
-	public void setPrezzoVendita(float prezzoVendita) {
-		this.prezzoVendita = prezzoVendita;
+	public void setPrezzoVendita(String string) {
+		this.prezzoVendita = repFloat(string);
 	}
 	public int getQuantitaUltimo() {
 		return quantitaUltimo;
 	}
-	public void setQuantitaUltimo(int quantitaUltimo) {
-		this.quantitaUltimo = quantitaUltimo;
+	public void setQuantitaUltimo(String string) {
+		this.quantitaUltimo = repInteger(string);
 	}
 	public int getQuantitaAcquisto() {
 		return quantitaAcquisto;
 	}
-	public void setQuantitaAcquisto(int quantitaAcquisto) {
-		this.quantitaAcquisto = quantitaAcquisto;
+	public void setQuantitaAcquisto(String string) {
+		this.quantitaAcquisto = repInteger(string);
 	}
 	public int getQuantitaVendita() {
 		return quantitaVendita;
 	}
-	public void setQuantitaVendita(int quantitaVendita) {
-		this.quantitaVendita = quantitaVendita;
+	public void setQuantitaVendita(String string) {
+		this.quantitaVendita = repInteger(string);
 	}
 	public int getQuantitaTotale() {
 		return quantitaTotale;
 	}
-	public void setQuantitaTotale(int quantitaTotale) {
-		this.quantitaTotale = quantitaTotale;
+	public void setQuantitaTotale(String string) {
+		this.quantitaTotale = repInteger(string);
 	}
 	public float getMaxOggi() {
 		return maxOggi;
 	}
-	public void setMaxOggi(float maxOggi) {
-		this.maxOggi = maxOggi;
+	public void setMaxOggi(String string) {
+		this.maxOggi = repFloat(string);
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
-	public void setMinOggi(float minOggi) {
-		this.minOggi = minOggi;
+	public void setMinOggi(String string) {
+		this.minOggi = repFloat(string);
 	}
 	public float getMaxAnno() {
 		return maxAnno;
@@ -142,8 +142,8 @@ public class Quotation_Share extends Quotation{
 	public float getChiusuraPrecedente() {
 		return chiusuraPrecedente;
 	}
-	public void setChiusuraPrecedente(float chiusuraPrecedente) {
-		this.chiusuraPrecedente = chiusuraPrecedente;
+	public void setChiusuraPrecedente(String string) {
+		this.chiusuraPrecedente = repFloat(string);
 	}
 
 }

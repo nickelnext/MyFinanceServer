@@ -38,20 +38,25 @@ public abstract class Quotation {
 
 
 
-	protected float rep(String string) {
+	protected float repFloat(String string) {
+		if(string.matches("\\w.*"))
+			return 0;
+		if(string.isEmpty())
+			return 0;
 		string = string.replace(",", ".");
 		string = string.replace("%","");
-		if(string.isEmpty())
-			return 0;
+
 		return Float.valueOf(string);
 	}
-	protected int rep2(String string) {
+	protected int repInteger(String string) {
 		if(string.isEmpty())
 			return 0;
+		if(string.matches("\\w.*"))
+			return 0;
 		string = string.replace(".", "");
+		string = string.replace(",", "");
 		return Integer.valueOf(string);
 	}
-
 
 	//	01/11/11 - 11.33.42
 
@@ -86,13 +91,21 @@ public abstract class Quotation {
 					} 
 					catch (ParseException ex1) 
 					{
-						System.out.println("Date exploded");
+						formatter = new SimpleDateFormat("HH:mm:ss");
+						try 
+						{
+							date = (Date)formatter.parse(string);
+						} 
+						catch (ParseException ex2) 
+						{
+							System.out.println("Date exploded");
+						}
 					}
 				}
 			}
 		}
-		
-	return date;
+
+		return date;
 	}
 
 }

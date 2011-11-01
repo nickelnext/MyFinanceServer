@@ -59,7 +59,7 @@ public class Quotation_Bond extends Quotation{
 	}
 	public void setPrezzoUltimoContratto(String string) {
 		
-		this.prezzoUltimoContratto = rep(string);
+		this.prezzoUltimoContratto = repFloat(string);
 	}
 	
 
@@ -67,13 +67,13 @@ public class Quotation_Bond extends Quotation{
 		return variazionePercentuale;
 	}
 	public void setVariazionePercentuale(String string) {
-		this.variazionePercentuale = rep(string);
+		this.variazionePercentuale = repFloat(string);
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
 	public void setVariazioneAssoluta(String string) {
-		this.variazioneAssoluta = rep(string);
+		this.variazioneAssoluta = repFloat(string);
 	}
 	public Date getDataUltimoContratto() {
 		return dataUltimoContratto;
@@ -85,37 +85,37 @@ public class Quotation_Bond extends Quotation{
 		return volumeUltimo;
 	}
 	public void setVolumeUltimo(String string) {
-		this.volumeUltimo = rep2(string);
+		this.volumeUltimo = repInteger(string);
 	}
 	public int getVolumeAcquisto() {
 		return volumeAcquisto;
 	}
 	public void setVolumeAcquisto(String string) {
-		this.volumeAcquisto = rep2(string);
+		this.volumeAcquisto = repInteger(string);
 	}
 	public int getVolumeVendita() {
 		return volumeVendita;
 	}
 	public void setVolumeVendita(String string) {
-		this.volumeVendita = rep2(string);
+		this.volumeVendita = repInteger(string);
 	}
 	public float getPrezzoAcquisto() {
 		return prezzoAcquisto;
 	}
 	public void setPrezzoAcquisto(String string) {
-		this.prezzoAcquisto = rep(string);
+		this.prezzoAcquisto = repFloat(string);
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
 	public void setPrezzoVendita(String string) {
-		this.prezzoVendita = rep(string);
+		this.prezzoVendita = repFloat(string);
 	}
 	public int getVolumeTotale() {
 		return volumeTotale;
 	}
 	public void setVolumeTotale(String string) {
-		this.volumeTotale = rep2(string);
+		this.volumeTotale = repInteger(string);
 	}
 	
 
@@ -123,25 +123,25 @@ public class Quotation_Bond extends Quotation{
 		return maxOggi;
 	}
 	public void setMaxOggi(String string) {
-		this.maxOggi = rep(string);
+		this.maxOggi = repFloat(string);
 	}
 	public float getMaxAnno() {
 		return maxAnno;
 	}
 	public void setMaxAnno(String string) {
-		this.maxAnno = rep(string);
+		this.maxAnno = repFloat(string);
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
 	public void setMinOggi(String string) {
-		this.minOggi = rep(string);
+		this.minOggi = repFloat(string);
 	}
 	public float getMinAnno() {
 		return minAnno;
 	}
 	public void setMinAnno(String string) {
-		this.minAnno = rep(string);
+		this.minAnno = repFloat(string);
 	}
 	public Date getDataMinAnno() {
 		return dataMinAnno;
@@ -159,7 +159,7 @@ public class Quotation_Bond extends Quotation{
 		return aperturaChiusuraPrecedente;
 	}
 	public void setAperturaChiusuraPrecedente(String string) {
-		this.aperturaChiusuraPrecedente = rep(string);
+		this.aperturaChiusuraPrecedente = repFloat(string);
 	}
 	public Date getScadenza() {
 		return scadenza;
@@ -178,13 +178,13 @@ public class Quotation_Bond extends Quotation{
 		return cedola;
 	}
 	public void setCedola(String string) {
-		this.cedola = rep(string);
+		this.cedola = repFloat(string);
 	}
 	public int getLottoMinimo() {
 		return lottoMinimo;
 	}
 	public void setLottoMinimo(String string) {
-		this.lottoMinimo = rep2(string);
+		this.lottoMinimo = repInteger(string);
 	}
 
 }

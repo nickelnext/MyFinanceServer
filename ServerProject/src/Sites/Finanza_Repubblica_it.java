@@ -15,6 +15,7 @@ import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
+import Quotes.Quotation_Share;
 
 
 public class Finanza_Repubblica_it implements SiteInterface {
@@ -93,9 +94,9 @@ public class Finanza_Repubblica_it implements SiteInterface {
 	{
 		return parseBTP(url, ISIN);
 	}
-	public void parseSHARE(URL url, String ISIN)
+	public Quotation_Share parseSHARE(URL url, String ISIN)
 	{
-		
+		return null;
 	}
 	public void parseFUND(URL url, String ISIN)
 	{

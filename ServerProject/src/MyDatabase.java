@@ -112,6 +112,22 @@ public class MyDatabase {
       return result;
    }
 
+   public boolean insertQuery(String query) {
+	      int number = 0;
+	      boolean result = false;
+	      try {
+	         Statement stmt = db.createStatement();
+	         number = stmt.executeUpdate(query);
+	         result = true;
+	         stmt.close();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         error = e.getMessage();
+	         result = false;
+	      }
+	      return result;
+	   }
+
    // Chiude la connessione con il Database
    public void disconnect() {
       try {

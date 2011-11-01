@@ -7,6 +7,7 @@ ServerProject/src/Quotes/Quotation.java -text
 ServerProject/src/Quotes/Quotation_Bond.java -text
 ServerProject/src/Quotes/Quotation_Fund.java -text
 ServerProject/src/Quotes/Quotation_Share.java -text
+ServerProject/src/Quotes/Type.java -text
 ServerProject/src/Request.java -text
 ServerProject/src/RequestHandler.java -text
 ServerProject/src/RequestQuotation.java -text

@@ -1,9 +1,11 @@
+import Quotes.Type;
+
 
 public class Request {
 	private String ISIN;
-	private String type;
+	private Type type;
 	
-	public Request(String ISIN, String type) {
+	public Request(String ISIN, Type type) {
 		this.ISIN = ISIN;
 		this.type = type;
 	}
@@ -13,10 +15,10 @@ public class Request {
 	public void setISIN(String iSIN) {
 		this.ISIN = iSIN;
 	}
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 	

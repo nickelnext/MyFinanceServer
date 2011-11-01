@@ -79,7 +79,7 @@ public class Quotation_Bond extends Quotation{
 		return dataUltimoContratto;
 	}
 	public void setDataUltimoContratto(String string) {
-		this.dataUltimoContratto = date(string);
+		this.dataUltimoContratto = formatDate(string);
 	}
 	public int getVolumeUltimo() {
 		return volumeUltimo;
@@ -147,13 +147,13 @@ public class Quotation_Bond extends Quotation{
 		return dataMinAnno;
 	}
 	public void setDataMinAnno(String string) {
-		this.dataMinAnno = date(string);
+		this.dataMinAnno = formatDate(string);
 	}
 	public Date getDataMaxAnno() {
 		return dataMaxAnno;
 	}
 	public void setDataMaxAnno(String string) {
-		this.dataMaxAnno = date(string);
+		this.dataMaxAnno = formatDate(string);
 	}
 	public float getAperturaChiusuraPrecedente() {
 		return aperturaChiusuraPrecedente;
@@ -165,14 +165,15 @@ public class Quotation_Bond extends Quotation{
 		return scadenza;
 	}
 	public void setScadenza(String string) {
-		this.scadenza = string;
+		this.scadenza = formatDate(string);
 	}
 	public Date getDataStaccoCedola() {
 		return dataStaccoCedola;
 	}
 	public void setDataStaccoCedola(String string) {
-		this.dataStaccoCedola = date(string);
+		this.dataStaccoCedola = formatDate(string);
 	}
+
 	public float getCedola() {
 		return cedola;
 	}

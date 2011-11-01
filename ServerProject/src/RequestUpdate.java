@@ -1,9 +1,11 @@
+import Quotes.Type;
+
 
 public class RequestUpdate extends Request{
 
 	private float oldValue;  //boh, poi ci pensiamo
 
-	public RequestUpdate(String iSIN, String type, float oldValue) {
+	public RequestUpdate(String iSIN, Type type, float oldValue) {
 		super(iSIN, type);
 		this.oldValue = oldValue;
 	}

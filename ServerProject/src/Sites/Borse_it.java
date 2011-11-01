@@ -14,8 +14,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
+import Quotes.Quotation;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Share;
+import Quotes.Type;
 
 
 public class Borse_it implements SiteInterface {
@@ -98,6 +100,11 @@ public class Borse_it implements SiteInterface {
 	public void parseFUND(URL url, String ISIN)
 	{
 		
+	}
+	@Override
+	public Quotation parse(URL url, String ISIN, Type type) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

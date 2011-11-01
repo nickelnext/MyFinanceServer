@@ -34,9 +34,9 @@ public class Borsaitaliana_it implements SiteInterface {
 			return (Quotation)parseCTZ(url, ISIN);
 		case BOND:
 			return (Quotation)parseBOND(url, ISIN);
-		case AZIONE:
+		case SHARE:
 			return (Quotation)parseSHARE(url, ISIN);
-		case FONDO:
+		case FUND:
 			return (Quotation)parseSHARE(url, ISIN);		
 		default:
 			return null;

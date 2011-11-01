@@ -1,11 +1,10 @@
 package Quotes;
 
-public class Quotation {
+public abstract class Quotation {
 	
 	private String name;
 	private String ISIN;
 	private String type;
-
 	
 	
 	public Quotation(String isin) {
@@ -31,7 +30,6 @@ public class Quotation {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
 	
 
 }

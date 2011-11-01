@@ -3,7 +3,8 @@ package Quotes;
 import java.util.Date;
 
 public class Quotation_Fund extends Quotation{
-
+	
+	
 
 	
 	private String nomeGestore;

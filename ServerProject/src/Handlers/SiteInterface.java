@@ -9,7 +9,7 @@ import Quotes.Type;
 
 public interface SiteInterface {
 
-	public abstract Quotation parse(URL url, String ISIN, Type type);
+
 	public abstract Quotation_Bond parseBTP(URL url, String ISIN);
 	public abstract Quotation_Bond parseBOT(URL url, String ISIN);
 	public abstract Quotation_Bond parseCCT(URL url, String ISIN);

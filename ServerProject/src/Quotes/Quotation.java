@@ -10,7 +10,7 @@ public abstract class Quotation {
 	private String name;
 	private String ISIN;
 	private String type;
-
+	private String site;
 
 	public Quotation(String isin) {
 		super();
@@ -106,6 +106,14 @@ public abstract class Quotation {
 		}
 
 		return date;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 }

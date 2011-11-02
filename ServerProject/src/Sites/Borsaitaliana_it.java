@@ -22,27 +22,6 @@ import Quotes.Type;
 
 public class Borsaitaliana_it implements SiteInterface {
 
-	public Quotation parse(URL url, String ISIN, Type type){
-		switch (type) {
-		case BTP:
-			return (Quotation)parseBTP(url, ISIN);
-		case BOT:
-			return (Quotation)parseBOT(url, ISIN);
-		case CCT:
-			return (Quotation)parseCCT(url, ISIN);
-		case CTZ:
-			return (Quotation)parseCTZ(url, ISIN);
-		case BOND:
-			return (Quotation)parseBOND(url, ISIN);
-		case SHARE:
-			return (Quotation)parseSHARE(url, ISIN);
-		case FUND:
-			return (Quotation)parseSHARE(url, ISIN);		
-		default:
-			return null;
-		}
-	}
-	
 	public Quotation_Share parseSHARE(URL url, String ISIN)
 	{
 		try 
@@ -134,6 +113,7 @@ public class Borsaitaliana_it implements SiteInterface {
 			
 			Quotation_Bond qb = new Quotation_Bond(ISIN);
 			
+	
 			qb.setName(nodes.item(1).getFirstChild().getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(3).getFirstChild().getNodeValue());		//ISIN
 			qb.setValuta(nodes.item(5).getFirstChild().getNodeValue());		//Valuta

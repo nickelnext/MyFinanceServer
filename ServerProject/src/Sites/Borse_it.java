@@ -14,15 +14,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation;
 import Quotes.Quotation_Bond;
+import Quotes.Quotation_Fund;
 import Quotes.Quotation_Share;
-import Quotes.Type;
 
 
 public class Borse_it implements SiteInterface {
 
-	public Quotation_Bond parseBTP(URL url, String ISIN)
+	public Quotation_Bond parseBTP(URL url)
 	{
 		try 
 		{
@@ -42,7 +41,7 @@ public class Borse_it implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-			Quotation_Bond qb = new Quotation_Bond(ISIN);
+			Quotation_Bond qb = new Quotation_Bond();
 			
 //			qb.setName(nodes.item(1).getFirstChild().getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(1).getFirstChild().getNodeValue());		//ISIN
@@ -80,35 +79,31 @@ public class Borse_it implements SiteInterface {
 			}
 		return null;
 	}
-	public Quotation_Bond parseBOT(URL url, String ISIN)
+	public Quotation_Bond parseBOT(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseCCT(URL url, String ISIN)
+	public Quotation_Bond parseCCT(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseCTZ(URL url, String ISIN)
+	public Quotation_Bond parseCTZ(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseBOND(URL url, String ISIN)
+	public Quotation_Bond parseBOND(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Share parseSHARE(URL url, String ISIN)
+	public Quotation_Share parseSHARE(URL url)
 	{
 		return null;
 	}
-	public void parseFUND(URL url, String ISIN)
+	public Quotation_Fund parseFUND(URL url)
 	{
-		
-	}
-	@Override
-	public Quotation parse(URL url, String ISIN, Type type) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 	
 }

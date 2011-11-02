@@ -14,15 +14,14 @@ import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation;
 import Quotes.Quotation_Bond;
+import Quotes.Quotation_Fund;
 import Quotes.Quotation_Share;
-import Quotes.Type;
 
 
 public class Finanza_Repubblica_it implements SiteInterface {
 
-	public Quotation_Bond parseBTP(URL url, String ISIN)
+	public Quotation_Bond parseBTP(URL url)
 	{
 		try 
 		{
@@ -44,7 +43,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-			Quotation_Bond qb = new Quotation_Bond(ISIN);
+			Quotation_Bond qb = new Quotation_Bond();
 			
 			qb.setName(nodes.item(7).getFirstChild().getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(55).getFirstChild().getNodeValue());		//ISIN
@@ -83,28 +82,29 @@ public class Finanza_Repubblica_it implements SiteInterface {
 		}
 		return null;
 	}
-	public Quotation_Bond parseBOT(URL url, String ISIN)
+	public Quotation_Bond parseBOT(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseCCT(URL url, String ISIN)
+	public Quotation_Bond parseCCT(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseCTZ(URL url, String ISIN)
+	public Quotation_Bond parseCTZ(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Bond parseBOND(URL url, String ISIN)
+	public Quotation_Bond parseBOND(URL url)
 	{
-		return parseBTP(url, ISIN);
+		return parseBTP(url);
 	}
-	public Quotation_Share parseSHARE(URL url, String ISIN)
+	public Quotation_Share parseSHARE(URL url)
 	{
 		return null;
 	}
-	public void parseFUND(URL url, String ISIN)
+	public Quotation_Fund parseFUND(URL url)
 	{
+		return null;
 
 	}
 

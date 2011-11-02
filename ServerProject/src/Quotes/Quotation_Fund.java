@@ -22,8 +22,8 @@ public class Quotation_Fund extends Quotation{
 	private float performance3Anni;
 	
 	
-	public Quotation_Fund(String isin) {
-		super(isin);
+	public Quotation_Fund() {
+		super();
 		this.setType("Fund");
 	}
 	

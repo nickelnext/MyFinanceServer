@@ -31,8 +31,8 @@ public class Quotation_Bond extends Quotation{
 	private int lottoMinimo;
 	
 
-	public Quotation_Bond(String isin) {
-		super(isin);
+	public Quotation_Bond() {
+		super();
 		super.setType("Bond");
 	}
 	

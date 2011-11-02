@@ -12,9 +12,8 @@ public abstract class Quotation {
 	private String type;
 	private String site;
 
-	public Quotation(String isin) {
+	public Quotation() {
 		super();
-		this.ISIN = isin;
 	}
 
 	public String getName() {

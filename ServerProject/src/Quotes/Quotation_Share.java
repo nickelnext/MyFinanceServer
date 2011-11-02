@@ -25,8 +25,8 @@ public class Quotation_Share extends Quotation{
 	private Date dataMinAnno;
 	private float chiusuraPrecedente;
 	
-	public Quotation_Share(String isin) {
-		super(isin);
+	public Quotation_Share() {
+		super();
 		super.setType("Share");
 	}
 	

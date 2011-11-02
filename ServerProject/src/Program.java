@@ -2,6 +2,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 
+import Quotes.Quotation_Share;
 import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
 
@@ -11,12 +12,11 @@ public class Program {
 
 	
 		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-		Quotation_Bond q = s.parseBOT(new URL(
-				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/bot/dati-completi.html?isin=" +
-				"IT0004719297" +
-				"&lang=it"));
+		Quotation_Bond q = s.parseBOND(new URL(
+				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
 		
-		
+//		Quotation_Share qs = s.parseBTP(new URL(
+//				"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0000123064354&lang=it"));
 		
 		
 		
@@ -28,7 +28,10 @@ public class Program {
 		else
 			System.out.println("ok");
 		
+//		System.out.println(qs.toString());
 		System.out.println(q.toString());
+//		System.out.println(qs.getISIN());
+//		System.out.println(qs.getPrezzoUltimoContratto());
 //		System.out.println(q.getName());
 		
 //		System.out.println(q.toString());

@@ -2,6 +2,8 @@ package Quotes;
 
 import java.util.Date;
 
+import Utils.UtilFuncs;
+
 public class Quotation_Bond extends Quotation{
 
 	
@@ -33,7 +35,7 @@ public class Quotation_Bond extends Quotation{
 
 	public Quotation_Bond() {
 		super();
-		super.setType("Bond");
+		super.setType(Type.BOND);
 	}
 	
 	public String getValuta() {
@@ -58,7 +60,7 @@ public class Quotation_Bond extends Quotation{
 		return prezzoUltimoContratto;
 	}
 	public void setPrezzoUltimoContratto(String string) {
-		this.prezzoUltimoContratto = repFloat(string);
+		this.prezzoUltimoContratto = UtilFuncs.repFloat(string);
 	}
 	
 
@@ -66,55 +68,55 @@ public class Quotation_Bond extends Quotation{
 		return variazionePercentuale;
 	}
 	public void setVariazionePercentuale(String string) {
-		this.variazionePercentuale = repFloat(string);
+		this.variazionePercentuale = UtilFuncs.repFloat(string);
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
 	public void setVariazioneAssoluta(String string) {
-		this.variazioneAssoluta = repFloat(string);
+		this.variazioneAssoluta = UtilFuncs.repFloat(string);
 	}
 	public Date getDataUltimoContratto() {
 		return dataUltimoContratto;
 	}
 	public void setDataUltimoContratto(String string) {
-		this.dataUltimoContratto = formatDate(string);
+		this.dataUltimoContratto = UtilFuncs.formatDate(string);
 	}
 	public int getVolumeUltimo() {
 		return volumeUltimo;
 	}
 	public void setVolumeUltimo(String string) {
-		this.volumeUltimo = repInteger(string);
+		this.volumeUltimo = UtilFuncs.repInteger(string);
 	}
 	public int getVolumeAcquisto() {
 		return volumeAcquisto;
 	}
 	public void setVolumeAcquisto(String string) {
-		this.volumeAcquisto = repInteger(string);
+		this.volumeAcquisto = UtilFuncs.repInteger(string);
 	}
 	public int getVolumeVendita() {
 		return volumeVendita;
 	}
 	public void setVolumeVendita(String string) {
-		this.volumeVendita = repInteger(string);
+		this.volumeVendita = UtilFuncs.repInteger(string);
 	}
 	public float getPrezzoAcquisto() {
 		return prezzoAcquisto;
 	}
 	public void setPrezzoAcquisto(String string) {
-		this.prezzoAcquisto = repFloat(string);
+		this.prezzoAcquisto = UtilFuncs.repFloat(string);
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
 	public void setPrezzoVendita(String string) {
-		this.prezzoVendita = repFloat(string);
+		this.prezzoVendita = UtilFuncs.repFloat(string);
 	}
 	public int getVolumeTotale() {
 		return volumeTotale;
 	}
 	public void setVolumeTotale(String string) {
-		this.volumeTotale = repInteger(string);
+		this.volumeTotale = UtilFuncs.repInteger(string);
 	}
 	
 
@@ -122,68 +124,68 @@ public class Quotation_Bond extends Quotation{
 		return maxOggi;
 	}
 	public void setMaxOggi(String string) {
-		this.maxOggi = repFloat(string);
+		this.maxOggi = UtilFuncs.repFloat(string);
 	}
 	public float getMaxAnno() {
 		return maxAnno;
 	}
 	public void setMaxAnno(String string) {
-		this.maxAnno = repFloat(string);
+		this.maxAnno = UtilFuncs.repFloat(string);
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
 	public void setMinOggi(String string) {
-		this.minOggi = repFloat(string);
+		this.minOggi = UtilFuncs.repFloat(string);
 	}
 	public float getMinAnno() {
 		return minAnno;
 	}
 	public void setMinAnno(String string) {
-		this.minAnno = repFloat(string);
+		this.minAnno = UtilFuncs.repFloat(string);
 	}
 	public Date getDataMinAnno() {
 		return dataMinAnno;
 	}
 	public void setDataMinAnno(String string) {
-		this.dataMinAnno = formatDate(string);
+		this.dataMinAnno = UtilFuncs.formatDate(string);
 	}
 	public Date getDataMaxAnno() {
 		return dataMaxAnno;
 	}
 	public void setDataMaxAnno(String string) {
-		this.dataMaxAnno = formatDate(string);
+		this.dataMaxAnno = UtilFuncs.formatDate(string);
 	}
 	public float getAperturaChiusuraPrecedente() {
 		return aperturaChiusuraPrecedente;
 	}
 	public void setAperturaChiusuraPrecedente(String string) {
-		this.aperturaChiusuraPrecedente = repFloat(string);
+		this.aperturaChiusuraPrecedente = UtilFuncs.repFloat(string);
 	}
 	public Date getScadenza() {
 		return scadenza;
 	}
 	public void setScadenza(String string) {
-		this.scadenza = formatDate(string);
+		this.scadenza = UtilFuncs.formatDate(string);
 	}
 	public Date getDataStaccoCedola() {
 		return dataStaccoCedola;
 	}
 	public void setDataStaccoCedola(String string) {
-		this.dataStaccoCedola = formatDate(string);
+		this.dataStaccoCedola = UtilFuncs.formatDate(string);
 	}
 
 	public float getCedola() {
 		return cedola;
 	}
 	public void setCedola(String string) {
-		this.cedola = repFloat(string);
+		this.cedola = UtilFuncs.repFloat(string);
 	}
 	public int getLottoMinimo() {
 		return lottoMinimo;
 	}
 	public void setLottoMinimo(String string) {
-		this.lottoMinimo = repInteger(string);
+		this.lottoMinimo = UtilFuncs.repInteger(string);
 	}
 
 }

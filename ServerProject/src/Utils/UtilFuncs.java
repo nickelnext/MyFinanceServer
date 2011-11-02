@@ -1,5 +1,10 @@
 package Utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.w3c.dom.NodeList;
 
 public class UtilFuncs {
@@ -7,11 +12,7 @@ public class UtilFuncs {
 	public static String getString(NodeList nodes, int n)
 	{
 		if(!nodes.item(n).hasChildNodes() || nodes.item(n).getFirstChild().getNodeValue() == null)
-		{
-			System.out.println("''");
 			return "";
-		}
-		System.out.println(nodes.item(n).getFirstChild().getNodeValue());
 		return nodes.item(n).getFirstChild().getNodeValue();
 	}
 	public static boolean isISIN(String s)
@@ -20,5 +21,81 @@ public class UtilFuncs {
 			return true;
 		return false;
 	}
+	public static float repFloat(String string) {
+		if(string == "")
+			return 0;
+		if(string.matches("\\D+"))
+			return 0;
+			
+		string = string.replace(",", ".");
+		string = string.replace("%","");
+		return Float.valueOf(string);
+	}
+	public static int repInteger(String string) {
+		
+		if(string == "")
+			return 0;
+		if(string.matches("\\D+"))
+		{
+			System.out.println("ho matchato NA");
+			return 0;
+		}
+		string = string.replace(".", "");
+		string = string.replace(",", "");
+		return Integer.valueOf(string);
+	}
+
+	//	01/11/11 - 11.33.42
+
+	public static Date formatDate(String string)
+	{
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH.mm");
+		Date date = null;
+		try 
+		{	
+			date = (Date)formatter.parse(string);
+		} 
+		catch (ParseException e) 
+		{
+			formatter = new SimpleDateFormat("dd/MM/yyyy");
+			try 
+			{
+				date = (Date)formatter.parse(string);
+			}
+			catch (ParseException ex) 
+			{
+				formatter = new SimpleDateFormat("HH.mm");
+				try 
+				{
+					date = (Date)formatter.parse(string);
+				} 
+				catch (ParseException e1) 
+				{
+					formatter = new SimpleDateFormat("dd/MM/yyyy - HH.mm.ss");
+					try 
+					{
+						date = (Date)formatter.parse(string);
+					} 
+					catch (ParseException ex1) 
+					{
+						formatter = new SimpleDateFormat("HH:mm:ss");
+						try 
+						{
+							date = (Date)formatter.parse(string);
+						} 
+						catch (ParseException ex2) 
+						{
+							System.out.println("Date not recognized: is it null or in an unknown format?");
+						}
+					}
+				}
+			}
+		}
+		return date;
+	}	
+	
+	
+	
+	
 	
 }

@@ -7,24 +7,24 @@ public class Quotation_Fund extends Quotation{
 	
 
 	
-	private String nomeGestore;
-	private String categoriaAssociati;
-	private String benchmarkDichiarato;
-	private float ultimoPrezzo;
-	private Date dataUltimoPrezzo;
-	private float prezzoPrecedente;
-	private String valuta;
-	private float variazionePercentuale;
-	private float variazioneAssoluta;
-	private float performance1Mese;
-	private float performance3Mesi;
-	private float performance1Anno;
-	private float performance3Anni;
+	protected String nomeGestore;
+	protected String categoriaAssociati;
+	protected String benchmarkDichiarato;
+	protected float ultimoPrezzo;
+	protected Date dataUltimoPrezzo;
+	protected float prezzoPrecedente;
+	protected String valuta;
+	protected float variazionePercentuale;
+	protected float variazioneAssoluta;
+	protected float performance1Mese;
+	protected float performance3Mesi;
+	protected float performance1Anno;
+	protected float performance3Anni;
 	
 	
 	public Quotation_Fund() {
 		super();
-		this.setType("Fund");
+		this.setType(Type.FUND);
 	}
 	
 	public String getNomeGestore() {

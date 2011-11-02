@@ -17,6 +17,7 @@ import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
 import Quotes.Quotation_Share;
+import Utils.UtilFuncs;
 
 
 public class Borse_it implements SiteInterface {
@@ -43,31 +44,31 @@ public class Borse_it implements SiteInterface {
 			
 			Quotation_Bond qb = new Quotation_Bond();
 			
-//			qb.setName(nodes.item(1).getFirstChild().getNodeValue());		//Nome			
-			qb.setISIN(nodes.item(1).getFirstChild().getNodeValue());		//ISIN
-//			qb.setValuta(nodes.item(5).getFirstChild().getNodeValue());		//Valuta
-//			qb.setMercato(nodes.item(7).getFirstChild().getNodeValue());	//Mercato
-//			qb.setFaseMercato(nodes.item(11).getFirstChild().getNodeValue());//Fase Mercato
-//mah?		qb.setPrezzoUltimoContratto(nodes.item(17).getFirstChild().getNodeValue());	//Ultimo Prezzo
-			qb.setVariazionePercentuale(nodes.item(25).getFirstChild().getNodeValue());	//Var %
-			qb.setVariazioneAssoluta(nodes.item(3).getFirstChild().getNodeValue());	//Var Ass
-			qb.setDataUltimoContratto(nodes.item(39).getFirstChild().getNodeValue());
+//			qb.setName(UtilFuncs.getString(nodes, 1));		//Nome			
+			qb.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
+//			qb.setValuta(UtilFuncs.getString(nodes, 5));		//Valuta
+//			qb.setMercato(UtilFuncs.getString(nodes, 7));	//Mercato
+//			qb.setFaseMercato(UtilFuncs.getString(nodes, 11));//Fase Mercato
+//mah?		qb.setPrezzoUltimoContratto(UtilFuncs.getString(nodes, 17));	//Ultimo Prezzo
+			qb.setVariazionePercentuale(UtilFuncs.getString(nodes, 25));	//Var %
+			qb.setVariazioneAssoluta(UtilFuncs.getString(nodes, 3));	//Var Ass
+			qb.setDataUltimoContratto(UtilFuncs.getString(nodes, 39));
 //			qb.setVolumeUltimo(nodes.item(21).getFirstChild().getNodeValue());
-			qb.setVolumeAcquisto(nodes.item(27).getFirstChild().getNodeValue());
-			qb.setPrezzoAcquisto(nodes.item(5).getFirstChild().getNodeValue());
-			qb.setPrezzoVendita(nodes.item(7).getFirstChild().getNodeValue());
-			qb.setVolumeVendita(nodes.item(29).getFirstChild().getNodeValue());
-			qb.setVolumeTotale(nodes.item(31).getFirstChild().getNodeValue());
+			qb.setVolumeAcquisto(UtilFuncs.getString(nodes, 27));
+			qb.setPrezzoAcquisto(UtilFuncs.getString(nodes, 5));
+			qb.setPrezzoVendita(UtilFuncs.getString(nodes, 7));
+			qb.setVolumeVendita(UtilFuncs.getString(nodes, 29));
+			qb.setVolumeTotale(UtilFuncs.getString(nodes, 31));
 //			qb.setMaxAnno(nodes.item(39).getFirstChild().getNodeValue());
-			qb.setMaxOggi(nodes.item(15).getFirstChild().getNodeValue());
-			qb.setMinOggi(nodes.item(13).getFirstChild().getNodeValue());
+			qb.setMaxOggi(UtilFuncs.getString(nodes, 15));
+			qb.setMinOggi(UtilFuncs.getString(nodes, 13));
 //			qb.setMinAnno(nodes.item(45).getFirstChild().getNodeValue());
 //			qb.setDataMinAnno(nodes.item(47).getFirstChild().getNodeValue());
 //			qb.setDataMaxAnno(nodes.item(41).getFirstChild().getNodeValue());
 //			qb.setCedola(nodes.item(61).getFirstChild().getNodeValue());
 //			qb.setLottoMinimo(nodes.item(59).getFirstChild().getNodeValue());
 //			qb.setDataStaccoCedola(nodes.item(63).getFirstChild().getNodeValue());
-			qb.setAperturaChiusuraPrecedente(nodes.item(19).getFirstChild().getNodeValue());
+			qb.setAperturaChiusuraPrecedente(UtilFuncs.getString(nodes, 19));
 //			qb.setScadenza(nodes.item(57).getFirstChild().getNodeValue());
 					
 			return qb;
@@ -103,8 +104,5 @@ public class Borse_it implements SiteInterface {
 	{
 		return null;
 	}
-
-	
-	
 }
 

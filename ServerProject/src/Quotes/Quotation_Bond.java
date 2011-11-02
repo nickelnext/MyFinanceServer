@@ -5,30 +5,30 @@ import java.util.Date;
 public class Quotation_Bond extends Quotation{
 
 	
-	private String valuta;
-	private String mercato;
-	private String faseMercato;
-	private float prezzoUltimoContratto;
-	private float variazionePercentuale;
-	private float variazioneAssoluta;
-	private Date dataUltimoContratto;
-	private int volumeUltimo;
-	private int volumeAcquisto;
-	private int volumeVendita;
-	private float prezzoAcquisto;
-	private float prezzoVendita;
-	private int volumeTotale;
-	private float maxOggi;
-	private float maxAnno;
-	private float minOggi;
-	private float minAnno;
-	private Date dataMinAnno;
-	private Date dataMaxAnno;
-	private float aperturaChiusuraPrecedente;
-	private Date scadenza;
-	private Date dataStaccoCedola;
-	private float cedola;
-	private int lottoMinimo;
+	protected String valuta;
+	protected String mercato;
+	protected String faseMercato;
+	protected float prezzoUltimoContratto;
+	protected float variazionePercentuale;
+	protected float variazioneAssoluta;
+	protected Date dataUltimoContratto;
+	protected int volumeUltimo;
+	protected int volumeAcquisto;
+	protected int volumeVendita;
+	protected float prezzoAcquisto;
+	protected float prezzoVendita;
+	protected int volumeTotale;
+	protected float maxOggi;
+	protected float maxAnno;
+	protected float minOggi;
+	protected float minAnno;
+	protected Date dataMinAnno;
+	protected Date dataMaxAnno;
+	protected float aperturaChiusuraPrecedente;
+	protected Date scadenza;
+	protected Date dataStaccoCedola;
+	protected float cedola;
+	protected int lottoMinimo;
 	
 
 	public Quotation_Bond() {
@@ -58,7 +58,6 @@ public class Quotation_Bond extends Quotation{
 		return prezzoUltimoContratto;
 	}
 	public void setPrezzoUltimoContratto(String string) {
-		
 		this.prezzoUltimoContratto = repFloat(string);
 	}
 	

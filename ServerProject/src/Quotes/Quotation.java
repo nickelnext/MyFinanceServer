@@ -1,5 +1,6 @@
 package Quotes;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,10 +8,10 @@ import java.util.Date;
 
 public abstract class Quotation {
 
-	private String name;
-	private String ISIN;
-	private String type;
-	private String site;
+	protected String name;
+	protected String ISIN;
+	protected String type;
+	protected String site;
 
 	public Quotation() {
 		super();
@@ -38,22 +39,21 @@ public abstract class Quotation {
 
 
 	protected float repFloat(String string) {
-		if(string.matches("\\w.*"))
+		if(string == "")
 			return 0;
-		if(string.isEmpty())
+		if(string.matches("\\^d.*"))
 			return 0;
 		string = string.replace(",", ".");
 		string = string.replace("%","");
-
 		return Float.valueOf(string);
 	}
 	protected int repInteger(String string) {
-		if(string.isEmpty())
-			return 0;
-		if(string.matches("\\w.*"))
-			return 0;
 		string = string.replace(".", "");
 		string = string.replace(",", "");
+		if(string == "")
+			return 0;
+		if(string.matches("\\^d.*"))
+			return 0;
 		return Integer.valueOf(string);
 	}
 
@@ -97,13 +97,12 @@ public abstract class Quotation {
 						} 
 						catch (ParseException ex2) 
 						{
-							System.out.println("Date exploded");
+							System.out.println("Date not recognized: is it null or in an unknown format?");
 						}
 					}
 				}
 			}
 		}
-
 		return date;
 	}
 
@@ -114,5 +113,36 @@ public abstract class Quotation {
 	public void setSite(String site) {
 		this.site = site;
 	}
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
 
+        result.append( this.getClass().getName() );
+        result.append( " Object {" );
+        result.append(newLine);
+
+        //determine fields declared in this class only (no fields of superclass)
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        //print field names paired with their values
+        for ( Field field : fields  ) {
+          result.append("  ");
+          try {
+            result.append( field.getName() );
+            result.append(": ");
+            //requires access to private field:
+            result.append( field.get(this));
+          } catch ( IllegalAccessException ex ) {
+//            System.out.println(ex);
+          }
+          result.append(newLine);
+        }
+        result.append("}");
+
+        return result.toString();
+      }
+
+
+
+	
 }

@@ -2,11 +2,9 @@ package Handlers;
 
 import java.net.URL;
 
-import Quotes.Quotation;
+import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
 import Quotes.Quotation_Share;
-import Quotes.Quotation_Bond;
-import Quotes.Type;
 
 public interface SiteInterface {
 

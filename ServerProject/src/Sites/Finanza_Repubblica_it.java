@@ -62,6 +62,9 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+				return null;
+			
 			Quotation_Bond qb = new Quotation_Bond(ISIN);
 			
 			qb.setName(nodes.item(7).getFirstChild().getNodeValue());		//Nome			

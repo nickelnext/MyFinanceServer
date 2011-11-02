@@ -60,6 +60,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+				return null;
 			
 			Quotation_Share qs = new Quotation_Share(ISIN);
 			
@@ -127,6 +129,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+				return null;
 			
 			Quotation_Bond qb = new Quotation_Bond(ISIN);
 			
@@ -168,7 +172,7 @@ public class Borsaitaliana_it implements SiteInterface {
 	}
 	public void parseFUND(URL url, String ISIN)
 	{
-
+		
 	}
 
 

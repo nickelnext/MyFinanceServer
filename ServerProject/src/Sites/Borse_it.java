@@ -39,6 +39,9 @@ public class Borse_it implements SiteInterface {
 			String pattern = "//li[../../@class='schede']";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 			
+			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+				return null;
+			
 			Quotation_Bond qb = new Quotation_Bond(ISIN);
 			
 //			qb.setName(nodes.item(1).getFirstChild().getNodeValue());		//Nome			

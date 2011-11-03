@@ -11,17 +11,17 @@ public class Program {
 	public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParseException {
 
 	
-		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-		Quotation_Bond q = s.parseBOND(new URL(
-				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
+//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//		Quotation_Bond q = s.parseBOND(new URL(
+//				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
 		
 //		Quotation_Share qs = s.parseBTP(new URL(
 //				"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0000123064354&lang=it"));
 		
 		
 		
-//		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
-//		Quotation_Bond q = s1.parseBTP(new URL("http://www.borse.it/quotes/valore/IT0004467483"),"IT0004467483");
+		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
+		Quotation_Bond q = s1.parseBTP(new URL("http://www.borse.it/quotes/valore/IT0004467483"));
 //		
 		if (q==null)
 			System.out.println("non trovato");

@@ -106,7 +106,6 @@ public class Finanza_Repubblica_it implements SiteInterface {
 	public Quotation_Fund parseFUND(URL url)
 	{
 		return null;
-
 	}
 
 

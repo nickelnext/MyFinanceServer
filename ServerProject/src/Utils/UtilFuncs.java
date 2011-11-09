@@ -3,7 +3,9 @@ package Utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.w3c.dom.NodeList;
 
@@ -67,7 +69,15 @@ public class UtilFuncs {
 				formatter = new SimpleDateFormat("HH.mm");
 				try 
 				{
-					date = (Date)formatter.parse(string);
+					formatter = new SimpleDateFormat("HH:mm:ss");
+					date = new Date();
+					date = formatter.parse(string);
+					
+					GregorianCalendar today = new GregorianCalendar();
+					@SuppressWarnings("deprecation")
+					GregorianCalendar cal = new GregorianCalendar(today.get(Calendar.YEAR), today.get(Calendar.MONTH), 
+					today.get(Calendar.DAY_OF_MONTH), date.getHours(), date.getMinutes(), date.getSeconds());
+					date = cal.getTime();
 				} 
 				catch (ParseException e1) 
 				{
@@ -79,9 +89,18 @@ public class UtilFuncs {
 					catch (ParseException ex1) 
 					{
 						formatter = new SimpleDateFormat("HH:mm:ss");
+						
 						try 
 						{
-							date = (Date)formatter.parse(string);
+							formatter = new SimpleDateFormat("HH:mm:ss");
+							date = new Date();
+							date = formatter.parse(string);
+							
+							GregorianCalendar today = new GregorianCalendar();
+							@SuppressWarnings("deprecation")
+							GregorianCalendar cal = new GregorianCalendar(today.get(Calendar.YEAR), today.get(Calendar.MONTH), 
+							today.get(Calendar.DAY_OF_MONTH), date.getHours(), date.getMinutes(), date.getSeconds());
+							date = cal.getTime();
 						} 
 						catch (ParseException ex2) 
 						{

@@ -50,7 +50,7 @@ public abstract class Quotation {
 
         //determine fields declared in this class only (no fields of superclass)
         Field[] fields = this.getClass().getDeclaredFields();
-
+        
         //print field names paired with their values
         for ( Field field : fields  ) {
           result.append("  ");

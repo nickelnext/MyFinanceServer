@@ -39,9 +39,9 @@ public class Borsaitaliana_it_Search extends Search {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 
-			this.setBaseLink("");
+			this.setBaseLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue().replace(ISIN, UtilFuncs.ISIN_REPLACE));
 			this.setCompleteLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue());
-			this.setCode(nodes.item(0).getNodeValue());
+//			this.setCode("");
 			this.setISIN(ISIN);
 			
 			return true;

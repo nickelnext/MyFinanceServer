@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 public class UtilFuncs {
 
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
-	
+//	public static final String ISIN_NOT_FOUND ="ISIN_NOT_FOUND";
 	
 	public static String getString(NodeList nodes, int n)
 	{

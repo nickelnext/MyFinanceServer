@@ -43,8 +43,9 @@ public class Yahoo_Finanza_it_Search extends Search {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 			
-			this.setBaseLink("http://it.finance.yahoo.com/q?s=");
-			this.setCompleteLink("http://it.finance.yahoo.com/q?s="+nodes.item(0).getNodeValue());
+			this.setBaseLink("http://it.finance.yahoo.com/q?s="+UtilFuncs.ISIN_REPLACE);
+			String s = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22" + nodes.item(0).getNodeValue() + "%22%29&env=store://datatables.org/alltableswithkeys";
+			this.setCompleteLink(s);
 			this.setCode(nodes.item(0).getNodeValue());
 			this.setISIN(ISIN);
 			

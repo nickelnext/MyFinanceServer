@@ -17,7 +17,7 @@ import Utils.UtilFuncs;
 
 public class Finanza_Repubblica_it_Search extends Search {
 
-	public String search(String ISIN, String searchUrl) {
+	public boolean search(String ISIN, String searchUrl) {
 
 		searchUrl = searchUrl.replace(UtilFuncs.ISIN_REPLACE, ISIN);
 
@@ -33,22 +33,25 @@ public class Finanza_Repubblica_it_Search extends Search {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//table[@class='table_dati']//td//a/@href";
+			String pattern = "//a[@id='ctl00_ContentPlaceHolder1_gvSearch_ctl02_lnk_Description']/@href";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
 		
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
+				return false;
 
+			this.setBaseLink("http://finanza.repubblica.it" +nodes.item(0).getNodeValue().substring(0, 1+nodes.item(0).getNodeValue().indexOf("=")));
+			this.setCompleteLink("http://finanza.repubblica.it" +nodes.item(0).getNodeValue());
+//			this.setCode();
+			this.setISIN(ISIN);
 			
-			
-			return nodes.item(0).getNodeValue();
+			return true;
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
 		} 
 		catch (XPathExpressionException e) {
 		}
-		return null;
+		return false;
 	}
 }

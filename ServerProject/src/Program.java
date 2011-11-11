@@ -51,14 +51,26 @@ public class Program {
 		
 //		search
 //		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-//		String ppt = src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
-//		System.out.println(ppt);
+//		src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+		
+		
 		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
-		String ppt = src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
-		System.out.println(ppt);
+		src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
+//		
+//		System.out.println(src.getBaseLink());
+//		System.out.println(src.getCompleteLink());
+//		System.out.println(src.getCode());
+//		System.out.println(src.getISIN());
+		
+//		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();
+//		src.search("IT0004572910", "http://finanza.repubblica.it/ricercaTitolo.aspx?searchText=__ISIN__HERE__");
+		
 		System.out.println(src.getBaseLink());
+		System.out.println(src.getCompleteLink());
 		System.out.println(src.getCode());
 		System.out.println(src.getISIN());
+		
+		
 		
 //		azione 
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();

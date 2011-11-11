@@ -4,11 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import Handlers.SiteInterface;
 import Quotes.Quotation;
-import Quotes.Quotation_Bond;
 import Quotes.Type;
 import Requests.Request;
 import Requests.RequestContainer;

@@ -11,6 +11,9 @@ import org.w3c.dom.NodeList;
 
 public class UtilFuncs {
 
+	public static final String ISIN_REPLACE = "__ISIN__HERE__";
+	
+	
 	public static String getString(NodeList nodes, int n)
 	{
 		if(!nodes.item(n).hasChildNodes() || nodes.item(n).getFirstChild().getNodeValue() == null)

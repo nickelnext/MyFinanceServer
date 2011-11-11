@@ -1,12 +1,7 @@
 package Search;
 
-import java.util.ArrayList;
 
-import Quotes.Type;
+public interface Search {
 
-public class Search {
-
-	public static Type search(String ISIN, String searchUrl, ArrayList<String> arrayofUrls) {
-		return null;
-	}
+	public abstract String search(String ISIN, String searchUrl);
 }

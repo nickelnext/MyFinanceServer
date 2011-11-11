@@ -15,7 +15,7 @@ import org.w3c.tidy.Tidy;
 
 import Utils.UtilFuncs;
 
-public class Borsaitaliana_it_Search implements Search {
+public class Finanza_Repubblica_it_Search implements Search {
 
 	public String search(String ISIN, String searchUrl) {
 
@@ -36,10 +36,11 @@ public class Borsaitaliana_it_Search implements Search {
 			String pattern = "//table[@class='table_dati']//td//a/@href";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+		
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
-			return "http://www.borsaitaliana.it" + nodes.item(0).getNodeValue();
+			return nodes.item(0).getNodeValue();
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	

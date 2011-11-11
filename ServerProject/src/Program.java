@@ -2,9 +2,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 
-import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
-import Quotes.Quotation_Share;
+import Handlers.SiteInterface;
 import Search.Search;
 
 public class Program {
@@ -50,13 +49,17 @@ public class Program {
 //		System.out.println("ok");
 		
 //		search
-//		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-//		src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+		src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
 		
 		
-		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
-		src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
-//		
+//		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
+//		src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
+		SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
+		
+		
+		
+		
 //		System.out.println(src.getBaseLink());
 //		System.out.println(src.getCompleteLink());
 //		System.out.println(src.getCode());
@@ -70,6 +73,7 @@ public class Program {
 		System.out.println(src.getCode());
 		System.out.println(src.getISIN());
 		
+		Quotation_Bond q = yahoo.parseCCT(new URL(src.getCompleteLink()));
 		
 		
 //		azione 

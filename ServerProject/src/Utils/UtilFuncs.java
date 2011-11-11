@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class UtilFuncs {
@@ -20,6 +21,12 @@ public class UtilFuncs {
 			return "";
 		return nodes.item(n).getFirstChild().getNodeValue();
 	}
+	public static String getString(Document doc, String nodeName)
+	{
+		return doc.getElementsByTagName(nodeName).item(0).getNodeValue();
+	}
+
+	
 	public static boolean isISIN(String s)
 	{
 		if(s.length()==12 && s.matches("[A-Z]{2}\\d{10}"))

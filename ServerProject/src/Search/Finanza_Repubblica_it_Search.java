@@ -15,7 +15,7 @@ import org.w3c.tidy.Tidy;
 
 import Utils.UtilFuncs;
 
-public class Finanza_Repubblica_it_Search implements Search {
+public class Finanza_Repubblica_it_Search extends Search {
 
 	public String search(String ISIN, String searchUrl) {
 

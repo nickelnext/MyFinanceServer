@@ -15,7 +15,7 @@ import org.w3c.tidy.Tidy;
 
 import Utils.UtilFuncs;
 
-public class Borsaitaliana_it_Search implements Search {
+public class Borsaitaliana_it_Search extends Search {
 
 	public String search(String ISIN, String searchUrl) {
 

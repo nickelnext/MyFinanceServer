@@ -15,8 +15,11 @@ import org.w3c.tidy.Tidy;
 
 import Utils.UtilFuncs;
 
-public class Yahoo_Finanza_it_Search implements Search {
+public class Yahoo_Finanza_it_Search extends Search {
 
+	
+
+	
 	public String search(String ISIN, String searchUrl) {
 
 		searchUrl = searchUrl.replace(UtilFuncs.ISIN_REPLACE, ISIN);
@@ -39,7 +42,11 @@ public class Yahoo_Finanza_it_Search implements Search {
 			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
+			
+			this.setBaseLink("http://it.finance.yahoo.com/q?s=");
+			this.setCode(nodes.item(0).getNodeValue());
+			this.setISIN(ISIN);
+			
 			return "http://it.finance.yahoo.com/q?s="+nodes.item(0).getNodeValue();
 		}
 		catch (IOException e) {

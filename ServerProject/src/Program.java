@@ -41,18 +41,21 @@ public class Program {
 //		System.out.println(q.toString());
 		
 		//YAHOO
-		SiteInterface sy = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
-//		Quotation_Share qy = sy.parseSHARE(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
-		Quotation_Bond qy = sy.parseBTP(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
-		if (qy==null)
-		System.out.println("non trovato");
-	else
-		System.out.println("ok");
+//		SiteInterface sy = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it_").newInstance();
+////		Quotation_Share qy = sy.parseSHARE(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
+//		Quotation_Bond qy = sy.parseBTP(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
+//		if (qy==null)
+//		System.out.println("non trovato");
+//	else
+//		System.out.println("ok");
 		
 //		search
 //		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
 //		String ppt = src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
 //		System.out.println(ppt);
+		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
+		String ppt = src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
+		System.out.println(ppt);
 		
 //		azione 
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();

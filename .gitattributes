@@ -19,6 +19,7 @@ ServerProject/src/Requests/RequestUpdate.java -text
 ServerProject/src/Search/Borsaitaliana_it_Search.java -text
 ServerProject/src/Search/Finanza_Repubblica_it_Search.java -text
 ServerProject/src/Search/Search.java -text
+ServerProject/src/Search/Yahoo_Finanza_it_Search.java -text
 ServerProject/src/Sites/Borsaitaliana_it.java -text
 ServerProject/src/Sites/Borse_it.java -text
 ServerProject/src/Sites/Finanza_Repubblica_it.java -text

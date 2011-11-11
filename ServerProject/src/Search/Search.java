@@ -6,8 +6,9 @@ public abstract class Search {
 	private String baseLink;
 	private String ISIN;
 	private String code;
+	private String completeLink;
 	
-	public abstract String search(String ISIN, String searchUrl);
+	public abstract boolean search(String ISIN, String searchUrl);
 
 	public String getBaseLink() {
 		return baseLink;
@@ -31,6 +32,14 @@ public abstract class Search {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getCompleteLink() {
+		return completeLink;
+	}
+
+	public void setCompleteLink(String completeLink) {
+		this.completeLink = completeLink;
 	}
 	
 	

@@ -20,7 +20,7 @@ public class Yahoo_Finanza_it_Search extends Search {
 	
 
 	
-	public String search(String ISIN, String searchUrl) {
+	public boolean search(String ISIN, String searchUrl) {
 
 		searchUrl = searchUrl.replace(UtilFuncs.ISIN_REPLACE, ISIN);
 
@@ -41,19 +41,20 @@ public class Yahoo_Finanza_it_Search extends Search {
 				
 			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
+				return false;
 			
 			this.setBaseLink("http://it.finance.yahoo.com/q?s=");
+			this.setCompleteLink("http://it.finance.yahoo.com/q?s="+nodes.item(0).getNodeValue());
 			this.setCode(nodes.item(0).getNodeValue());
 			this.setISIN(ISIN);
 			
-			return "http://it.finance.yahoo.com/q?s="+nodes.item(0).getNodeValue();
+			return true;
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
 		} 
 		catch (XPathExpressionException e) {
 		}
-		return null;
+		return false;
 	}
 }

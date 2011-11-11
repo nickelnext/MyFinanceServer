@@ -40,6 +40,8 @@ public class Finanza_Repubblica_it_Search extends Search {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
+			
+			
 			return nodes.item(0).getNodeValue();
 		}
 		catch (IOException e) {

@@ -17,7 +17,7 @@ import Utils.UtilFuncs;
 
 public class Borsaitaliana_it_Search extends Search {
 
-	public String search(String ISIN, String searchUrl) {
+	public boolean search(String ISIN, String searchUrl) {
 
 		searchUrl = searchUrl.replace(UtilFuncs.ISIN_REPLACE, ISIN);
 
@@ -37,15 +37,20 @@ public class Borsaitaliana_it_Search extends Search {
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
+				return false;
 
-			return "http://www.borsaitaliana.it" + nodes.item(0).getNodeValue();
+			this.setBaseLink("");
+			this.setCompleteLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue());
+			this.setCode(nodes.item(0).getNodeValue());
+			this.setISIN(ISIN);
+			
+			return true;
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
 		} 
 		catch (XPathExpressionException e) {
 		}
-		return null;
+		return false;
 	}
 }

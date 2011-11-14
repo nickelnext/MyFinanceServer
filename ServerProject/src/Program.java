@@ -2,8 +2,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 
-import Quotes.Quotation_Bond;
 import Handlers.SiteInterface;
+import Quotes.Quotation_Fund;
+import Quotes.Quotation_Share;
 import Search.Search;
 
 public class Program {
@@ -11,19 +12,23 @@ public class Program {
 	public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParseException {
 
 	
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL(
 //				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
 		
-//		Quotation_Share qs = s.parseBTP(new URL(
-//				"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0000123064354&lang=it"));
+//		Quotation_Share qs = s.parseSHARE(new URL(
+//				"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
 		
 		
 //		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
 //		Quotation_Share qs = s1.parseSHARE(new URL("http://www.borse.it/quotes/valore/IT0001233417"));
 ////		
 //		SiteInterface s2 = (SiteInterface)Class.forName("Sites.Finanza_Repubblica_it").newInstance();
-//		Quotation_Bond q = s2.parseBTP(new URL("http://finanza.repubblica.it/Obbligazioni_TitoliDiStato_Scheda.aspx?addCode=IT00047123297"));
+//		Quotation_Share q = s2.parseSHARE(new URL("http://bloomberg.finanza.repubblica.it/Company/?symbol=A2A:IM"));
+//		System.out.println(q.toString());
+		Quotation_Fund q = s.parseFUND(new URL("http://www.borsaitaliana.it/bitApp/fondi/dettaglio.bit?idProdotto=2CAGBB&lang=it"));
+		System.out.println(q.toString());
+		System.out.println();
 //		
 //		
 //		if (q==null)
@@ -49,13 +54,15 @@ public class Program {
 //		System.out.println("ok");
 		
 //		search
-		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-		src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+//		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+//		src.search("IT0001233417", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+		
+		
 		
 		
 //		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
 //		src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
-		SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
+//		SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
 		
 		
 		
@@ -68,13 +75,15 @@ public class Program {
 //		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();
 //		src.search("IT0004572910", "http://finanza.repubblica.it/ricercaTitolo.aspx?searchText=__ISIN__HERE__");
 		
-		System.out.println(src.getBaseLink());
-		System.out.println(src.getCompleteLink());
-		System.out.println(src.getCode());
-		System.out.println(src.getISIN());
+//		System.out.println(src.getBaseLink());
+//		System.out.println(src.getCompleteLink());
+//		System.out.println(src.getCode());
+//		System.out.println(src.getISIN());
 		
-		Quotation_Bond q = yahoo.parseCCT(new URL(src.getCompleteLink()));
-		
+//		Quotation_Bond q = yahoo.parseCCT(new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22PAP12.MI%22%29&env=store://datatables.org/alltableswithkeys"));
+//		System.out.println(q.toString());
+//		Quotes.Quotation_Share qs = yahoo.parseSHARE(new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22A2A.MI%22%29&env=store://datatables.org/alltableswithkeys"));
+//		System.out.println(qs.toString());
 		
 //		azione 
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();

@@ -74,13 +74,10 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			
 			return qb;
 						
-			
 		}
-		catch (IOException e) {
+		catch (IOException | XPathExpressionException e) {
 			System.out.println("ISIN NON TROVATO");	
 		} 
-		catch (XPathExpressionException e) {
-		}
 		return null;
 	}
 	public Quotation_Bond parseBOT(URL url)
@@ -101,7 +98,61 @@ public class Finanza_Repubblica_it implements SiteInterface {
 	}
 	public Quotation_Share parseSHARE(URL url)
 	{
-		return null;
+		try 
+		{
+		BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
+
+		Tidy tidy = new Tidy();
+		tidy.setQuiet(true);
+		tidy.setShowWarnings(false);
+		tidy.setFixBackslash(true);
+		tidy.setShowErrors(0);
+		Document response = tidy.parseDOM(buffInput, null);
+
+		XPathFactory factory = XPathFactory.newInstance();
+		XPath xPath=factory.newXPath();
+		String pattern = "//div[@class='body']//table//td//*/text() | //div[@class='body']//h1/text() | //div[@class='Text_Small_LightGray timeStamp']/*/text()";
+		
+		NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+
+		
+		if(nodes.getLength()==0)		//No nodes, probably a 404 error
+			return null;
+		
+		Quotation_Share qs = new Quotation_Share();
+		
+		qs.setName(nodes.item(0).getNodeValue());		//Nome		
+//		qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
+//		qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
+//		qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
+		qs.setPrezzoUltimoContratto(nodes.item(2).getNodeValue());
+		qs.setVariazionePercentuale(nodes.item(5).getNodeValue());
+		qs.setVariazioneAssoluta(nodes.item(3).getNodeValue());
+		qs.setDataOraUltimoAcquisto(nodes.item(12).getNodeValue());
+//		qs.setPrezzoAcquisto(UtilFuncs.getString(nodes, 31));
+//		qs.setPrezzoVendita(UtilFuncs.getString(nodes, 33));
+//		qs.setQuantitaUltimo(UtilFuncs.getString(nodes, 27));
+//		qs.setQuantitaAcquisto(UtilFuncs.getString(nodes, 29));
+//		qs.setQuantitaVendita(UtilFuncs.getString(nodes, 35));
+//		qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));
+//		qs.setMaxOggi(UtilFuncs.getString(nodes, 43));
+//		qs.setMinOggi(UtilFuncs.getString(nodes, 47));
+		qs.setMaxAnno(nodes.item(10).getNodeValue());
+		qs.setMinAnno(nodes.item(7).getNodeValue());
+		qs.setDataMaxAnno(nodes.item(11).getNodeValue());
+		qs.setDataMinAnno(nodes.item(8).getNodeValue());
+//		qs.setChiusuraPrecedente(UtilFuncs.getString(nodes, 51));
+		
+		return qs;	
+	}
+	catch (IOException e) {
+		System.out.println("ISIN NON TROVATO");	
+	} 
+	catch (XPathExpressionException e) {
+		System.out.println("ISIN NON TROVATO");	
+	}
+	return null;
+		
 	}
 	public Quotation_Fund parseFUND(URL url)
 	{

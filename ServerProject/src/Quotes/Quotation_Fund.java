@@ -2,6 +2,8 @@ package Quotes;
 
 import java.util.Date;
 
+import Utils.UtilFuncs;
+
 public class Quotation_Fund extends Quotation{
 	
 	
@@ -48,20 +50,20 @@ public class Quotation_Fund extends Quotation{
 	public float getUltimoPrezzo() {
 		return ultimoPrezzo;
 	}
-	public void setUltimoPrezzo(float ultimoPrezzo) {
-		this.ultimoPrezzo = ultimoPrezzo;
+	public void setUltimoPrezzo(String ultimoPrezzo) {
+		this.ultimoPrezzo = UtilFuncs.repFloat(ultimoPrezzo);
 	}
 	public Date getDataUltimoPrezzo() {
 		return dataUltimoPrezzo;
 	}
-	public void setDataUltimoPrezzo(Date dataUltimoPrezzo) {
-		this.dataUltimoPrezzo = dataUltimoPrezzo;
+	public void setDataUltimoPrezzo(String dataUltimoPrezzo) {
+		this.dataUltimoPrezzo = UtilFuncs.formatDate(dataUltimoPrezzo);
 	}
 	public float getPrezzoPrecedente() {
 		return prezzoPrecedente;
 	}
-	public void setPrezzoPrecedente(float prezzoPrecedente) {
-		this.prezzoPrecedente = prezzoPrecedente;
+	public void setPrezzoPrecedente(String prezzoPrecedente) {
+		this.prezzoPrecedente = UtilFuncs.repFloat(prezzoPrecedente);
 	}
 	public String getValuta() {
 		return valuta;
@@ -72,38 +74,38 @@ public class Quotation_Fund extends Quotation{
 	public float getVariazionePercentuale() {
 		return variazionePercentuale;
 	}
-	public void setVariazionePercentuale(float variazionePercentuale) {
-		this.variazionePercentuale = variazionePercentuale;
+	public void setVariazionePercentuale(String variazionePercentuale) {
+		this.variazionePercentuale = UtilFuncs.repFloat(variazionePercentuale);
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
-	public void setVariazioneAssoluta(float variazioneAssoluta) {
-		this.variazioneAssoluta = variazioneAssoluta;
+	public void setVariazioneAssoluta(String variazioneAssoluta) {
+		this.variazioneAssoluta = UtilFuncs.repFloat(variazioneAssoluta);
 	}
 	public float getPerformance1Mese() {
 		return performance1Mese;
 	}
-	public void setPerformance1Mese(float performance1Mese) {
-		this.performance1Mese = performance1Mese;
+	public void setPerformance1Mese(String performance1Mese) {
+		this.performance1Mese = UtilFuncs.repFloat(performance1Mese);
 	}
 	public float getPerformance3Mesi() {
 		return performance3Mesi;
 	}
-	public void setPerformance3Mesi(float performance3Mesi) {
-		this.performance3Mesi = performance3Mesi;
+	public void setPerformance3Mesi(String performance3Mesi) {
+		this.performance3Mesi = UtilFuncs.repFloat(performance3Mesi);
 	}
 	public float getPerformance1Anno() {
 		return performance1Anno;
 	}
-	public void setPerformance1Anno(float performance1Anno) {
-		this.performance1Anno = performance1Anno;
+	public void setPerformance1Anno(String performance1Anno) {
+		this.performance1Anno = UtilFuncs.repFloat(performance1Anno);
 	}
 	public float getPerformance3Anni() {
 		return performance3Anni;
 	}
-	public void setPerformance3Anni(float performance3Anni) {
-		this.performance3Anni = performance3Anni;
+	public void setPerformance3Anni(String performance3Anni) {
+		this.performance3Anni = UtilFuncs.repFloat(performance3Anni);
 	}
 	
 	

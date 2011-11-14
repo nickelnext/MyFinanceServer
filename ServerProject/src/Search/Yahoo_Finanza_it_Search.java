@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+import Quotes.Type;
 import Utils.UtilFuncs;
 
 public class Yahoo_Finanza_it_Search extends Search {
@@ -36,10 +37,10 @@ public class Yahoo_Finanza_it_Search extends Search {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text()";
+			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text() | " +
+					"//tr[@class='yui-dt-odd']/td/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-				
-			
+
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 			
@@ -48,6 +49,18 @@ public class Yahoo_Finanza_it_Search extends Search {
 			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getNodeValue()));
 			this.setCode(nodes.item(0).getNodeValue());
 			this.setISIN(ISIN);
+			
+			switch (nodes.item(4).getNodeValue()) { //type
+			case "Obbligazioni":
+				this.setType(Type.BOND);
+				break;
+			case "Azioni":
+				this.setType(Type.SHARE);
+				break;
+			default:
+				this.setType(null);
+				break;
+			}
 			
 			return true;
 		}

@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+import Quotes.Type;
 import Utils.UtilFuncs;
 
 public class Borsaitaliana_it_Search extends Search {
@@ -39,13 +40,35 @@ public class Borsaitaliana_it_Search extends Search {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 
-			this.setBaseLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue().replace(ISIN, UtilFuncs.ISIN_REPLACE));
-			//retrieve data from the dati-completi page not scheda
-			this.setBaseLink(this.getBaseLink().replace("scheda", "dati-completi"));
+			
+			for (int i=0; i<nodes.getLength();i++)
+			{
+				System.out.println(nodes.item(i).getNodeValue());
+			}
+			
+			
 			this.setCompleteLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue());
 			this.setCompleteLink(this.getCompleteLink().replace("scheda", "dati-completi"));
-//			this.setCode("");
-			this.setISIN(ISIN);
+			
+			
+			
+			if(this.getCompleteLink().contains("ctz"))
+				this.setType(Type.CTZ);
+			if(this.getCompleteLink().contains("cct"))
+				this.setType(Type.CCT);
+			if(this.getCompleteLink().contains("bot"))
+				this.setType(Type.BOT);
+			if(this.getCompleteLink().contains("btp"))
+				this.setType(Type.BTP);
+			if(this.getCompleteLink().contains("extramot"))
+				this.setType(Type.BOND);
+			if(this.getCompleteLink().contains("obbligazioni-in-euro"))
+				this.setType(Type.BOND);
+			if(this.getCompleteLink().contains("azioni"))
+				this.setType(Type.CTZ);
+			if(this.getCompleteLink().contains("fondi"))
+				this.setType(Type.FUND);
+			
 			
 			return true;
 		}

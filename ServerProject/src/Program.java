@@ -1,10 +1,7 @@
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 
-import Quotes.Quotation_Bond;
-import Quotes.Quotation_Fund;
-import Handlers.SiteInterface;
+import Search.Search;
 
 public class Program {
 	
@@ -22,12 +19,12 @@ public class Program {
 //		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
 //		Quotation_Share qs = s1.parseSHARE(new URL("http://www.borse.it/quotes/valore/IT0001233417"));
 ////		
-		SiteInterface s2 = (SiteInterface)Class.forName("Sites.Finanza_Repubblica_it").newInstance();
+//		SiteInterface s2 = (SiteInterface)Class.forName("Sites.Finanza_Repubblica_it").newInstance();
 //		Quotation_Share q = s2.parseSHARE(new URL("http://bloomberg.finanza.repubblica.it/Company/?symbol=A2A:IM"));
 //		System.out.println(q.toString());
-		Quotation_Fund q = s2.parseFUND(new URL("http://finanza.repubblica.it/Fondi_Scheda.aspx?addCode=FC.KWCARPAT"));
-		System.out.println(q.toString());
-		System.out.println();
+//		Quotation_Fund q = s2.parseFUND(new URL("http://finanza.repubblica.it/Fondi_Scheda.aspx?addCode=FC.KWCARPAT"));
+//		System.out.println(q.toString());
+//		System.out.println();
 //		
 //		
 //		if (q==null)
@@ -53,8 +50,8 @@ public class Program {
 //		System.out.println("ok");
 		
 //		search
-//		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-//		src.search("IT0001233417", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+		Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+		src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
 		
 		
 		

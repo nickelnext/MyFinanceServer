@@ -66,7 +66,12 @@ public class Yahoo_Finanza_it implements SiteInterface {
 
 			return qb;	
 
-		} catch (IOException | ParserConfigurationException | SAXException e) {
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -121,7 +126,13 @@ public class Yahoo_Finanza_it implements SiteInterface {
 //		qs.setDataMinAnno(dataMinAnno);
 			qs.setChiusuraPrecedente(UtilFuncs.getString(doc, "PreviousClose"));
 			return qs;	
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

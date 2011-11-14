@@ -75,8 +75,11 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			return qb;
 						
 		}
-		catch (IOException | XPathExpressionException e) {
+		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 		return null;
 	}

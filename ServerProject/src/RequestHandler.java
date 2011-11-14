@@ -90,10 +90,10 @@ public class RequestHandler {
 			if(found){
 
 		//		System.out.println("SELECT Type FROM tbl_name_type_url WHERE Name="+requestedSite+" AND Url="+baseLink);
-				//Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\" AND Url='"+baseLink+"'");
-//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
+				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\" AND Url='"+baseLink+"'");
 				System.out.println("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
-				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` =  'http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=__ISIN__HERE__&lang=it'");
+//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
+
 				if(0 == typeQuery.size()){
 					System.out.println("URL NON TROVATA!!");
 					return null;

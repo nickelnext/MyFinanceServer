@@ -45,10 +45,8 @@ public class Yahoo_Finanza_it_Search extends Search {
 				return false;
 			
 			String s = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22" + Utils.UtilFuncs.ISIN_REPLACE + "%22%29&env=store://datatables.org/alltableswithkeys";
-			this.setBaseLink(s);
 			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getNodeValue()));
-			this.setCode(nodes.item(0).getNodeValue());
-			this.setISIN(ISIN);
+
 			
 			switch (nodes.item(4).getNodeValue()) { //type
 			case "Obbligazioni":

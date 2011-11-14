@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+import Quotes.Type;
 import Utils.UtilFuncs;
 
 public class Finanza_Repubblica_it_Search extends Search {
@@ -33,18 +34,26 @@ public class Finanza_Repubblica_it_Search extends Search {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//a[@id='ctl00_ContentPlaceHolder1_gvSearch_ctl02_lnk_Description']/@href";
+			String pattern = "//table[@class='TLB-commontb TLB-SearchResults']//td/text() |" +
+					"//a[@id='ctl00_ContentPlaceHolder1_gvSearch_ctl02_lnk_Description']/@href";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-		
-			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return false;
+			if(nodes.getLength()!=0)		//No nodes, probably a 404 error
+			{
+				this.setCompleteLink("http://finanza.repubblica.it" +nodes.item(0).getNodeValue());
+				String s = nodes.item(1).getNodeValue();
 
-			this.setBaseLink("http://finanza.repubblica.it" +nodes.item(0).getNodeValue().substring(0, 1+nodes.item(0).getNodeValue().indexOf("=")));
-			this.setCompleteLink("http://finanza.repubblica.it" +nodes.item(0).getNodeValue());
-//			this.setCode();
-			this.setISIN(ISIN);
-			
+				if(s.contains("Tit. di Stato") || s.contains("Obbligazioni"))
+					this.setType(Type.BOND);
+				else
+					if(s.contains("Azioni"))
+						this.setType(Type.SHARE);
+			}
+			else	//ricerca sull'altra pagina
+			{
+				//devo lanciare l'altra ricerca
+			}
+
 			return true;
 		}
 		catch (IOException e) {

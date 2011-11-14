@@ -43,6 +43,7 @@ public class Borsaitaliana_it_Search extends Search {
 			//retrieve data from the dati-completi page not scheda
 			this.setBaseLink(this.getBaseLink().replace("scheda", "dati-completi"));
 			this.setCompleteLink("http://www.borsaitaliana.it" + nodes.item(0).getNodeValue());
+			this.setCompleteLink(this.getCompleteLink().replace("scheda", "dati-completi"));
 //			this.setCode("");
 			this.setISIN(ISIN);
 			

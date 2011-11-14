@@ -2,17 +2,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 
+import Quotes.Quotation_Bond;
 import Handlers.SiteInterface;
-import Quotes.Quotation_Fund;
-import Quotes.Quotation_Share;
-import Search.Search;
 
 public class Program {
 	
 	public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParseException {
 
-	
-		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+	/*
+//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL(
 //				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
 		
@@ -23,10 +21,10 @@ public class Program {
 //		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
 //		Quotation_Share qs = s1.parseSHARE(new URL("http://www.borse.it/quotes/valore/IT0001233417"));
 ////		
-//		SiteInterface s2 = (SiteInterface)Class.forName("Sites.Finanza_Repubblica_it").newInstance();
+		SiteInterface s2 = (SiteInterface)Class.forName("Sites.Finanza_Repubblica_it").newInstance();
 //		Quotation_Share q = s2.parseSHARE(new URL("http://bloomberg.finanza.repubblica.it/Company/?symbol=A2A:IM"));
 //		System.out.println(q.toString());
-		Quotation_Fund q = s.parseFUND(new URL("http://www.borsaitaliana.it/bitApp/fondi/dettaglio.bit?idProdotto=2CAGBB&lang=it"));
+		Quotation_Fund q = s2.parseFUND(new URL("http://finanza.repubblica.it/Fondi_Scheda.aspx?addCode=FC.KWCARPAT"));
 		System.out.println(q.toString());
 		System.out.println();
 //		
@@ -88,7 +86,11 @@ public class Program {
 //		azione 
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		
-		
+		*/
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//		
+		Quotation_Bond qy = s.parseCTZ(new URL("http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=IT0004572910&lang=it"));
+		System.out.println(qy.toString());
 	}
 	
 }

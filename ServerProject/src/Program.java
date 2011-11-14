@@ -3,13 +3,14 @@ import java.net.URL;
 import java.text.ParseException;
 
 import Quotes.Quotation_Bond;
+import Quotes.Quotation_Fund;
 import Handlers.SiteInterface;
 
 public class Program {
 	
 	public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParseException {
 
-	/*
+
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL(
 //				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
@@ -86,11 +87,11 @@ public class Program {
 //		azione 
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		
-		*/
-		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+
+//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //		
-		Quotation_Bond qy = s.parseCTZ(new URL("http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=IT0004572910&lang=it"));
-		System.out.println(qy.toString());
+//		Quotation_Bond qy = s.parseCTZ(new URL("http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=IT0004572910&lang=it"));
+//		System.out.println(qy.toString());
 	}
 	
 }

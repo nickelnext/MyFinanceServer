@@ -190,20 +190,19 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			qf.setISIN(UtilFuncs.getString(nodes, 9));
 			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 6));
 			qf.setCategoriaAssociati(UtilFuncs.getString(nodes, 8));
-			qf.setDataUltimoPrezzo(UtilFuncs.getString(nodes, 0));
+			qf.setDataUltimoPrezzo(UtilFuncs.getString(nodes, 2));
 			qf.setNomeGestore(UtilFuncs.getString(nodes, 7));
 			qf.setPerformance1Anno(UtilFuncs.getString(nodes, 14));
 //			qf.setPerformance1Mese(performance1Mese)
-//			qf.setPerformance3Anni(performance3Anni)
-//			qf.setPerformance3Mesi(performance3Mesi)
-			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
+			qf.setPerformance3Anni(UtilFuncs.getString(nodes, 15));
+			qf.setPerformance3Mesi(UtilFuncs.getString(nodes, 13));
+			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 1));
 //			qf.setSite(site)
-			qf.setUltimoPrezzo(UtilFuncs.getString(nodes, 2));
-			qf.setValuta(UtilFuncs.getString(nodes, 4));
+			qf.setUltimoPrezzo(UtilFuncs.getString(nodes, 0));
+			qf.setValuta(UtilFuncs.getString(nodes, 5));
 //			qf.setVariazioneAssoluta(variazioneAssoluta)
-			qf.setVariazionePercentuale(UtilFuncs.getString(nodes, 6));
-			
-			
+			qf.setVariazionePercentuale(UtilFuncs.getString(nodes, 3));
+
 			
 			return qf;	
 		}

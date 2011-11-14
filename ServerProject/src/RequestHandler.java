@@ -52,7 +52,7 @@ public class RequestHandler {
 		}
 
 		Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC;");
-		if(0 != rating.size()){
+		if(0 == rating.size()){
 			System.out.println("TABELLA NAME_SEARCH VUOTA");
 		}
 		
@@ -86,13 +86,14 @@ public class RequestHandler {
 				}else{
 					System.out.println("ISIN non trovato, provo con il provider successivo");
 				}				
-			}
+			}//end for
 			if(found){
 
-				System.out.println("SELECT Type FROM tbl_name_type_url WHERE Name="+requestedSite+" AND Url="+baseLink);
-				//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\" AND Url=\""+genericUrl+"\"");
-				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Url=\""+baseLink+"\"");
-				//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\"");
+		//		System.out.println("SELECT Type FROM tbl_name_type_url WHERE Name="+requestedSite+" AND Url="+baseLink);
+				//Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\" AND Url='"+baseLink+"'");
+//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
+				System.out.println("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
+				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` =  'http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=__ISIN__HERE__&lang=it'");
 				if(0 == typeQuery.size()){
 					System.out.println("URL NON TROVATA!!");
 					return null;
@@ -100,6 +101,7 @@ public class RequestHandler {
 				String[] reqType = (String[])typeQuery.elementAt(0);
 				SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
 				Type t = Type.valueOf(reqType[0]);
+				System.out.println("type è:"+t);
 
 				switch (t) {
 				case BTP:

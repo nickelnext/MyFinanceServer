@@ -48,17 +48,17 @@ public class Yahoo_Finanza_it_Search extends Search {
 			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getNodeValue()));
 
 			
-			switch (nodes.item(4).getNodeValue()) { //type
-			case "Obbligazioni":
-				this.setType(Type.BOND);
-				break;
-			case "Azioni":
-				this.setType(Type.SHARE);
-				break;
-			default:
-				this.setType(null);
-				break;
-			}
+//			switch (nodes.item(4).getNodeValue()) { //type
+//			case "Obbligazioni":
+//				this.setType(Type.BOND);
+//				break;
+//			case "Azioni":
+//				this.setType(Type.SHARE);
+//				break;
+//			default:
+//				this.setType(null);
+//				break;
+//			}
 			
 			return true;
 		}

@@ -1,16 +1,30 @@
-import java.net.MalformedURLException;
-import java.text.ParseException;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.URL;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
-import Search.Search;
+import Handlers.SiteInterface;
+import Quotes.Quotation_Bond;
+
+import com.google.gson.Gson;
+
 
 public class Program {
 	
-	public static void main(String[] args) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParseException {
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
+		
 
-
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-//		Quotation_Bond q = s.parseBOND(new URL(
-//				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/euro-obbligazioni/dati-completi.html?isin=IT0001233417&lang=it"));
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+		Quotation_Bond q = s.parseBOND(new URL(
+				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
@@ -27,10 +41,10 @@ public class Program {
 //		System.out.println();
 //		
 //		
-//		if (q==null)
-//			System.out.println("non trovato");
-//		else
-//			System.out.println("ok");
+		if (q==null)
+			System.out.println("non trovato");
+		else
+			System.out.println("ok");
 //		
 //		System.out.println(q.toString());
 //		System.out.println(qs.toString());
@@ -38,7 +52,24 @@ public class Program {
 //		System.out.println(qs.getPrezzoUltimoContratto());
 //		System.out.println(q.getName());
 		
-//		System.out.println(q.toString());
+		System.out.println(q.toString());
+		
+		Gson g = new Gson();
+		String jsonString = g.toJson(q);
+		ByteArrayOutputStream bs = new ByteArrayOutputStream();
+		Program.compress(jsonString);
+		
+//		System.out.println(jsonString);
+//		System.out.println("Bytes: \t" + jsonString.getBytes().length);
+//		System.out.println("KBytes: \t" + jsonString.getBytes().length/1024);
+//		GZIPOutputStream gz = new GZIPOutputStream(bs);
+//		bs.write(jsonString.getBytes());
+//		
+//		System.out.println("bs.size()\t" + bs.size());
+//		System.out.println("bs.tostring()\t" + bs.toString());
+//		System.out.println("bs.tostring()\t" + bs.);
+//		gz.close();
+		
 		
 		//YAHOO
 //		SiteInterface sy = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it_").newInstance();
@@ -67,13 +98,16 @@ public class Program {
 //		System.out.println(src.getCompleteLink());
 
 		
-		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();
-		src.search("IT0004572910", "http://finanza.repubblica.it/ricercaTitolo.aspx?searchText=__ISIN__HERE__");
+//		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();
+//		src.search("IT0004572910", "http://finanza.repubblica.it/ricercaTitolo.aspx?searchText=__ISIN__HERE__");
+//		
+//		
+//		System.out.println("tuamadre");
+//		System.out.println(src.getCompleteLink());
+//		System.out.println(src.getType());
 		
-//		System.out.println(src.getBaseLink());
-		System.out.println("tuamadre");
-		System.out.println(src.getCompleteLink());
-		System.out.println(src.getType());
+		
+		
 //		System.out.println(src.getCode());
 //		System.out.println(src.getISIN());
 		
@@ -91,5 +125,23 @@ public class Program {
 //		Quotation_Bond qy = s.parseCTZ(new URL("http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=IT0004572910&lang=it"));
 //		System.out.println(qy.toString());
 	}
+	
+	public static void compress(String st) throws IOException {
+        // first compress inputfile.txt into out.gz
+        BufferedReader in = new BufferedReader(new StringReader(st));
+        BufferedOutputStream out = new BufferedOutputStream(
+              new GZIPOutputStream(new FileOutputStream("out.gz")));
+        int c;
+        while ((c = in.read()) != -1) 
+        	out.write(c);
+        in.close();
+        out.close();
+        
+        // now decompress our new file
+BufferedReader in2 = new BufferedReader( new InputStreamReader(new GZIPInputStream(new FileInputStream("out.gz"))));
+        String s;
+        while ((s = in2.readLine()) != null)
+              System.out.println(s);
+  }
 	
 }

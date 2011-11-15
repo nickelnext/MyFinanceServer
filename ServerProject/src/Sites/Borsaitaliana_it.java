@@ -107,7 +107,8 @@ public class Borsaitaliana_it implements SiteInterface {
 			XPath xPath=factory.newXPath();
 			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-
+			
+			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
@@ -167,13 +168,6 @@ public class Borsaitaliana_it implements SiteInterface {
 			XPath xPath=factory.newXPath();
 			String pattern = "//table[@class='table_dati']//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-			
-			System.out.println(nodes.getLength());
-			
-			for(int i=0; i<nodes.getLength(); i++)
-			{
-				System.out.println(i + "\t" + nodes.item(i).getFirstChild().getNodeValue());
-			}
 			
 			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error

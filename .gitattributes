@@ -8,12 +8,10 @@ ServerProject/src/Quotes/Quotation_Bond.java -text
 ServerProject/src/Quotes/Quotation_Fund.java -text
 ServerProject/src/Quotes/Quotation_Share.java -text
 ServerProject/src/Quotes/Type.java -text
-ServerProject/src/Request.java -text
 ServerProject/src/RequestHandler.java -text
-ServerProject/src/RequestQuotation.java -text
-ServerProject/src/RequestUpdate.java -text
 ServerProject/src/Requests/Request.java -text
 ServerProject/src/Requests/RequestContainer.java -text
+ServerProject/src/Requests/RequestForced.java -text
 ServerProject/src/Requests/RequestQuotation.java -text
 ServerProject/src/Requests/RequestUpdate.java -text
 ServerProject/src/Search/Borsaitaliana_it_Search.java -text

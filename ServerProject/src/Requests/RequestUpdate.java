@@ -1,23 +1,26 @@
 package Requests;
+
 import Quotes.Type;
+
 
 
 public class RequestUpdate extends Request{
 
-	private float oldValue;  //boh, poi ci pensiamo
+	private String preferredSite;
+	private Type type;
 
-	public RequestUpdate(String iSIN, Type type, float oldValue) {
-		super(iSIN, type);
-		this.oldValue = oldValue;
+	public RequestUpdate(String iSIN, Type type, String preferredSite) {
+		super(iSIN);
+		this.preferredSite = preferredSite;
+		this.type = type;
 	}
 
-	public float getOldValue() {
-		return oldValue;
+	public String getPreferredSite() {
+		return preferredSite;
 	}
 
-	public void setOldValue(float oldValue) {
-		this.oldValue = oldValue;
+	public void setPreferredSite(String preferredSite) {
+		this.preferredSite = preferredSite;
 	}
-	
-	
+		
 }

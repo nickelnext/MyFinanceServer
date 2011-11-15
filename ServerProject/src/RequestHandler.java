@@ -4,12 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 import Handlers.SiteInterface;
 import Quotes.Quotation;
-import Quotes.Quotation_Bond;
-import Quotes.Type;
 import Requests.Request;
 import Requests.RequestContainer;
 import Search.Search;
@@ -29,17 +25,18 @@ public class RequestHandler {
 		//creo una lista di richieste  e la faccio processare dall'handler
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
-		tmpList.add(new Request("IT0004572910", Type.BTP));
-		tmpList.add(new Request("IT0004220627", Type.BTP));
-		tmpList.add(new Request("IT0004719297", Type.BTP));
-		tmpList.add(new Request("IT0004224041", Type.BTP));
-		tmpList.add(new Request("IT0003926547", Type.BTP));
-		tmpList.add(new Request("IT0001233417", Type.BTP));
-		tmpList.add(new Request("LU0336083497", Type.BTP));
+		tmpList.add(new Request("IT0004572910"));
+		tmpList.add(new Request("IT0004220627"));
+		tmpList.add(new Request("IT0004719297"));
+		tmpList.add(new Request("IT0004224041"));
+		tmpList.add(new Request("IT0003926547"));
+		tmpList.add(new Request("IT0001233417"));
+		tmpList.add(new Request("LU0336083497"));
 		
 		RequestContainer cont = new RequestContainer();
 		cont.setReqList(tmpList);
 		ArrayList<Quotation> resList = processRequests(cont.getReqList());
+		
 		if(null != resList){
 			for (int j = 0; j < resList.size(); j++) {	
 				System.out.println(resList.get(j).toString());
@@ -92,7 +89,7 @@ public class RequestHandler {
 					System.out.println("ISIN non trovato, provo con il provider successivo");
 				}else{					
 
-					System.out.println("ISIN "+req.getISIN()+" trovato, vado a prendermi le info");
+					System.out.println("ISIN "+req.getISIN()+" trovato (type = "+isinFinder.getType()+")");
 					found = true;
 					completeLink = isinFinder.getCompleteLink();
 

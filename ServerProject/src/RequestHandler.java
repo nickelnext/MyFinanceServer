@@ -8,6 +8,7 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;
+import Quotes.Quotation_Bond;
 import Quotes.Type;
 import Requests.Request;
 import Requests.RequestContainer;
@@ -29,7 +30,13 @@ public class RequestHandler {
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 		tmpList.add(new Request("IT0004572910", Type.BTP));
-		//tmpList.add(new Request("IT0004356843", Type.BTP));
+		tmpList.add(new Request("IT0004220627", Type.BTP));
+		tmpList.add(new Request("IT0004719297", Type.BTP));
+		tmpList.add(new Request("IT0004224041", Type.BTP));
+		tmpList.add(new Request("IT0003926547", Type.BTP));
+		tmpList.add(new Request("IT0001233417", Type.BTP));
+		tmpList.add(new Request("LU0336083497", Type.BTP));
+		
 		RequestContainer cont = new RequestContainer();
 		cont.setReqList(tmpList);
 		ArrayList<Quotation> resList = processRequests(cont.getReqList());
@@ -44,14 +51,15 @@ public class RequestHandler {
 	public static ArrayList<Quotation> processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
 		MyDatabase db = new MyDatabase("pinella", "pinella", "pinella87");
-		// connessione al db
+		// connection with database
 		if ( !db.connect() ) { 
-			System.out.println("Errore durante la connessione.");
+			System.out.println("Database connection error.");
 			System.out.println( db.getError() );
 			System.exit(0);
 		}
 
-		Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC;");
+		//SQL query to extract the list of providers ordered by "their hit rate"
+		Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC ;");
 		if(0 == rating.size()){
 			System.out.println("TABELLA NAME_SEARCH VUOTA");
 		}
@@ -59,88 +67,85 @@ public class RequestHandler {
 		ArrayList<Quotation> quotList = new ArrayList<Quotation>();
 		Search isinFinder;
 		
+		//iterate over the requests
 		for (int countRequests = 0; countRequests < arrReq.size(); countRequests++){	
 
-			String requestedSite = null; //provider estratto dalla prima query
-			String searchLink = null; //url di ricerca estratta dalla prima query
-			String completeLink = null; //url contenente i dettagli del titolo trovata dalla search
+			String requestedSite = null; //name of the current provider
+			String searchLink = null; //search url for the current provider
+			String completeLink = null; //url of the web page containing all the details for the requested quotation 
 			boolean found;
-			Quotation quot = null;
+			Quotation quot = null; //object representing the response to the current request
 			String[] nameSearchPath;
-			String baseLink = null;
 
 			Request req = arrReq.get(countRequests);
 			found = false;
+			
+			//iterate over the available providers (sites) 
 			for (int countSites = 0; countSites < rating.size() && found == false; countSites++) {
 				nameSearchPath = (String[]) rating.elementAt(countSites);
 				requestedSite = nameSearchPath[0];
 				searchLink = nameSearchPath[1];
-				System.out.println("istanzio una classe "+requestedSite+"Search ..."+" e lancio il parser per il sito "+searchLink);				
+				System.out.println("istanzio una classe "+requestedSite+"_Search ..."+" e lancio il parser per il sito "+searchLink);				
 				isinFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
 
-				if(isinFinder.search(req.getISIN(), searchLink)){
-					System.out.println("ISIN trovato, vado a prendermi le info");
-					found = true;
-					baseLink = isinFinder.getBaseLink();
-					completeLink = isinFinder.getCompleteLink();
-				}else{
+				if(!isinFinder.search(req.getISIN(), searchLink)){
 					System.out.println("ISIN non trovato, provo con il provider successivo");
-				}				
-			}//end for
-			if(found){
+				}else{					
 
-		//		System.out.println("SELECT Type FROM tbl_name_type_url WHERE Name="+requestedSite+" AND Url="+baseLink);
-				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE Name=\""+requestedSite+"\" AND Url='"+baseLink+"'");
-				System.out.println("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
-//				Vector typeQuery = db.execQuery("SELECT Type FROM tbl_name_type_url WHERE `Url` = '"+baseLink+"'");
+					System.out.println("ISIN "+req.getISIN()+" trovato, vado a prendermi le info");
+					found = true;
+					completeLink = isinFinder.getCompleteLink();
 
-				if(0 == typeQuery.size()){
-					System.out.println("URL NON TROVATA!!");
-					return null;
+					SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
+
+					//launch the right parser based on the quotation type
+					switch (isinFinder.getType()) {
+					case BTP:
+						quot = detailsParser.parseBTP(new URL (completeLink));
+						break;
+					case BOT:
+						quot = detailsParser.parseBOT(new URL (completeLink));
+						break;
+					case CCT:
+						quot = detailsParser.parseCCT(new URL (completeLink));
+						break;
+					case CTZ:
+						quot = detailsParser.parseCTZ(new URL (completeLink));
+						break;
+					case BOND:
+						quot = detailsParser.parseBOND(new URL (completeLink));
+						break;
+					case SHARE:
+						quot = detailsParser.parseSHARE(new URL (completeLink));
+						break;
+					case FUND:
+						quot = detailsParser.parseFUND(new URL (completeLink));
+						break;
+					default:
+						break;					
+					}
+
+
+					if(null != quot){//positive outcome of parse function: set the remaining fields of the quotation and add to quotList
+						quot.setSite(requestedSite);
+						quot.setISIN(req.getISIN());
+						quotList.add(quot);
+						System.out.println("BELLA Lì per"+quot.getISIN());
+					}else {//negative outcome: reset found to false in order to force the parsification of the next provider
+						System.out.println("Errore nel parsing! Quotazione nulla!");
+						found = false; 
+					}
+
 				}
-				String[] reqType = (String[])typeQuery.elementAt(0);
-				SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
-				Type t = Type.valueOf(reqType[0]);
-				System.out.println("type è:"+t);
 
-				switch (t) {
-				case BTP:
-					quot = detailsParser.parseBTP(new URL (completeLink));
-					break;
-				case BOT:
-					quot = detailsParser.parseBOT(new URL (completeLink));
-					break;
-				case CCT:
-					quot = detailsParser.parseCCT(new URL (completeLink));
-					break;
-				case CTZ:
-					quot = detailsParser.parseCTZ(new URL (completeLink));
-					break;
-				case BOND:
-					quot = detailsParser.parseBOND(new URL (completeLink));
-					break;
-				case SHARE:
-					quot = detailsParser.parseSHARE(new URL (completeLink));
-					break;
-				case FUND:
-					quot = detailsParser.parseFUND(new URL (completeLink));
-					break;
-				default:
-					quot = detailsParser.parseBTP(new URL (completeLink));					
-				}
-				//da aggiustare magari con un'eccezione
-				//può essere che un giorno un link che funzionava ed era 
-				//in memoria smetta di funzionare e il parsing restituisca null
+				
+			}//end for (iteration over providers)
+			if(!found){
+				//TODO 
+				//settare la Quotation in maniera da definirla "invalida" e aggiungerla alla lista
 			}
-
-			if(null != quot){
-				quot.setSite(requestedSite);
-				quot.setISIN(req.getISIN());
-				quotList.add(quot);
-			}else {
-				System.out.println("Errore nel parsing! Quotazione nulla!");				
-			}
-		}
+			
+		}//end for (iteration over requests)
 			
 			
 		db.disconnect();

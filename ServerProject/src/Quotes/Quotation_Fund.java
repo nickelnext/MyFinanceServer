@@ -57,7 +57,7 @@ public class Quotation_Fund extends Quotation{
 		return dataUltimoPrezzo;
 	}
 	public void setDataUltimoPrezzo(String dataUltimoPrezzo) {
-		this.dataUltimoPrezzo = UtilFuncs.formatDate(dataUltimoPrezzo);
+		this.dataUltimoPrezzo = UtilFuncs.formatDateIt(dataUltimoPrezzo);
 	}
 	public float getPrezzoPrecedente() {
 		return prezzoPrecedente;

@@ -40,6 +40,30 @@ public class UtilFuncs {
 		"HH:mm",
 		"HH:mm:ss",
 	};
+	public static final String[] datePatternsEng = {
+		"MM/dd/yyyy",
+		"MM/dd/yyyy HH.mm",
+		"MM/dd/yyyy HH.mm.ss",
+		"MM/dd/yyyy HH:mm",
+		"MM/dd/yyyy HH:mm:ss",
+		//
+		"MM/dd/yyyy - HH.mm",
+		"MM/dd/yyyy - HH.mm.ss",
+		"MM/dd/yyyy - HH:mm",
+		"MM/dd/yyyy - HH:mm:ss",
+		//
+		"MM-dd-yyyy",
+		"MM-dd-yyyy HH.mm",
+		"MM-dd-yyyy HH.mm.ss",
+		"MM-dd-yyyy HH:mm",
+		"MM-dd-yyyy HH:mm:ss",
+		//
+		"HH.mm",
+		"HH.mm.ss",
+		//
+		"HH:mm",
+		"HH:mm:ss",
+	};
 
 
 
@@ -53,7 +77,7 @@ public class UtilFuncs {
 	}
 	public static String getString(Document doc, String nodeName)
 	{
-		return doc.getElementsByTagName(nodeName).item(0).getFirstChild().getNodeValue();
+			return doc.getElementsByTagName(nodeName).item(0).getFirstChild().getNodeValue();
 	}
 
 
@@ -109,19 +133,26 @@ public class UtilFuncs {
 
 	//	01/11/11 - 11.33.42
 
-	public static Date formatDate(String s)
+	public static Date formatDateIt(String s)
 	{
+		return formatDateSup(s, datePatterns);
+	}
+	public static Date formatDateEng(String s)
+	{
+		return formatDateSup(s, datePatternsEng);
+	}
+	private static Date formatDateSup(String s, String[] datepattern) {
 		Date date = null;
 		int i=0;
 		DateFormat formatter;
 		boolean found=false;
-		while(!found && i< datePatterns.length)
+		while(!found && i< datepattern.length)
 		{
-			formatter = new SimpleDateFormat(datePatterns[i]);
+			formatter = new SimpleDateFormat(datepattern[i]);
 			try {
 				//
 				date = formatter.parse(s);
-				if(!datePatterns[i].contains("/") && !datePatterns[i].contains("-"))
+				if(!datepattern[i].contains("/") && !datepattern[i].contains("-"))
 				{
 					//only time of the day i set, no date, so we need to add it using calendar
 					GregorianCalendar today = new GregorianCalendar();
@@ -137,6 +168,9 @@ public class UtilFuncs {
 			}
 		}
 		return date;
-	}	
+	}
+	
+	
+	
 
 }

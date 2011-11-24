@@ -48,13 +48,18 @@ public class Finanza_Repubblica_it_Search extends Search {
 				else
 					if(s.contains("Azioni"))
 						this.setType(Type.SHARE);
+					else
+					{
+						System.out.println("No Bond no Share: what is it?");
+						return false;
+					}
+				return true;
+				
 			}
-			else	//ricerca sull'altra pagina
-			{
-				//devo lanciare l'altra ricerca
-			}
+			
+				return false;
 
-			return true;
+			
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	

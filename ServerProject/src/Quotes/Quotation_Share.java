@@ -67,7 +67,7 @@ public class Quotation_Share extends Quotation{
 		return dataOraUltimoAcquisto;
 	}
 	public void setDataOraUltimoAcquisto(String string) {
-		this.dataOraUltimoAcquisto = UtilFuncs.formatDate(string);
+		this.dataOraUltimoAcquisto = UtilFuncs.formatDateIt(string);
 	}
 	public float getPrezzoAcquisto() {
 		return prezzoAcquisto;
@@ -133,13 +133,13 @@ public class Quotation_Share extends Quotation{
 		return dataMaxAnno;
 	}
 	public void setDataMaxAnno(String dataMaxAnno) {
-		this.dataMaxAnno = UtilFuncs.formatDate(dataMaxAnno);
+		this.dataMaxAnno = UtilFuncs.formatDateIt(dataMaxAnno);
 	}
 	public Date getDataMinAnno() {
 		return dataMinAnno;
 	}
 	public void setDataMinAnno(String dataMinAnno) {
-		this.dataMinAnno = UtilFuncs.formatDate(dataMinAnno);
+		this.dataMinAnno = UtilFuncs.formatDateIt(dataMinAnno);
 	}
 	public float getChiusuraPrecedente() {
 		return chiusuraPrecedente;

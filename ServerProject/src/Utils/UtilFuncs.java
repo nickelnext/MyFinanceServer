@@ -65,7 +65,7 @@ public class UtilFuncs {
 		"HH:mm:ss",
 	};
 
-	public static final String countryEn = "en";
+	public static final String countryUs = "us";
 	public static final String countryIt = "it";
 	public static final String countryDefault = "it";
 
@@ -139,10 +139,10 @@ public class UtilFuncs {
 	public static Date formatDate(String s, String country) {
 		String[] datepattern;
 		switch (country) {
-		case "it":
+		case UtilFuncs.countryIt:
 			datepattern = datePatterns;
 			break;
-		case "en":
+		case UtilFuncs.countryUs:
 			datepattern = datePatternsEng;
 			break;
 		default:

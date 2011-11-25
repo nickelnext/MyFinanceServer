@@ -36,7 +36,7 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			
 			//this setCountry is for parsing in the right way the dates in
 			//american style MM/dd/yyyyy, default is european style.
-			qb.setCountry(UtilFuncs.countryEn);
+			qb.setCountry(UtilFuncs.countryUs);
 
 			qb.setName(UtilFuncs.getString(doc, "Name"));		//Nome			
 			qb.setISIN(UtilFuncs.getString(doc, "Symbol"));		//ISIN

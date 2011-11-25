@@ -12,11 +12,12 @@ public abstract class Quotation {
 	protected String site;
 
 	//this field is used to know which language the website is, so we can parse the dates using dd/MM/yyyy or MM/dd/yyyy.
-	private String country = UtilFuncs.countryDefault;
+	private String country;
 	
 	
 	public Quotation() {
 		super();
+		country = UtilFuncs.countryDefault;
 	}
 
 	public String getName() {

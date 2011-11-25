@@ -10,7 +10,6 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation_Share;
 
 public class Program {
 

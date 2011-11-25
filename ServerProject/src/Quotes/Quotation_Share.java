@@ -49,19 +49,19 @@ public class Quotation_Share extends Quotation{
 		return prezzoUltimoContratto;
 	}
 	public void setPrezzoUltimoContratto(String string) {
-		this.prezzoUltimoContratto = UtilFuncs.repFloat(string);
+		this.prezzoUltimoContratto = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getVariazionePercentuale() {
 		return variazionePercentuale;
 	}
 	public void setVariazionePercentuale(String string) {
-		this.variazionePercentuale = UtilFuncs.repFloat(string);
+		this.variazionePercentuale = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
 	public void setVariazioneAssoluta(String string) {
-		this.variazioneAssoluta = UtilFuncs.repFloat(string);
+		this.variazioneAssoluta = UtilFuncs.repFloat(string, getCountry());
 	}
 	public Date getDataOraUltimoAcquisto() {
 		return dataOraUltimoAcquisto;
@@ -73,13 +73,13 @@ public class Quotation_Share extends Quotation{
 		return prezzoAcquisto;
 	}
 	public void setPrezzoAcquisto(String string) {
-		this.prezzoAcquisto = UtilFuncs.repFloat(string);
+		this.prezzoAcquisto = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
 	public void setPrezzoVendita(String string) {
-		this.prezzoVendita = UtilFuncs.repFloat(string);
+		this.prezzoVendita = UtilFuncs.repFloat(string, getCountry());
 	}
 	public int getQuantitaUltimo() {
 		return quantitaUltimo;
@@ -109,25 +109,25 @@ public class Quotation_Share extends Quotation{
 		return maxOggi;
 	}
 	public void setMaxOggi(String string) {
-		this.maxOggi = UtilFuncs.repFloat(string);
+		this.maxOggi = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
 	public void setMinOggi(String string) {
-		this.minOggi = UtilFuncs.repFloat(string);
+		this.minOggi = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getMaxAnno() {
 		return maxAnno;
 	}
 	public void setMaxAnno(String maxAnno) {
-		this.maxAnno = UtilFuncs.repFloat(maxAnno);
+		this.maxAnno = UtilFuncs.repFloat(maxAnno, getCountry());
 	}
 	public float getMinAnno() {
 		return minAnno;
 	}
 	public void setMinAnno(String minAnno) {
-		this.minAnno = UtilFuncs.repFloat(minAnno);
+		this.minAnno = UtilFuncs.repFloat(minAnno, getCountry());
 	}
 	public Date getDataMaxAnno() {
 		return dataMaxAnno;
@@ -145,7 +145,7 @@ public class Quotation_Share extends Quotation{
 		return chiusuraPrecedente;
 	}
 	public void setChiusuraPrecedente(String string) {
-		this.chiusuraPrecedente = UtilFuncs.repFloat(string);
+		this.chiusuraPrecedente = UtilFuncs.repFloat(string, getCountry());
 	}
 
 }

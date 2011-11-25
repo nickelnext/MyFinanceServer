@@ -89,14 +89,27 @@ public class UtilFuncs {
 			return true;
 		return false;
 	}
-	public static float repFloat(String string) {
+	public static float repFloat(String string, String country) {
+		Locale l;
+		switch (country) {
+		case UtilFuncs.countryUs:
+			l = Locale.US;
+			break;
+		case UtilFuncs.countryIt:
+			l = Locale.ITALY;
+			break;
+		default:
+			l = Locale.ITALY;
+			break;
+		}
+		
 		if(string == "")
 			return 0;
 		if(string.matches("\\D+"))
 			return 0;
 		try 
 		{
-			Number number = NumberFormat.getNumberInstance(Locale.ITALY).parse(string);
+			Number number = NumberFormat.getNumberInstance(l).parse(string);
 			return number.floatValue();
 		} 
 		catch (ParseException e) 

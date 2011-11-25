@@ -9,7 +9,10 @@ import java.net.URL;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import Quotes.Quotation_Share;
+import Search.Search;
 import Handlers.SiteInterface;
+import Quotes.Quotation_Bond;
 
 public class Program {
 
@@ -17,8 +20,8 @@ public class Program {
 
 
 				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-		//		Quotation_Bond q = s.parseBOND(new URL(
-		//				"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
+//				Quotation_Bond q = s.parseBOND(new URL(
+//						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 
 			
 
@@ -39,7 +42,7 @@ public class Program {
 		//		else
 		//			System.out.println("ok");
 		//		
-		//		System.out.println(q.toString());
+//				System.out.println(q.toString());
 		//		System.out.println(qs.toString());
 		//		System.out.println(qs.getISIN());
 		//		System.out.println(qs.getPrezzoUltimoContratto());
@@ -71,7 +74,7 @@ public class Program {
 
 
 		//YAHOO
-				SiteInterface sy = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
+//				SiteInterface sy = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
 //				Quotation_Share qy = sy.parseSHARE(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
 //		//		Quotation_Bond qy = sy.parseBTP(new URL("http://it.finance.yahoo.com/lookup?s=IT0004572910"));
 //				if (qy==null)
@@ -80,11 +83,11 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-//				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-//				src.search("A2A", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
-//				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
+				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+				src.search("A2A", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
-//				System.out.println(qs.toString());
+				System.out.println(qs.toString());
 				
 //		Search src = (Search)Class.forName("Search.Finanza_Virgilio_it_Search").newInstance();
 //		src.search("IT0004220627", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
@@ -116,8 +119,8 @@ public class Program {
 
 		//		Quotation_Bond q = yahoo.parseCCT(new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22PAP12.MI%22%29&env=store://datatables.org/alltableswithkeys"));
 		//		System.out.println(q.toString());
-				Quotes.Quotation_Share qs = yahoo.parseSHARE(new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22A2A.MI%22%29&env=store://datatables.org/alltableswithkeys"));
-				System.out.println(qs.toString());
+//				Quotes.Quotation_Share qs = yahoo.parseSHARE(new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22A2A.MI%22%29&env=store://datatables.org/alltableswithkeys"));
+//				System.out.println(qs.toString());
 
 		//		azione 
 		//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();

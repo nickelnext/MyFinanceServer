@@ -61,7 +61,7 @@ public class Quotation_Bond extends Quotation{
 		return prezzoUltimoContratto;
 	}
 	public void setPrezzoUltimoContratto(String string) {
-		this.prezzoUltimoContratto = UtilFuncs.repFloat(string);
+		this.prezzoUltimoContratto = UtilFuncs.repFloat(string, getCountry());
 	}
 	
 
@@ -69,13 +69,13 @@ public class Quotation_Bond extends Quotation{
 		return variazionePercentuale;
 	}
 	public void setVariazionePercentuale(String string) {
-		this.variazionePercentuale = UtilFuncs.repFloat(string);
+		this.variazionePercentuale = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
 	public void setVariazioneAssoluta(String string) {
-		this.variazioneAssoluta = UtilFuncs.repFloat(string);
+		this.variazioneAssoluta = UtilFuncs.repFloat(string, getCountry());
 	}
 	public Date getDataUltimoContratto() {
 		return dataUltimoContratto;
@@ -105,13 +105,13 @@ public class Quotation_Bond extends Quotation{
 		return prezzoAcquisto;
 	}
 	public void setPrezzoAcquisto(String string) {
-		this.prezzoAcquisto = UtilFuncs.repFloat(string);
+		this.prezzoAcquisto = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getPrezzoVendita() {
 		return prezzoVendita;
 	}
 	public void setPrezzoVendita(String string) {
-		this.prezzoVendita = UtilFuncs.repFloat(string);
+		this.prezzoVendita = UtilFuncs.repFloat(string, getCountry());
 	}
 	public int getVolumeTotale() {
 		return volumeTotale;
@@ -125,25 +125,25 @@ public class Quotation_Bond extends Quotation{
 		return maxOggi;
 	}
 	public void setMaxOggi(String string) {
-		this.maxOggi = UtilFuncs.repFloat(string);
+		this.maxOggi = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getMaxAnno() {
 		return maxAnno;
 	}
 	public void setMaxAnno(String string) {
-		this.maxAnno = UtilFuncs.repFloat(string);
+		this.maxAnno = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getMinOggi() {
 		return minOggi;
 	}
 	public void setMinOggi(String string) {
-		this.minOggi = UtilFuncs.repFloat(string);
+		this.minOggi = UtilFuncs.repFloat(string, getCountry());
 	}
 	public float getMinAnno() {
 		return minAnno;
 	}
 	public void setMinAnno(String string) {
-		this.minAnno = UtilFuncs.repFloat(string);
+		this.minAnno = UtilFuncs.repFloat(string, getCountry());
 	}
 	public Date getDataMinAnno() {
 		return dataMinAnno;
@@ -161,7 +161,7 @@ public class Quotation_Bond extends Quotation{
 		return aperturaChiusuraPrecedente;
 	}
 	public void setAperturaChiusuraPrecedente(String string) {
-		this.aperturaChiusuraPrecedente = UtilFuncs.repFloat(string);
+		this.aperturaChiusuraPrecedente = UtilFuncs.repFloat(string, getCountry());
 	}
 	public Date getScadenza() {
 		return scadenza;
@@ -180,7 +180,7 @@ public class Quotation_Bond extends Quotation{
 		return cedola;
 	}
 	public void setCedola(String string) {
-		this.cedola = UtilFuncs.repFloat(string);
+		this.cedola = UtilFuncs.repFloat(string, getCountry());
 	}
 	public int getLottoMinimo() {
 		return lottoMinimo;

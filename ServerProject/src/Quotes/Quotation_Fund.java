@@ -51,7 +51,7 @@ public class Quotation_Fund extends Quotation{
 		return ultimoPrezzo;
 	}
 	public void setUltimoPrezzo(String ultimoPrezzo) {
-		this.ultimoPrezzo = UtilFuncs.repFloat(ultimoPrezzo);
+		this.ultimoPrezzo = UtilFuncs.repFloat(ultimoPrezzo, getCountry());
 	}
 	public Date getDataUltimoPrezzo() {
 		return dataUltimoPrezzo;
@@ -63,7 +63,7 @@ public class Quotation_Fund extends Quotation{
 		return prezzoPrecedente;
 	}
 	public void setPrezzoPrecedente(String prezzoPrecedente) {
-		this.prezzoPrecedente = UtilFuncs.repFloat(prezzoPrecedente);
+		this.prezzoPrecedente = UtilFuncs.repFloat(prezzoPrecedente, getCountry());
 	}
 	public String getValuta() {
 		return valuta;
@@ -75,37 +75,37 @@ public class Quotation_Fund extends Quotation{
 		return variazionePercentuale;
 	}
 	public void setVariazionePercentuale(String variazionePercentuale) {
-		this.variazionePercentuale = UtilFuncs.repFloat(variazionePercentuale);
+		this.variazionePercentuale = UtilFuncs.repFloat(variazionePercentuale, getCountry());
 	}
 	public float getVariazioneAssoluta() {
 		return variazioneAssoluta;
 	}
 	public void setVariazioneAssoluta(String variazioneAssoluta) {
-		this.variazioneAssoluta = UtilFuncs.repFloat(variazioneAssoluta);
+		this.variazioneAssoluta = UtilFuncs.repFloat(variazioneAssoluta, getCountry());
 	}
 	public float getPerformance1Mese() {
 		return performance1Mese;
 	}
 	public void setPerformance1Mese(String performance1Mese) {
-		this.performance1Mese = UtilFuncs.repFloat(performance1Mese);
+		this.performance1Mese = UtilFuncs.repFloat(performance1Mese, getCountry());
 	}
 	public float getPerformance3Mesi() {
 		return performance3Mesi;
 	}
 	public void setPerformance3Mesi(String performance3Mesi) {
-		this.performance3Mesi = UtilFuncs.repFloat(performance3Mesi);
+		this.performance3Mesi = UtilFuncs.repFloat(performance3Mesi, getCountry());
 	}
 	public float getPerformance1Anno() {
 		return performance1Anno;
 	}
 	public void setPerformance1Anno(String performance1Anno) {
-		this.performance1Anno = UtilFuncs.repFloat(performance1Anno);
+		this.performance1Anno = UtilFuncs.repFloat(performance1Anno, getCountry());
 	}
 	public float getPerformance3Anni() {
 		return performance3Anni;
 	}
 	public void setPerformance3Anni(String performance3Anni) {
-		this.performance3Anni = UtilFuncs.repFloat(performance3Anni);
+		this.performance3Anni = UtilFuncs.repFloat(performance3Anni, getCountry());
 	}
 	
 	

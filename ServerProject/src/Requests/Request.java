@@ -2,16 +2,16 @@ package Requests;
 
 
 public class Request {
-	private String ISIN;
+	private String idCode;
 	
-	public Request(String ISIN) {
-		this.ISIN = ISIN;
+	public Request(String idCode) {
+		this.idCode = idCode;
 	}
-	public String getISIN() {
-		return ISIN;
+	public String getIdCode() {
+		return idCode;
 	}
-	public void setISIN(String iSIN) {
-		this.ISIN = iSIN;
+	public void setIdCode(String idCode) {
+		this.idCode = idCode;
 	}
 	
 	//TODO pensare ad altri attributi/preferenze utili

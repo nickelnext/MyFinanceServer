@@ -9,8 +9,8 @@ public class RequestUpdate extends Request{
 	private String preferredSite;
 	private Type type;
 
-	public RequestUpdate(String iSIN, Type type, String preferredSite) {
-		super(iSIN);
+	public RequestUpdate(String idCode, Type type, String preferredSite) {
+		super(idCode);
 		this.preferredSite = preferredSite;
 		this.type = type;
 	}

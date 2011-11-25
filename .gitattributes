@@ -9,6 +9,7 @@ ServerProject/src/Quotes/Quotation_Fund.java -text
 ServerProject/src/Quotes/Quotation_Share.java -text
 ServerProject/src/Quotes/Type.java -text
 ServerProject/src/RequestHandler.java -text
+ServerProject/src/RequestPolicies.java -text
 ServerProject/src/Requests/Request.java -text
 ServerProject/src/Requests/RequestContainer.java -text
 ServerProject/src/Requests/RequestForced.java -text

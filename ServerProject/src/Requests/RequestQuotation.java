@@ -4,8 +4,8 @@ package Requests;
 
 public class RequestQuotation extends Request{
 
-	public RequestQuotation(String iSIN) {
-		super(iSIN);
+	public RequestQuotation(String idCode) {
+		super(idCode);
 		// TODO Auto-generated constructor stub
 	}
 	

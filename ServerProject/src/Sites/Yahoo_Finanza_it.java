@@ -107,7 +107,7 @@ public class Yahoo_Finanza_it implements SiteInterface {
 
 			Quotation_Share qs = new Quotation_Share();
 
-			qs.setCountry(UtilFuncs.countryEn);
+			qs.setCountry(UtilFuncs.countryUs);
 			
 			qs.setName(UtilFuncs.getString(doc, "Name"));		//Nome			
 			qs.setISIN(UtilFuncs.getString(doc, "Symbol"));		//ISIN

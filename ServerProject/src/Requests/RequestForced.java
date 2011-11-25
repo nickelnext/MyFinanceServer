@@ -1,20 +1,22 @@
 package Requests;
 
+import java.util.ArrayList;
+
 public class RequestForced extends Request{
 	
-	String ignoredSite;
+	ArrayList<String> ignoredSites;
 
-	public String getIgnoredSite() {
-		return ignoredSite;
+	public ArrayList<String> getIgnoredSite() {
+		return ignoredSites;
 	}
 
-	public void setIgnoredSite(String ignoredSite) {
-		this.ignoredSite = ignoredSite;
+	public void setIgnoredSites(ArrayList<String> ignoredSites) {
+		this.ignoredSites = ignoredSites;
 	}
 
-	public RequestForced(String iSIN, String ignoredSite) {
+	public RequestForced(String iSIN, ArrayList<String> ignoredSites) {
 		super(iSIN);
-		this.ignoredSite = ignoredSite;
+		this.ignoredSites = ignoredSites;
 	}
 	
 	

@@ -2,12 +2,20 @@
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Vector;
+
+import sun.rmi.transport.proxy.CGIHandler;
+
+import com.github.neilprosser.cjson.CJSON;
+import com.google.gson.*;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;
 import Requests.Request;
 import Requests.RequestContainer;
+import Requests.RequestQuotation;
 import Search.Search;
 
 public class RequestHandler {
@@ -39,9 +47,20 @@ public class RequestHandler {
 		
 		if(null != resList){
 			for (int j = 0; j < resList.size(); j++) {	
-				System.out.println(resList.get(j).toString());
+				//System.out.println(resList.get(j).toString());
 			}
+		
+		Gson giasone = new Gson();
+		String jason = giasone.toJson(resList);
+		System.out.println(jason);
+		System.out.println("---------------COMPRIMIIII>>>>>>>>>");
+		String cjason = CJSON.pack(jason);
+		System.out.println(cjason);
+		System.out.println("<<<<<<<<<<<<<<DECOMPRIMIIIII---------------");
+		String jason2 = CJSON.unpack(cjason);
+		System.out.println(jason2);
 		}
+		
 	}		
 		
 	
@@ -55,14 +74,24 @@ public class RequestHandler {
 			System.exit(0);
 		}
 
+		RequestPolicies rp = new RequestPolicies();
+		
 		//SQL query to extract the list of providers ordered by "their hit rate"
-		Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC ;");
+		//Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC;");
+		rp.setSiteSearch(db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC;"));
+		
+		/*
 		if(0 == rating.size()){
 			System.out.println("TABELLA NAME_SEARCH VUOTA");
 		}
+		*/
+		if(0 == rp.getSiteSearch().size()){
+			System.out.println("TABELLA NAME_SEARCH VUOTA");
+		}
+
 		
 		ArrayList<Quotation> quotList = new ArrayList<Quotation>();
-		Search isinFinder;
+		Search idFinder;
 		
 		//iterate over the requests
 		for (int countRequests = 0; countRequests < arrReq.size(); countRequests++){	
@@ -75,28 +104,46 @@ public class RequestHandler {
 			String[] nameSearchPath;
 
 			Request req = arrReq.get(countRequests);
+			
+			//VALUTA IL TIPO DI RICHIESTA!
+			//SE requestQUOTATION base: ricerca random;
+			//se requestUpdate senza preferred: cerca migliore per tipo;
+			//se requestUpdate con preferred: cerca su preferred, e se c'è qualche problema cerca su migliori per tipo;
+			
+			if(req instanceof RequestQuotation){
+				int idx = (int)(Math.random() * rp.getSiteSearch().size());
+				for (int count = 0; count < rp.getSiteSearch().size(); count++) {
+
+
+					idx = (idx++) % rp.getSiteSearch().size();
+				}
+
+
+			}
+						
+			
 			found = false;
 			
 			//iterate over the available providers (sites) 
-			for (int countSites = 0; countSites < rating.size() && found == false; countSites++) {
-				nameSearchPath = (String[]) rating.elementAt(countSites);
+			for (int countSites = 0; countSites < rp.getSiteSearch().size() && found == false; countSites++) {
+				nameSearchPath = (String[]) rp.getSiteSearch().elementAt(countSites);
 				requestedSite = nameSearchPath[0];
 				searchLink = nameSearchPath[1];
 				System.out.println("istanzio una classe "+requestedSite+"_Search ..."+" e lancio il parser per il sito "+searchLink);				
-				isinFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
+				idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
 
-				if(!isinFinder.search(req.getISIN(), searchLink)){
+				if(!idFinder.search(req.getIdCode(), searchLink)){
 					System.out.println("ISIN non trovato, provo con il provider successivo");
 				}else{					
 
-					System.out.println("ISIN "+req.getISIN()+" trovato (type = "+isinFinder.getType()+")");
+					System.out.println("ISIN "+req.getIdCode()+" trovato (type = "+idFinder.getType()+")");
 					found = true;
-					completeLink = isinFinder.getCompleteLink();
+					completeLink = idFinder.getCompleteLink();
 
 					SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
 
 					//launch the right parser based on the quotation type
-					switch (isinFinder.getType()) {
+					switch (idFinder.getType()) {
 					case BTP:
 						quot = detailsParser.parseBTP(new URL (completeLink));
 						break;
@@ -125,7 +172,7 @@ public class RequestHandler {
 
 					if(null != quot){//positive outcome of parse function: set the remaining fields of the quotation and add to quotList
 						quot.setSite(requestedSite);
-						quot.setISIN(req.getISIN());
+						quot.setISIN(req.getIdCode());
 						quotList.add(quot);
 						System.out.println("BELLA Lì per"+quot.getISIN());
 					}else {//negative outcome: reset found to false in order to force the parsification of the next provider

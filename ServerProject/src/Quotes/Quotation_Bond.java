@@ -33,6 +33,7 @@ public class Quotation_Bond extends Quotation{
 	protected int lottoMinimo;
 	
 
+
 	public Quotation_Bond() {
 		super();
 		super.setType(Type.BOND);
@@ -80,7 +81,7 @@ public class Quotation_Bond extends Quotation{
 		return dataUltimoContratto;
 	}
 	public void setDataUltimoContratto(String string) {
-		this.dataUltimoContratto = UtilFuncs.formatDateIt(string);
+		this.dataUltimoContratto = UtilFuncs.formatDate(string, getCountry());
 	}
 	public int getVolumeUltimo() {
 		return volumeUltimo;
@@ -148,13 +149,13 @@ public class Quotation_Bond extends Quotation{
 		return dataMinAnno;
 	}
 	public void setDataMinAnno(String string) {
-		this.dataMinAnno = UtilFuncs.formatDateIt(string);
+		this.dataMinAnno = UtilFuncs.formatDate(string, getCountry());
 	}
 	public Date getDataMaxAnno() {
 		return dataMaxAnno;
 	}
 	public void setDataMaxAnno(String string) {
-		this.dataMaxAnno = UtilFuncs.formatDateIt(string);
+		this.dataMaxAnno = UtilFuncs.formatDate(string, getCountry());
 	}
 	public float getAperturaChiusuraPrecedente() {
 		return aperturaChiusuraPrecedente;
@@ -166,13 +167,13 @@ public class Quotation_Bond extends Quotation{
 		return scadenza;
 	}
 	public void setScadenza(String string) {
-		this.scadenza = UtilFuncs.formatDateIt(string);
+		this.scadenza = UtilFuncs.formatDate(string, getCountry());
 	}
 	public Date getDataStaccoCedola() {
 		return dataStaccoCedola;
 	}
 	public void setDataStaccoCedola(String string) {
-		this.dataStaccoCedola = UtilFuncs.formatDateIt(string);
+		this.dataStaccoCedola = UtilFuncs.formatDate(string, getCountry());
 	}
 
 	public float getCedola() {

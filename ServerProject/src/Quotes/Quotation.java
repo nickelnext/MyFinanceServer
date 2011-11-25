@@ -2,6 +2,7 @@ package Quotes;
 
 import java.lang.reflect.Field;
 import Quotes.Type;
+import Utils.UtilFuncs;
 
 public abstract class Quotation {
 
@@ -10,6 +11,10 @@ public abstract class Quotation {
 	protected Type type;
 	protected String site;
 
+	//this field is used to know which language the website is, so we can parse the dates using dd/MM/yyyy or MM/dd/yyyy.
+	private String country = UtilFuncs.countryDefault;
+	
+	
 	public Quotation() {
 		super();
 	}
@@ -67,6 +72,14 @@ public abstract class Quotation {
 
         return result.toString();
       }
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 
 

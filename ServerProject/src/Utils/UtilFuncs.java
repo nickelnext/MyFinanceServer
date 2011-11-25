@@ -65,7 +65,9 @@ public class UtilFuncs {
 		"HH:mm:ss",
 	};
 
-
+	public static final String countryEn = "en";
+	public static final String countryIt = "it";
+	public static final String countryDefault = "it";
 
 
 
@@ -133,15 +135,20 @@ public class UtilFuncs {
 
 	//	01/11/11 - 11.33.42
 
-	public static Date formatDateIt(String s)
-	{
-		return formatDateSup(s, datePatterns);
-	}
-	public static Date formatDateEng(String s)
-	{
-		return formatDateSup(s, datePatternsEng);
-	}
-	private static Date formatDateSup(String s, String[] datepattern) {
+
+	public static Date formatDate(String s, String country) {
+		String[] datepattern;
+		switch (country) {
+		case "it":
+			datepattern = datePatterns;
+			break;
+		case "en":
+			datepattern = datePatternsEng;
+			break;
+		default:
+			datepattern = datePatterns;
+			break;
+		}
 		Date date = null;
 		int i=0;
 		DateFormat formatter;

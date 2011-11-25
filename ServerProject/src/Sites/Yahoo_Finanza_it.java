@@ -33,7 +33,10 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			Document doc = db.parse(url.openStream());
 
 			Quotation_Bond qb = new Quotation_Bond();
-
+			
+			//this setCountry is for parsing in the right way the dates in
+			//american style MM/dd/yyyyy, default is european style.
+			qb.setCountry(UtilFuncs.countryEn);
 
 			qb.setName(UtilFuncs.getString(doc, "Name"));		//Nome			
 			qb.setISIN(UtilFuncs.getString(doc, "Symbol"));		//ISIN
@@ -104,6 +107,8 @@ public class Yahoo_Finanza_it implements SiteInterface {
 
 			Quotation_Share qs = new Quotation_Share();
 
+			qs.setCountry(UtilFuncs.countryEn);
+			
 			qs.setName(UtilFuncs.getString(doc, "Name"));		//Nome			
 			qs.setISIN(UtilFuncs.getString(doc, "Symbol"));		//ISIN
 //		qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));

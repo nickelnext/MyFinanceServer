@@ -24,3 +24,7 @@ ServerProject/src/Sites/Borse_it.java -text
 ServerProject/src/Sites/Finanza_Repubblica_it.java -text
 ServerProject/src/Sites/Yahoo_Finanza_it.java -text
 ServerProject/src/Utils/UtilFuncs.java -text
+extLibraries/gson-2.0.jar -text
+extLibraries/joda-time-2.0.jar -text
+extLibraries/jtidy-r938.jar -text
+extLibraries/mysql-connector-java-5.1.18-bin.jar -text

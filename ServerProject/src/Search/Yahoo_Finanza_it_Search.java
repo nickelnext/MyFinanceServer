@@ -52,7 +52,7 @@ public class Yahoo_Finanza_it_Search extends Search {
 			case "Obbligazioni":
 				this.setType(Type.BOND);
 				break;
-			case "Azioni":
+			case "Azione":
 				this.setType(Type.SHARE);
 				break;
 			default:

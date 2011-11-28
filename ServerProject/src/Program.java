@@ -9,10 +9,9 @@ import java.net.URL;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import Handlers.SiteInterface;
 import Quotes.Quotation_Share;
 import Search.Search;
-import Handlers.SiteInterface;
-import Quotes.Quotation_Bond;
 
 public class Program {
 
@@ -83,25 +82,25 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-				src.search("A2A", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
-				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
+//				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+//				src.search("A2A", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+//				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
-				System.out.println(qs.toString());
+//				System.out.println(qs.toString());
 				
 //		Search src = (Search)Class.forName("Search.Finanza_Virgilio_it_Search").newInstance();
 //		src.search("IT0004220627", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
 
 
-		//		Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
-		//		src.search("IT0004572910", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
-				SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
+				Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
+				src.search("IT0003990402", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
+//				SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
 
 
 
 
-		//		System.out.println(src.getType());
-		//		System.out.println(src.getCompleteLink());
+				System.out.println(src.getType());
+				System.out.println(src.getCompleteLink());
 
 
 		//		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();

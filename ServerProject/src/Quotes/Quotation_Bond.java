@@ -36,7 +36,7 @@ public class Quotation_Bond extends Quotation{
 
 	public Quotation_Bond() {
 		super();
-		super.setType(Type.BOND);
+		super.setType(QuotationType.BOND);
 	}
 	
 	public String getValuta() {

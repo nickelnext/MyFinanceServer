@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 import Utils.UtilFuncs;
 
 public class Borsaitaliana_it_Search extends Search {
@@ -47,28 +47,28 @@ public class Borsaitaliana_it_Search extends Search {
 			
 			
 			if(this.getCompleteLink().contains("ctz"))
-				this.setType(Type.CTZ);
+				this.setType(QuotationType.CTZ);
 			else
 				if(this.getCompleteLink().contains("cct"))
-					this.setType(Type.CCT);
+					this.setType(QuotationType.CCT);
 				else
 					if(this.getCompleteLink().contains("bot"))
-						this.setType(Type.BOT);
+						this.setType(QuotationType.BOT);
 					else
 						if(this.getCompleteLink().contains("btp"))
-							this.setType(Type.BTP);
+							this.setType(QuotationType.BTP);
 						else
 							if(this.getCompleteLink().contains("extramot"))
-								this.setType(Type.BOND);
+								this.setType(QuotationType.BOND);
 							else
 								if(this.getCompleteLink().contains("obbligazioni-in-euro"))
-									this.setType(Type.BOND);
+									this.setType(QuotationType.BOND);
 								else
 									if(this.getCompleteLink().contains("azioni"))
-										this.setType(Type.CTZ);
+										this.setType(QuotationType.SHARE);
 									else
 										if(this.getCompleteLink().contains("fondi"))
-											this.setType(Type.FUND);
+											this.setType(QuotationType.FUND);
 										else
 											this.setType(null);
 			

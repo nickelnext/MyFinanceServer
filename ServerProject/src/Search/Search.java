@@ -1,18 +1,18 @@
 package Search;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 
 
 public abstract class Search {
 
 	private String completeLink;
-	private Type type;
+	private QuotationType type;
 	
-	public Type getType() {
+	public QuotationType getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(QuotationType type) {
 		this.type = type;
 	}
 

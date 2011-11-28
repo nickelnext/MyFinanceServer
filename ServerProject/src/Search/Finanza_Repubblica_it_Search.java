@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 import Utils.UtilFuncs;
 
 public class Finanza_Repubblica_it_Search extends Search {
@@ -44,10 +44,10 @@ public class Finanza_Repubblica_it_Search extends Search {
 				String s = nodes.item(1).getNodeValue();
 
 				if(s.contains("Tit. di Stato") || s.contains("Obbligazioni"))
-					this.setType(Type.BOND);
+					this.setType(QuotationType.BOND);
 				else
 					if(s.contains("Azioni"))
-						this.setType(Type.SHARE);
+						this.setType(QuotationType.SHARE);
 					else
 					{
 						System.out.println("No Bond no Share: what is it?");

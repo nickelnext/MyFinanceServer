@@ -4,6 +4,7 @@
  * Fornisce i metodi per l'esecuzione delle query sul Database
  */
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class MyDatabase {
@@ -14,6 +15,9 @@ public class MyDatabase {
    private Connection db;       // La connessione col Database
    private boolean connected;    // Flag che indica se la connessione è attiva o meno
 
+   static final String DRIVER = "com.mysql.jdbc.Driver";
+   static final String DB_URL = "jdbc:mysql://db4free.net:3306/";
+   
    public MyDatabase(String dbName) { this(dbName, "", ""); }
 
 
@@ -31,7 +35,7 @@ public class MyDatabase {
       try {
 
          // Carico il driver JDBC per la connessione con il database MySQL
-         Class.forName("com.mysql.jdbc.Driver");
+         Class.forName(DRIVER);
 
          // Controllo che il nome del Database non sia nulla
          if (!dbName.equals("")) {
@@ -40,18 +44,18 @@ public class MyDatabase {
             if (userName.equals("")) {
 
                // La connessione non richiede nome utente e password
-               db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName);
+               db = DriverManager.getConnection(DB_URL + dbName);
             } else {
 
                // La connessione richiede nome utente, controllo se necessita anche della password
                if (userPwd.equals("")) {
 
                   // La connessione non necessita di password
-                  db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName + "?user=" + userName);
+                  db = DriverManager.getConnection(DB_URL + dbName + "?user=" + userName);
                } else {
 
                   // La connessione necessita della password
-                  db = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/" + dbName + "?user=" + userName + "&password=" + userPwd);
+                  db = DriverManager.getConnection(DB_URL + dbName + "?user=" + userName + "&password=" + userPwd);
                }
             }
 
@@ -93,6 +97,30 @@ public class MyDatabase {
       return v;
    }
 
+   public ArrayList<String[]> execQuery2(String query) {
+	      ArrayList<String[]> v = null;
+	      String [] record;
+	      int columns = 0;
+	      try {
+	         Statement stmt = db.createStatement();     // Creo lo Statement per l'esecuzione della query
+	         ResultSet rs = stmt.executeQuery(query);   // Ottengo il ResultSet dell'esecuzione della query
+	         v = new ArrayList<>();
+	         ResultSetMetaData rsmd = rs.getMetaData();
+	         columns = rsmd.getColumnCount();
+
+	         while(rs.next()) {   // Creo il vettore result scorrendo tutto il ResultSet
+	            record = new String[columns];
+	            for (int i=0; i<columns; i++) record[i] = rs.getString(i+1);
+	            v.add( (String[]) record.clone() );
+	         }
+	         rs.close();     // Chiudo il ResultSet
+	         stmt.close();   // Chiudo lo Statement
+	      } catch (Exception e) { e.printStackTrace(); error = e.getMessage(); }
+
+	      return v;
+	   }
+
+   
    // Esegue una query di aggiornamento sul Database
    // query: una stringa che rappresenta un'istuzione SQL di tipo UPDATE da eseguire
    // ritorna TRUE se l'esecuzione è adata a buon fine, FALSE se c'è stata un'eccezione

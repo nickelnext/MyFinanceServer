@@ -26,7 +26,7 @@ public class Quotation_Fund extends Quotation{
 	
 	public Quotation_Fund() {
 		super();
-		this.setType(Type.FUND);
+		this.setType(QuotationType.FUND);
 	}
 	
 	public String getNomeGestore() {

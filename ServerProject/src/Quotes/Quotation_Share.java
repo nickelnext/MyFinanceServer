@@ -29,7 +29,7 @@ public class Quotation_Share extends Quotation{
 	
 	public Quotation_Share() {
 		super();
-		super.setType(Type.SHARE);
+		super.setType(QuotationType.SHARE);
 	}
 	
 

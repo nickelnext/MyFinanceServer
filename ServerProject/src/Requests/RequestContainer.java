@@ -3,12 +3,12 @@ package Requests;
 import java.util.ArrayList;
 import java.util.Set;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 
 public class RequestContainer {
 	
 	private int id; //da definire: qualcosa che lo identifichi
-	private Set<Type> preferredTypes; //per definire eventuali preferenze
+	private Set<QuotationType> preferredTypes; //per definire eventuali preferenze
 	private ArrayList<Request> reqList;
 	
 	public int getId() {
@@ -17,10 +17,10 @@ public class RequestContainer {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Set<Type> getPreferredTypes() {
+	public Set<QuotationType> getPreferredTypes() {
 		return preferredTypes;
 	}
-	public void setPreferredTypes(Set<Type> preferredTypes) {
+	public void setPreferredTypes(Set<QuotationType> preferredTypes) {
 		this.preferredTypes = preferredTypes;
 	}
 	public ArrayList<Request> getReqList() {

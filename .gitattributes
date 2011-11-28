@@ -4,6 +4,7 @@ ServerProject/src/Handlers/SiteInterface.java -text
 ServerProject/src/MyDatabase.java -text
 ServerProject/src/Program.java -text
 ServerProject/src/Quotes/Quotation.java -text
+ServerProject/src/Quotes/QuotationType.java -text
 ServerProject/src/Quotes/Quotation_Bond.java -text
 ServerProject/src/Quotes/Quotation_Fund.java -text
 ServerProject/src/Quotes/Quotation_Share.java -text
@@ -14,6 +15,7 @@ ServerProject/src/Requests/Request.java -text
 ServerProject/src/Requests/RequestContainer.java -text
 ServerProject/src/Requests/RequestForced.java -text
 ServerProject/src/Requests/RequestQuotation.java -text
+ServerProject/src/Requests/RequestType.java -text
 ServerProject/src/Requests/RequestUpdate.java -text
 ServerProject/src/Search/Borsaitaliana_it_Search.java -text
 ServerProject/src/Search/Finanza_Repubblica_it_Search.java -text

@@ -1,14 +1,14 @@
 package Quotes;
 
 import java.lang.reflect.Field;
-import Quotes.Type;
+import Quotes.QuotationType;
 import Utils.UtilFuncs;
 
 public abstract class Quotation {
 
 	protected String name;
 	protected String ISIN;
-	protected Type type;
+	protected QuotationType type;
 	protected String site;
 
 	//this field is used to know which language the website is, so we can parse the dates using dd/MM/yyyy or MM/dd/yyyy.
@@ -32,10 +32,10 @@ public abstract class Quotation {
 	public void setISIN(String isin) {
 		this.ISIN = isin;
 	}
-	public Type getType() {
+	public QuotationType getType() {
 		return type;
 	}
-	public void setType(Type type) {
+	public void setType(QuotationType type) {
 		this.type = type;
 	}
 

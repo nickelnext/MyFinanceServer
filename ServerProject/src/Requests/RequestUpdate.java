@@ -1,15 +1,15 @@
 package Requests;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 
 
 
 public class RequestUpdate extends Request{
 
 	private String preferredSite;
-	private Type type;
+	private QuotationType type;
 
-	public RequestUpdate(String idCode, Type type, String preferredSite) {
+	public RequestUpdate(String idCode, QuotationType type, String preferredSite) {
 		super(idCode);
 		this.preferredSite = preferredSite;
 		this.type = type;

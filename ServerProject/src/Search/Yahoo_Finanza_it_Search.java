@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 import Utils.UtilFuncs;
 
 public class Yahoo_Finanza_it_Search extends Search {
@@ -50,10 +50,10 @@ public class Yahoo_Finanza_it_Search extends Search {
 			
 			switch (nodes.item(4).getNodeValue()) { //type
 			case "Obbligazioni":
-				this.setType(Type.BOND);
+				this.setType(QuotationType.BOND);
 				break;
 			case "Azione":
-				this.setType(Type.SHARE);
+				this.setType(QuotationType.SHARE);
 				break;
 			default:
 				this.setType(null);

@@ -9,18 +9,21 @@ import Quotes.QuotationType;
 import Requests.Request;
 import Requests.RequestForced;
 import Requests.RequestQuotation;
+import Requests.RequestType;
 import Requests.RequestUpdate;
 
 
 public class RequestPolicies {
 
+	
+	
 	private Vector siteSearch;
 	private Vector shareList;
 	private Vector  bondList;
 	private Vector  fundList;
 	private Hashtable<String, String> siteNameTable;
+	  
 	
-
 	public RequestPolicies(	) {
 		
 	}
@@ -65,14 +68,19 @@ public class RequestPolicies {
 
 	
 	
-	public Vector getSiteSearch() {
+	public Vector getSiteSearch(MyDatabase db) {
+		//kinda sigleton pattern
+		if(this.siteSearch == null){
+			this.siteSearch = db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;");
+			this.setSiteNameTable(this.siteSearch);
+		}
 		return siteSearch;
 	}
 	public void setSiteSearch(Vector siteSearch) {
 		this.siteSearch = siteSearch;
 	}
 	public Vector getShareList(MyDatabase db) {
-		//sigleton pattern
+		//kinda sigleton pattern
 		if(this.shareList == null){
 			this.shareList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.SHARE+"\"ORDER BY Rating DESC;" );
 		}
@@ -85,7 +93,7 @@ public class RequestPolicies {
 	}
 	
 	public Vector getBondList(MyDatabase db) {
-		//sigleton pattern
+		//kinda sigleton pattern
 		if(this.shareList == null){
 			this.shareList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.BOND+"\"ORDER BY Rating DESC;" );
 		}
@@ -95,7 +103,7 @@ public class RequestPolicies {
 		this.bondList = bondList;
 	}
 	public Vector getFundList(MyDatabase db) {
-		//sigleton pattern
+		//kinda sigleton pattern
 				if(this.shareList == null){
 					this.shareList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.FUND+"\"ORDER BY Rating DESC;" );
 				}
@@ -106,6 +114,22 @@ public class RequestPolicies {
 		this.fundList = fundList;
 	}
 	
+	public void updateRankingTables(boolean found, RequestType rType, QuotationType qType, String siteName, MyDatabase db){
+		
+		if(found){
+			if(rType.equals(RequestType.QUOTATION) || rType.equals(RequestType.UPDATE)){
+				db.updateQuery("UPDATE `tbl_name_type_search_rate` SET   `Hits`=`Hits`+'1' , `Total`=`Total`+'1' , `Rating`=(`Hits`+'1')/(`Total`+'1')*100 WHERE `tbl_name_type_search_rate`.`Name` = '"+siteName+"' AND `tbl_name_type_search_rate`.`Type` = '"+qType+"';");
+			}
+		}else{
+			if(rType.equals(RequestType.QUOTATION) || rType.equals(RequestType.UPDATE)){
+				db.updateQuery("UPDATE `tbl_name_type_search_rate` SET   `Total`=`Total`+'1' , `Rating`=(`Hits`)/(`Total`)*100 WHERE `tbl_name_type_search_rate`.`Name` = '"+siteName+"' AND `tbl_name_type_search_rate`.`Type` = '"+qType+"';");
+			}
+		}
+				
+
+	}
 	
 	
 }
+
+				

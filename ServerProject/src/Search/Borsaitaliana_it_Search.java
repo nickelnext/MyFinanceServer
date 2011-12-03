@@ -47,16 +47,16 @@ public class Borsaitaliana_it_Search extends Search {
 			
 			
 			if(this.getCompleteLink().contains("ctz"))
-				this.setType(QuotationType.CTZ);
+				this.setType(QuotationType.BOND); //this.setType(QuotationType.CTZ);
 			else
 				if(this.getCompleteLink().contains("cct"))
-					this.setType(QuotationType.CCT);
+					this.setType(QuotationType.BOND); //this.setType(QuotationType.CCT);
 				else
 					if(this.getCompleteLink().contains("bot"))
-						this.setType(QuotationType.BOT);
+						this.setType(QuotationType.BOND); //this.setType(QuotationType.BOT);
 					else
 						if(this.getCompleteLink().contains("btp"))
-							this.setType(QuotationType.BTP);
+							this.setType(QuotationType.BOND); //this.setType(QuotationType.BTP);
 						else
 							if(this.getCompleteLink().contains("extramot"))
 								this.setType(QuotationType.BOND);

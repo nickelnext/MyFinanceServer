@@ -20,6 +20,7 @@ import Requests.Request;
 import Requests.RequestContainer;
 import Requests.RequestForced;
 import Requests.RequestQuotation;
+import Requests.RequestType;
 import Requests.RequestUpdate;
 import Search.Search;
 
@@ -41,9 +42,9 @@ public class RequestHandler {
 		ArrayList<Request> tmpList2 = new ArrayList<Request>();
 
 		tmpList.add(new Request("IT0004572910"));
-		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__" ));
-		tmpList.add(new Request("IT0004220627", QuotationType.BOND, "Borsaitaliana_it"));
-		tmpList.add(new Request("IT0003926547", QuotationType.BOND, "Yahoo_Finanza_it"));
+		tmpList.add(new Request("IT0004719297"));
+		tmpList.add(new Request("IT0004220627"));
+		tmpList.add(new Request("IT0003926547"));
 		tmpList.add(new Request("IT0001233417"));
 		tmpList.add(new Request("LU0336083497"));
 		tmpList.add(new Request("US38259P5089"));
@@ -86,7 +87,23 @@ public class RequestHandler {
 		}
 		
 	}		
+
+	
+	// decode the compressed json string, convert it to Arraylist<Request> and return it	
+	public static ArrayList<Request> decodeRequests(String cjson){
+		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
 		
+		ArrayList<Request> res;
+		Gson converter = new Gson();
+		
+		String json = CJSON.unpack(cjson);
+//		System.out.println(jason);
+		Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
+		res = converter.fromJson(json, typeOfT);
+		
+		return res;
+		
+	}
 	
 	public static ArrayList<Quotation> processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
@@ -100,32 +117,20 @@ public class RequestHandler {
 
 		RequestPolicies rp = new RequestPolicies();
 		
-		//SQL query to extract the list of providers ordered by "their hit rate"
-		//Vector rating = db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate ORDER BY HitRate DESC;");
-		//rp.setSiteSearch(db.execQuery("SELECT Name,SearchPath FROM tbl_name_search_rate;"));
-		rp.setSiteSearch(db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;"));
-		rp.setSiteNameTable(rp.getSiteSearch());
+		//extract 
+//		rp.setSiteSearch(db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;"));
+//		rp.setSiteNameTable(rp.getSiteSearch(db));
 		
-		ArrayList<String[]> pino = db.execQuery2("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;");
-		for (int culo = 0; culo < pino.size(); culo++) {
-			System.out.println("PINELLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			System.out.println(pino.get(culo)[0]+"\t"+pino.get(culo)[1]);
+		if(0 == rp.getSiteSearch(db).size()){
+			System.out.println("EMPTY NAME_SEARCH TABLE");
 		}
-		/*
-		if(0 == rating.size()){
-			System.out.println("TABELLA NAME_SEARCH VUOTA");
-		}
-		*/
-		if(0 == rp.getSiteSearch().size()){
-			System.out.println("TABELLA NAME_SEARCH VUOTA");
-		}
-
 		
+		//arrayList to be returned 
 		ArrayList<Quotation> quotList = new ArrayList<Quotation>();
 		Search idFinder;
 		
-		//iterate over the requests
-		for (int countRequests = 0; countRequests < arrReq.size(); countRequests++){	
+		//FOR ALL THE REQUESTS IN THE LIST
+		for (int countRequests = 0; countRequests < arrReq.size(); countRequests++){							
 
 			String requestedSite = null; //name of the current provider
 			String searchLink = null; //search url for the current provider
@@ -137,42 +142,43 @@ public class RequestHandler {
 			String[] nameSearchPath = new String[2];
 
 			Request req = arrReq.get(countRequests);
-			
-			//dichiara indici (e inizializza)
-			int randomIdx = (int)(Math.random() * rp.getSiteSearch().size());
+
+			//declaration of indexes for the various type of requests
+			int randomIdx = (int)(Math.random() * rp.getSiteSearch(db).size()); //for random extraction of the provider 
 			int quotIdx = 0;
 			int updateIdx = 0;
 			int forcedIdx = 0;
 			int threshold;
 			found = false;
 			noMoreSites = false;
-			
+
+			//iteration to get quotation details based on the type of request [continue until the information is found or there are no more providers(failure)]
 			while(!found && !noMoreSites){
-			
-			//VALUTA IL TIPO DI RICHIESTA!
-			//SE requestQUOTATION base: ricerca random;
-			//se requestUpdate senza preferred: cerca migliore per tipo;
-			//se requestUpdate con preferred: cerca su preferred, e se c'è qualche problema cerca su migliori per tipo;
-			
-			//switch per assegnare valori a nameSearchPath[0-1]
+
+				//VALUTA IL TIPO DI RICHIESTA!
+				//SE requestQUOTATION base: ricerca random;
+				//se requestUpdate senza preferred: cerca migliore per tipo;
+				//se requestUpdate con preferred: cerca su preferred, e se c'è qualche problema cerca su migliori per tipo;
+
+				//switchCase to choose the provider based on the RequestType 
 				switch (req.getReqType()) { 
-				case QUOTATION:
-					//ricerca random
+
+				case QUOTATION:		//NO INFO ABOUT QUOTATION TYPE: search quotation in a random selected provider  
 					System.out.println("------------->>QUOTATION");
 					//let's pick a random element from Sitesearch vector
-					nameSearchPath = (String[]) rp.getSiteSearch().elementAt(randomIdx);	
-					randomIdx = (randomIdx+1) % rp.getSiteSearch().size();
-					if(quotIdx+1 >= rp.getSiteSearch().size()){
+					nameSearchPath = (String[]) rp.getSiteSearch(db).elementAt(randomIdx);	
+					randomIdx = (randomIdx+1) % rp.getSiteSearch(db).size();
+					if(quotIdx+1 >= rp.getSiteSearch(db).size()){
 						noMoreSites = true;
 					}
 					quotIdx++;
 					break;//end case QUOTATION
 
 
-				case UPDATE:
-					//ricerca per tipo con possibile preferenza
+				case UPDATE:	//QUOTATION TYPE KNOWN, POSSIBLY PREFERRED SITE
+					//select the provider based on the quotation type [precedence precedence to the preferred site]
 					System.out.println("------------->>UPDATE");
-					//int updateIdx = 0;
+					//verify whether or not preferredSite is specified 
 					if(updateIdx == 0 && req.getPreferredSite() != "__NONE__"){
 						//get search url from HT siteNameTable
 						nameSearchPath[0] = req.getPreferredSite();
@@ -199,18 +205,18 @@ public class RequestHandler {
 								threshold = 0;
 								break;
 							}
-							if((updateIdx + 1) >= threshold){
+							if((updateIdx + 1) >= threshold){//verify whether all the providers have been "inspected"
 								noMoreSites = true;
 							}
 							valid = !nameSearchPath[0].equals(req.getPreferredSite());
 							updateIdx++;
 						}
-						
+
 					}	
 					break;//end case UPDATE
 
 
-				case FORCED:
+				case FORCED:	//TYPE IS KNOWN.. PROVIDERS IN ignoredSites MUST BE IGNORED
 					System.out.println("------------->>FORCED");
 					//int forcedIdx = 0;
 					valid = false;
@@ -233,7 +239,7 @@ public class RequestHandler {
 							threshold = 0;
 							break;
 						}
-						if(!req.getIgnoredSites().contains(nameSearchPath[0])){
+						if(!req.getIgnoredSites().contains(nameSearchPath[0])){// if the selected provider is not in the ignoredSite list, it is valid. 
 							valid = true;
 						}
 						if(forcedIdx + 1 >= threshold){
@@ -248,153 +254,85 @@ public class RequestHandler {
 					break;
 				}//end switch req.getReqType() 
 
-			requestedSite = nameSearchPath[0];
-			searchLink = nameSearchPath[1];
-			//instantiate the requestedSite_Search parser to search for idCode in searchLink url
-			System.out.println("istanzio una classe "+requestedSite+"_Search ..."+" e lancio il parser per il sito "+searchLink);				
-			idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
-
-			//launch idFinder and immediately verify the boolean return value
-			if(!idFinder.search(req.getIdCode(), searchLink)){
-				System.out.println("IdCode non trovato, provo con il provider successivo");
-			}else{
-
-				System.out.println("IdCode "+req.getIdCode()+" trovato (type = "+idFinder.getType()+")");
-				found = true;
-				
-				completeLink = idFinder.getCompleteLink();
-
-				//Instantiate the second parser to find details of the quotation 
-				SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
-
-				//launch the right parser based on the quotation type
-				if(null != idFinder.getType()){					
-					switch (idFinder.getType()) {
-					case BTP:
-						quot = detailsParser.parseBTP(new URL (completeLink));
-						break;
-					case BOT:
-						quot = detailsParser.parseBOT(new URL (completeLink));
-						break;
-					case CCT:
-						quot = detailsParser.parseCCT(new URL (completeLink));
-						break;
-					case CTZ:
-						quot = detailsParser.parseCTZ(new URL (completeLink));
-						break;
-					case BOND:
-						quot = detailsParser.parseBOND(new URL (completeLink));
-						break;
-					case SHARE:
-						quot = detailsParser.parseSHARE(new URL (completeLink));
-						break;
-					case FUND:
-						quot = detailsParser.parseFUND(new URL (completeLink));
-						break;
-					default:
-						break;					
-					}
-				}else {
-					quot = null;
-				}
-
-				if(null != quot){//positive outcome of parse function: set the remaining fields of the quotation and add to quotList
-					quot.setSite(requestedSite);
-					quot.setISIN(req.getIdCode());
-					quotList.add(quot);
-					System.out.println("BELLA Lì per"+quot.getISIN());
-				}else {//negative outcome: reset found to false in order to force the parsing of the next provider
-					System.out.println("Errore nel parsing! Quotazione nulla!");
-					found = false; 
-				}
-
-			}
-
-				
-			}//end while(!found && !noMoreSites)
-			if(!found){
-				//do something DEFINIRE QUOTATION INVALIDA
-			}
-			
-		}			
-		
-			
-			
-			
-		
-
-		/*
-			found = false;
-			
-			//iterate over the available providers (sites) 
-			for (int countSites = 0; countSites < rp.getSiteSearch().size() && found == false; countSites++) {
-				nameSearchPath = (String[]) rp.getSiteSearch().elementAt(countSites);
 				requestedSite = nameSearchPath[0];
 				searchLink = nameSearchPath[1];
-				System.out.println("istanzio una classe "+requestedSite+"_Search ..."+" e lancio il parser per il sito "+searchLink);				
+
+				if(null == requestedSite || null == searchLink){
+					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
+				}
+
+				//instantiate the requestedSite_Search parser to search for idCode in searchLink url
+				System.out.println("instantiating "+requestedSite+"_Search class..."+" parsing "+searchLink);				
 				idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
 
+				//launch idFinder and immediately verify the boolean return value
 				if(!idFinder.search(req.getIdCode(), searchLink)){
-					System.out.println("ISIN non trovato, provo con il provider successivo");
-				}else{					
 
-					System.out.println("ISIN "+req.getIdCode()+" trovato (type = "+idFinder.getType()+")");
+					System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
+
+				}else{
+
+					System.out.println("IdCode "+req.getIdCode()+" found (type = "+idFinder.getType()+")");
 					found = true;
+
 					completeLink = idFinder.getCompleteLink();
 
+					//Instantiate the second parser to find details of the quotation 
 					SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
 
 					//launch the right parser based on the quotation type
-					switch (idFinder.getType()) {
-					case BTP:
-						quot = detailsParser.parseBTP(new URL (completeLink));
-						break;
-					case BOT:
-						quot = detailsParser.parseBOT(new URL (completeLink));
-						break;
-					case CCT:
-						quot = detailsParser.parseCCT(new URL (completeLink));
-						break;
-					case CTZ:
-						quot = detailsParser.parseCTZ(new URL (completeLink));
-						break;
-					case BOND:
-						quot = detailsParser.parseBOND(new URL (completeLink));
-						break;
-					case SHARE:
-						quot = detailsParser.parseSHARE(new URL (completeLink));
-						break;
-					case FUND:
-						quot = detailsParser.parseFUND(new URL (completeLink));
-						break;
-					default:
-						break;					
+					if(null != idFinder.getType()){					
+						switch (idFinder.getType()) {
+						case BTP:
+							quot = detailsParser.parseBTP(new URL (completeLink));
+							break;
+						case BOT:
+							quot = detailsParser.parseBOT(new URL (completeLink));
+							break;
+						case CCT:
+							quot = detailsParser.parseCCT(new URL (completeLink));
+							break;
+						case CTZ:
+							quot = detailsParser.parseCTZ(new URL (completeLink));
+							break;
+						case BOND:
+							quot = detailsParser.parseBOND(new URL (completeLink));
+							break;
+						case SHARE:
+							quot = detailsParser.parseSHARE(new URL (completeLink));
+							break;
+						case FUND:
+							quot = detailsParser.parseFUND(new URL (completeLink));
+							break;
+						default:
+							break;					
+						}
+					}else {
+						quot = null;
 					}
-
 
 					if(null != quot){//positive outcome of parse function: set the remaining fields of the quotation and add to quotList
 						quot.setSite(requestedSite);
 						quot.setISIN(req.getIdCode());
 						quotList.add(quot);
-						System.out.println("BELLA Lì per"+quot.getISIN());
-					}else {//negative outcome: reset found to false in order to force the parsification of the next provider
-						System.out.println("Errore nel parsing! Quotazione nulla!");
-						found = false; 
+						System.out.println("BELLA Lì for"+quot.getISIN());
+						//aggiornamento ranking se è quotation Request					
+					}else {//negative outcome: reset found to false in order to force the parsing of the next provider
+						System.out.println("Parsing Error! null Quotation!");
+						found = false; 						
 					}
-
+					
+					rp.updateRankingTables(found, req.getReqType(), idFinder.getType(), requestedSite, db);
 				}
 
-				
-			}//end for (iteration over providers)
-			if(!found){
-				//TODO 
-				//settare la Quotation in maniera da definirla "invalida" e aggiungerla alla lista
-			}
-			
-		}//end for (iteration over requests)
 
-			*/
-			
+			}//end while(!found && !noMoreSites)
+			if(!found){
+				//do something DEFINIRE QUOTATION INVALIDA
+			}
+			System.out.println("\n\n");
+		}//end FOR ALL requests			
+					
 		db.disconnect();
 		
 		return quotList;

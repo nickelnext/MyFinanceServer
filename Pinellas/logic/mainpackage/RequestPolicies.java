@@ -1,17 +1,10 @@
 package mainpackage;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
 import Quotes.QuotationType;
-import Requests.Request;
-import Requests.RequestForced;
-import Requests.RequestQuotation;
 import Requests.RequestType;
-import Requests.RequestUpdate;
 
 
 public class RequestPolicies {

@@ -1,6 +1,8 @@
 * text=auto !eol
 Pinellas/WebContent/META-INF/MANIFEST.MF -text
+Pinellas/WebContent/WEB-INF/lib/cjsonPine-1.0.jar -text
 Pinellas/WebContent/WEB-INF/lib/gson-2.0.jar -text
+Pinellas/WebContent/WEB-INF/lib/jackson-all-1.9.2.jar -text
 Pinellas/WebContent/WEB-INF/lib/joda-time-2.0.jar -text
 Pinellas/WebContent/WEB-INF/lib/jtidy-r938.jar -text
 Pinellas/WebContent/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar -text

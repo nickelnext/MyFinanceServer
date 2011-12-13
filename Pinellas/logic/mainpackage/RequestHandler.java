@@ -1,5 +1,6 @@
 package mainpackage;
 
+
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;
-import Quotes.QuotationType;
 import Requests.Request;
 import Requests.RequestContainer;
 import Search.Search;
@@ -30,9 +30,10 @@ public class RequestHandler {
 		//creo una lista di richieste  e la faccio processare dall'handler
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
-		ArrayList<Request> tmpList2 = new ArrayList<Request>();
+//		ArrayList<Request> tmpList2 = new ArrayList<Request>();
 
-		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
+		tmpList.add(new Request("IT0003856405"));
+/*		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
 		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "Borsaitaliana_it"));
 		tmpList.add(new Request("IT0004220627"));
 		tmpList.add(new Request("IT0003926547"));
@@ -42,7 +43,7 @@ public class RequestHandler {
 		tmpList.add(new Request("IT0003406334"));
 		tmpList.add(new Request("IT0004168826"));
 		tmpList.add(new Request("IT0000382983"));
-		
+*/		
 		/*
 		Gson giasone0 = new Gson();
 		String jason0 = giasone0.toJson(tmpList);
@@ -65,7 +66,6 @@ public class RequestHandler {
 
 		
 		
-		
 		RequestContainer cont = new RequestContainer();
 		cont.setReqList(tmpList);
 		ArrayList<Quotation> resList = processRequests(cont.getReqList());
@@ -74,6 +74,8 @@ public class RequestHandler {
 			for (int j = 0; j < resList.size(); j++) {	
 				//System.out.println(resList.get(j).toString());
 			}
+			
+			
 /*		
 		Gson giasone = new Gson();
 		String jason = giasone.toJson(resList);
@@ -106,18 +108,27 @@ public class RequestHandler {
 		
 	}
 */
-
-	public static ArrayList<Request> decodeRequests(String json) throws IllegalStateException{
-	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
 	
+	
+	public static ArrayList<Request> decodeRequests(String json) throws IllegalStateException{
+	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste	
 	ArrayList<Request> res;
 	Gson converter = new Gson();	
 	Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
-	res = converter.fromJson(json, typeOfT);
-	
+	res = converter.fromJson(json, typeOfT);	
 	return res;
+	}
 	
-}
+	
+	public static ArrayList<Quotation> decodeQuotations(String json) throws IllegalStateException{
+	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
+	ArrayList<Quotation> res;
+	Gson converter = new Gson();	
+	Type typeOfT = new TypeToken<ArrayList<Quotation>>(){}.getType();
+	res = converter.fromJson(json, typeOfT);	
+	return res;
+	}
+
 
 	public static String doStuff(String jason) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException, IllegalStateException{
 		String res;

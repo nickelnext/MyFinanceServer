@@ -40,31 +40,46 @@ public class UtilFuncs {
 		"HH:mm",
 		"HH:mm:ss",
 	};
-	public static final String[] datePatternsEng = {
-		"MM/dd/yyyy",
-		"MM/dd/yyyy HH.mm",
-		"MM/dd/yyyy HH.mm.ss",
-		"MM/dd/yyyy HH:mm",
-		"MM/dd/yyyy HH:mm:ss",
-		//
-		"MM/dd/yyyy - HH.mm",
-		"MM/dd/yyyy - HH.mm.ss",
-		"MM/dd/yyyy - HH:mm",
-		"MM/dd/yyyy - HH:mm:ss",
-		//
-		"MM-dd-yyyy",
-		"MM-dd-yyyy HH.mm",
-		"MM-dd-yyyy HH.mm.ss",
-		"MM-dd-yyyy HH:mm",
-		"MM-dd-yyyy HH:mm:ss",
-		//
-		"HH.mm",
-		"HH.mm.ss",
-		//
-		"HH:mm",
-		"HH:mm:ss",
-	};
+	
+	private static String[] createEnglishPatterns(String[] it)
+	{
+		String[] en = new String[it.length];
+		for (int i=0;i<it.length;i++)
+		{
+			en[i] = it[i].replace("MM", "kk");
+			en[i] = it[i].replace("dd", "MM");
+			en[i] = it[i].replace("kk", "dd");
+		}
+		return en;
+	}
+	
+//	public static final String[] datePatternsEng = {
+//		"MM/dd/yyyy",
+//		"MM/dd/yyyy HH.mm",
+//		"MM/dd/yyyy HH.mm.ss",
+//		"MM/dd/yyyy HH:mm",
+//		"MM/dd/yyyy HH:mm:ss",
+//		//
+//		"MM/dd/yyyy - HH.mm",
+//		"MM/dd/yyyy - HH.mm.ss",
+//		"MM/dd/yyyy - HH:mm",
+//		"MM/dd/yyyy - HH:mm:ss",
+//		//
+//		"MM-dd-yyyy",
+//		"MM-dd-yyyy HH.mm",
+//		"MM-dd-yyyy HH.mm.ss",
+//		"MM-dd-yyyy HH:mm",
+//		"MM-dd-yyyy HH:mm:ss",
+//		//
+//		"HH.mm",
+//		"HH.mm.ss",
+//		//
+//		"HH:mm",
+//		"HH:mm:ss",
+//	};
 
+	public static final String[] datePatternsEng = UtilFuncs.createEnglishPatterns(UtilFuncs.datePatterns);
+	
 	public static final String countryUs = "us";
 	public static final String countryIt = "it";
 	public static final String countryDefault = "it";

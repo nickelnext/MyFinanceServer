@@ -1,30 +1,29 @@
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.URL;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation_Share;
-import Search.Search;
 
 public class Program {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
 
 
-				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //				Quotation_Bond q = s.parseBOND(new URL(
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
-
-			
-
-
+				
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
+//		Quotation_Bond q = s.parseBTP(new URL(
+//				"http://finanza.economia.virgilio.it/borsa-italiana/titoli-stato/btp-15ap12-4percento_IT0004220627.html"));
+//		System.out.println(q.toString());
+		Quotation_Share qs = s.parseSHARE(new URL(
+				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
+		System.out.println(qs.toString());
+		
+		
+//		System.out.println(Calendar.getInstance().get(Calendar.getInstance().YEAR));
+		
 		//		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();
 		//		Quotation_Share qs = s1.parseSHARE(new URL("http://www.borse.it/quotes/valore/IT0001233417"));
 		////		
@@ -92,15 +91,15 @@ public class Program {
 //		src.search("IT0004220627", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
 
 
-				Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
-				src.search("IT0003990402", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
+//				Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
+//				src.search("IT0003990402", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");
 //				SiteInterface yahoo = (SiteInterface)Class.forName("Sites.Yahoo_Finanza_it").newInstance();
 
 
 
 
-				System.out.println(src.getType());
-				System.out.println(src.getCompleteLink());
+//				System.out.println(src.getType());
+//				System.out.println(src.getCompleteLink());
 
 
 		//		Search src = (Search)Class.forName("Search.Finanza_Repubblica_it_Search").newInstance();
@@ -131,22 +130,6 @@ public class Program {
 		//		System.out.println(qy.toString());
 	}
 
-	public static void compress(String st) throws IOException {
-		// first compress inputfile.txt into out.gz
-		BufferedReader in = new BufferedReader(new StringReader(st));
-		BufferedOutputStream out = new BufferedOutputStream(
-				new GZIPOutputStream(new FileOutputStream("out.gz")));
-		int c;
-		while ((c = in.read()) != -1) 
-			out.write(c);
-		in.close();
-		out.close();
-
-		// now decompress our new file
-		BufferedReader in2 = new BufferedReader( new InputStreamReader(new GZIPInputStream(new FileInputStream("out.gz"))));
-		String s;
-		while ((s = in2.readLine()) != null)
-			System.out.println(s);
-	}
+	
 
 }

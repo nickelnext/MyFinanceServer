@@ -11,6 +11,7 @@ Pinellas/WebContent/index.jsp -text
 Pinellas/logic/Handlers/Site.java -text
 Pinellas/logic/Handlers/SiteInterface.java -text
 Pinellas/logic/Quotes/Quotation.java -text
+Pinellas/logic/Quotes/QuotationContainer.java -text
 Pinellas/logic/Quotes/QuotationType.java -text
 Pinellas/logic/Quotes/Quotation_Bond.java -text
 Pinellas/logic/Quotes/Quotation_Fund.java -text

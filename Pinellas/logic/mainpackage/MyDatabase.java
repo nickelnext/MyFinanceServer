@@ -75,7 +75,8 @@ public class MyDatabase {
    // query: una stringa che rappresenta un'istruzione SQL di tipo SELECT da eseguire
    // columns: il numero di columns di cui sarà composta la tupla del result
    // ritorna un Vector contenente tutte le tuple del result
-   public Vector execQuery(String query) {
+   @SuppressWarnings({ "rawtypes", "unchecked" })
+public Vector execQuery(String query) {
       Vector v = null;
       String [] record;
       int columns = 0;
@@ -126,36 +127,38 @@ public class MyDatabase {
    // query: una stringa che rappresenta un'istuzione SQL di tipo UPDATE da eseguire
    // ritorna TRUE se l'esecuzione è adata a buon fine, FALSE se c'è stata un'eccezione
    public boolean updateQuery(String query) {
-      int number = 0;
-      boolean result = false;
-      try {
-         Statement stmt = db.createStatement();
-         number = stmt.executeUpdate(query);
-         result = true;
-         stmt.close();
-      } catch (Exception e) {
-         e.printStackTrace();
-         error = e.getMessage();
-         result = false;
-      }
-      return result;
+	   @SuppressWarnings("unused")
+	int number = 0;
+	   boolean result = false;
+	   try {
+		   Statement stmt = db.createStatement();
+		   number = stmt.executeUpdate(query);
+		   result = true;
+		   stmt.close();
+	   } catch (Exception e) {
+		   e.printStackTrace();
+		   error = e.getMessage();
+		   result = false;
+	   }
+	   return result;
    }
 
    public boolean insertQuery(String query) {
-	      int number = 0;
-	      boolean result = false;
-	      try {
-	         Statement stmt = db.createStatement();
-	         number = stmt.executeUpdate(query);
-	         result = true;
-	         stmt.close();
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	         error = e.getMessage();
-	         result = false;
-	      }
-	      return result;
+	   @SuppressWarnings("unused")
+	int number = 0;
+	   boolean result = false;
+	   try {
+		   Statement stmt = db.createStatement();
+		   number = stmt.executeUpdate(query);
+		   result = true;
+		   stmt.close();
+	   } catch (Exception e) {
+		   e.printStackTrace();
+		   error = e.getMessage();
+		   result = false;
 	   }
+	   return result;
+   }
 
    // Chiude la connessione con il Database
    public void disconnect() {

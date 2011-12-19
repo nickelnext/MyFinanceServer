@@ -8,8 +8,12 @@ import java.util.ArrayList;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;
+import Quotes.QuotationContainer;
+import Quotes.QuotationType;
+import Quotes.Quotation_Bond;
+import Quotes.Quotation_Fund;
+import Quotes.Quotation_Share;
 import Requests.Request;
-import Requests.RequestContainer;
 import Search.Search;
 
 import com.google.gson.Gson;
@@ -26,68 +30,65 @@ public class RequestHandler {
 	 */
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
+		
 		//TEST:
 		//creo una lista di richieste  e la faccio processare dall'handler
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
-//		ArrayList<Request> tmpList2 = new ArrayList<Request>();
 
-		tmpList.add(new Request("IT0003856405"));
-/*		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
+//		tmpList.add(new Request("IT0003856405"));
+		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
 		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "Borsaitaliana_it"));
 		tmpList.add(new Request("IT0004220627"));
 		tmpList.add(new Request("IT0003926547"));
-		tmpList.add(new Request("IT0001233417"));
+//		tmpList.add(new Request("IT0001233417"));
 		tmpList.add(new Request("LU0336083497"));
-		tmpList.add(new Request("US38259P5089"));
+//		tmpList.add(new Request("US38259P5089"));
 		tmpList.add(new Request("IT0003406334"));
-		tmpList.add(new Request("IT0004168826"));
+//		tmpList.add(new Request("IT0004168826"));
 		tmpList.add(new Request("IT0000382983"));
-*/		
-		/*
-		Gson giasone0 = new Gson();
-		String jason0 = giasone0.toJson(tmpList);
-		System.out.println(jason0);
-		System.out.println("---------------COMPRIMIIII>>>>>>>>>");
-		String cjason0 = CJSON.pack(jason0);
-		System.out.println(cjason0);
-		System.out.println("<<<<<<<<<<<<<<DECOMPRIMIIIII---------------");
-		String jason02 = CJSON.unpack(cjason0);
-		System.out.println(jason02);
-		Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
-		tmpList2 = giasone0.fromJson(jason02, typeOfT);
-	
-		*/
+		
+		
+		
+		
+		
 		
 		Gson giasone0 = new Gson();
 		String jason0 = giasone0.toJson(tmpList);
 		System.out.println(jason0);
 	
+		
+		
+		String responseQuot = doStuff(jason0);
+//		ArrayList<Quotation> resListQuot = decodeQuotations(responseQuot);
+		QuotationContainer pannula = decodeQuotations(responseQuot);
 
 		
-		
-		RequestContainer cont = new RequestContainer();
-		cont.setReqList(tmpList);
-		ArrayList<Quotation> resList = processRequests(cont.getReqList());
-		
-		if(null != resList){
-			for (int j = 0; j < resList.size(); j++) {	
-				//System.out.println(resList.get(j).toString());
-			}
 			
-			
-/*		
-		Gson giasone = new Gson();
-		String jason = giasone.toJson(resList);
-		System.out.println(jason);
-		System.out.println("---------------COMPRIMIIII>>>>>>>>>");
-		String cjason = CJSON.pack(jason);
-		System.out.println(cjason);
-		System.out.println("<<<<<<<<<<<<<<DECOMPRIMIIIII---------------");
-		String jason2 = CJSON.unpack(cjason);
-		System.out.println(jason2);
-		*/
+		
+		for (Quotation_Bond qb : pannula.getBondList()) {
+			System.out.println("-->BOND LIST:");
+			System.out.println(qb.toString());
 		}
+		for (Quotation_Fund qf : pannula.getFundList()) {
+			System.out.println("-->FUND LIST:");
+			System.out.println(qf.toString());
+		}
+		for (Quotation_Share qs : pannula.getShareList()) {
+			System.out.println("-->SHARE LIST:");
+			System.out.println(qs.toString());
+		}
+		
+		if(pannula.getBondList().size()==0){
+			System.out.println("BOND NULLO");
+		}
+		if(pannula.getShareList().size()==0){
+			System.out.println("SHARE NULLO");
+		}
+		if(pannula.getFundList().size()==0){
+			System.out.println("FUND NULLO");
+		}
+		
 		
 	}		
 
@@ -119,8 +120,17 @@ public class RequestHandler {
 	return res;
 	}
 	
+	public static QuotationContainer decodeQuotations(String json) throws IllegalStateException{
+	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
+	QuotationContainer res;
+	Gson converter = new Gson();	
+	Type typeOfT = new TypeToken<QuotationContainer>(){}.getType();
+	res = converter.fromJson(json, typeOfT);	
+	return res;
+	}
+
 	
-	public static ArrayList<Quotation> decodeQuotations(String json) throws IllegalStateException{
+	public static ArrayList<Quotation> decodeQuotations2(String json) throws IllegalStateException{
 	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
 	ArrayList<Quotation> res;
 	Gson converter = new Gson();	
@@ -129,18 +139,23 @@ public class RequestHandler {
 	return res;
 	}
 
+	
+
 
 	public static String doStuff(String jason) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException, IllegalStateException{
 		String res;
-		ArrayList<Quotation> tmp = processRequests(decodeRequests(jason));
+//		ArrayList<Quotation> tmp = processRequests(decodeRequests(jason));
+		QuotationContainer tmp = processRequests(decodeRequests(jason));
 		Gson converter = new Gson();
 		res = converter.toJson(tmp);		
 		return res;
 	}
 	
 	
-	public static ArrayList<Quotation> processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
+	public static QuotationContainer processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
+		QuotationContainer result = new QuotationContainer();
+		
 		MyDatabase db = new MyDatabase("pinella", "pinella", "pinella87");
 		// connection with database
 		if ( !db.connect() ) { 
@@ -324,7 +339,7 @@ public class RequestHandler {
 						//launch the right parser based on the quotation type
 						if(null != idFinder.getType()){					
 							switch (idFinder.getType()) {
-							case BTP:
+/*							case BTP:
 								quot = detailsParser.parseBTP(new URL (completeLink));
 								break;
 							case BOT:
@@ -336,7 +351,7 @@ public class RequestHandler {
 							case CTZ:
 								quot = detailsParser.parseCTZ(new URL (completeLink));
 								break;
-							case BOND:
+*/							case BOND:
 								quot = detailsParser.parseBOND(new URL (completeLink));
 								break;
 							case SHARE:
@@ -356,6 +371,17 @@ public class RequestHandler {
 							quot.setSite(requestedSite);
 							quot.setISIN(req.getIdCode());
 							quotList.add(quot);
+							switch (quot.getType()) {
+							case FUND:
+								result.getFundList().add((Quotation_Fund)quot);
+								break;
+							case BOND:
+								result.getBondList().add((Quotation_Bond)quot);
+								break;
+							case SHARE:
+								result.getShareList().add((Quotation_Share)quot);
+								break;															
+							}
 							System.out.println("BELLA Lì for"+quot.getISIN());
 							//aggiornamento ranking se è quotation Request					
 						}else {//negative outcome: reset found to false in order to force the parsing of the next provider
@@ -376,7 +402,8 @@ public class RequestHandler {
 					
 		db.disconnect();
 		
-		return quotList;
+//		return quotList;
+		return result;
 
 
 	}//end processRequest

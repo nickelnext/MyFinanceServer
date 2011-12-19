@@ -6,9 +6,10 @@ import java.util.Vector;
 import Quotes.QuotationType;
 import Requests.RequestType;
 
-
+@SuppressWarnings("rawtypes")
 public class RequestPolicies {
 
+	
 	
 	
 	private Vector siteSearch;
@@ -39,6 +40,7 @@ public class RequestPolicies {
 		
 	public void setSiteNameTable(Vector v){
 		this.siteNameTable = new Hashtable<String, String>();
+		@SuppressWarnings("unchecked")
 		Iterator<Object> iter = v.iterator();
 		String[] tmp;
 		String name;
@@ -88,20 +90,20 @@ public class RequestPolicies {
 	
 	public Vector getBondList(MyDatabase db) {
 		//kinda sigleton pattern
-		if(this.shareList == null){
-			this.shareList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.BOND+"\"ORDER BY Rating DESC;" );
+		if(this.bondList == null){
+			this.bondList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.BOND+"\"ORDER BY Rating DESC;" );
 		}
-		return shareList;
+		return bondList;
 	}
 	public void setBondList(Vector bondList) {
 		this.bondList = bondList;
 	}
 	public Vector getFundList(MyDatabase db) {
 		//kinda sigleton pattern
-				if(this.shareList == null){
-					this.shareList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.FUND+"\"ORDER BY Rating DESC;" );
+				if(this.fundList == null){
+					this.fundList = db.execQuery("SELECT name,searchUrl FROM tbl_name_type_search_rate WHERE Type=\""+QuotationType.FUND+"\"ORDER BY Rating DESC;" );
 				}
-				return shareList;
+				return fundList;
 	}
 	
 	public void setFundList(Vector fundList) {

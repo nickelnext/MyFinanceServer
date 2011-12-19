@@ -43,8 +43,8 @@ import mainpackage.RequestHandler;
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	    throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+//		String username = request.getParameter("username");
+//		String password = request.getParameter("password");
 		String jason = request.getParameter("json");
 		String result = null;
 		
@@ -61,7 +61,7 @@ import mainpackage.RequestHandler;
 			e.printStackTrace();
 		}
 		
-		response.getWriter().write("Ciao STRRRRONZI \n" + username + "\n  "+password +"\n\n\n"+ result);
+		response.getWriter().write(result);
 		
 		
 		// TODO Auto-generated method stub

@@ -6,12 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation_Share;
 import Search.Search;
 
 public class Program {
@@ -19,6 +17,7 @@ public class Program {
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
 
 
+				@SuppressWarnings("unused")
 				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //				Quotation_Bond q = s.parseBOND(new URL(
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));

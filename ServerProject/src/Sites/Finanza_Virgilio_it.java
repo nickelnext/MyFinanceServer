@@ -3,7 +3,6 @@ package Sites;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Calendar;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -14,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
+import Utils.UtilFuncs;
 import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
@@ -24,7 +24,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 	public Quotation_Share parseSHARE(URL url)
 	{
-		try
+		try 
 		{
 			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
 
@@ -36,65 +36,36 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//ul[@class='info']/li//text() | //div[@id='panelVariazioneContainer']//span/text() | " +
-					"//div[@id='ctl00_ContentPlaceHolder1_od1_pnlOdometer']//img/@src | //span[@id='ctl00_ContentPlaceHolder1_updateLabel']/text() | " +
-					"//div[@id='SchedaIndici_Left']/text()";
+			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-
-			for(int i=0;i<nodes.getLength();i++)
-			{
-				System.out.println(i + "\t"  + nodes.item(i).getNodeValue());
-			}
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
-
+			
 			Quotation_Share qs = new Quotation_Share();
-
-			qs.setName(nodes.item(0).getNodeValue());		//Nome			
-			qs.setISIN(nodes.item(51).getNodeValue());		//ISIN
-			qs.setLottoMinimo(nodes.item(59).getNodeValue());
-			qs.setFaseMercato(nodes.item(12).getNodeValue());
-			qs.setPrezzoUltimoContratto(nodes.item(22).getNodeValue());
 			
-			qs.setVariazionePercentuale(nodes.item(2).getNodeValue());
-			qs.setVariazioneAssoluta(nodes.item(1).getNodeValue());
+//			qs.setName(UtilFuncs.getString(nodes, 1));		//Nome			
+			qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
+			qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
+			qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
+			qs.setPrezzoUltimoContratto(UtilFuncs.getString(nodes, 17));
+			qs.setVariazionePercentuale(UtilFuncs.getString(nodes, 19));
+			qs.setVariazioneAssoluta(UtilFuncs.getString(nodes, 21));
+			qs.setDataOraUltimoAcquisto(UtilFuncs.getString(nodes, 25));
+			qs.setPrezzoAcquisto(UtilFuncs.getString(nodes, 31));
+			qs.setPrezzoVendita(UtilFuncs.getString(nodes, 33));
+			qs.setQuantitaUltimo(UtilFuncs.getString(nodes, 27));
+			qs.setQuantitaAcquisto(UtilFuncs.getString(nodes, 29));
+			qs.setQuantitaVendita(UtilFuncs.getString(nodes, 35));
+			qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));
+			qs.setMaxOggi(UtilFuncs.getString(nodes, 43));
+			qs.setMinOggi(UtilFuncs.getString(nodes, 47));
+//			qs.setMaxAnno(maxAnno);
+//			qs.setMinAnno(minAnno);
+//			qs.setDataMaxAnno(dataMaxAnno);
+//			qs.setDataMinAnno(dataMinAnno);
+			qs.setChiusuraPrecedente(UtilFuncs.getString(nodes, 51));
 			
-			String data = nodes.item(11).getNodeValue();
-			data = data.replaceAll("[^0-9/.\\s]", "");
-			data = data.trim();
-			data = data.split("  ")[1] + " - " + data.split("  ")[0];
-				
-			qs.setDataOraUltimoAcquisto(data);
-			
-			String[] vendita = nodes.item(26).getNodeValue().split(" x ");
-			String[] acquisto = nodes.item(28).getNodeValue().split(" x ");
-			
-			qs.setPrezzoAcquisto(acquisto[1]);
-			qs.setPrezzoVendita(vendita[1]);
-//			qs.setQuantitaUltimo(UtilFuncs.getString(nodes, 27));
-			qs.setQuantitaAcquisto(acquisto[0]);
-			qs.setQuantitaVendita(vendita[0]);
-			qs.setQuantitaTotale(nodes.item(30).getNodeValue());
-			qs.setMaxOggi(nodes.item(16).getNodeValue());
-			qs.setMinOggi(nodes.item(18).getNodeValue());
-			
-			data = nodes.item(40).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qs.setDataMinAnno(data);
-			data = nodes.item(38).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qs.setDataMaxAnno(data);
-			
-			qs.setMaxAnno(nodes.item(37).getNodeValue());
-			qs.setMinAnno(nodes.item(39).getNodeValue());
-			qs.setChiusuraPrecedente(nodes.item(14).getNodeValue());
-		
 			return qs;	
 		}
 		catch (IOException e) {
@@ -134,64 +105,44 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//div//ul[@class='info']/li/text() | //div//ul[@class='info']/li/b/text() | //div[@id='SchedaIndici_Left']/text() | //span[@id='ctl00_ContentPlaceHolder1_pv1_lnkVarNetta']/text() | //span[@id='ctl00_ContentPlaceHolder1_pv1_lnkVarPerc']/text()";
+			String pattern = "//table[@class='table_dati' and not(@summary) and not(@cellpadding='0')]/tbody/tr//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-
-
+			
+			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
-
+			
+			
 			Quotation_Bond qb = new Quotation_Bond();
-
-
-			qb.setName(nodes.item(0).getNodeValue());		//Nome			
-			qb.setISIN(nodes.item(42).getNodeValue());		//ISIN
-			//			qb.setValuta(UtilFuncs.getString(nodes, 5));		//Valuta
-			//			qb.setMercato(UtilFuncs.getString(nodes, 7));	//Mercato
-			qb.setFaseMercato(nodes.item(3).getNodeValue());//Fase Mercato
-			qb.setPrezzoUltimoContratto(nodes.item(13).getNodeValue());	//Ultimo Prezzo
-			qb.setVariazionePercentuale(nodes.item(2).getNodeValue());	//Var %
-			qb.setVariazioneAssoluta(nodes.item(1).getNodeValue());	//Var Ass
-			String data = nodes.item(14).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-
-			qb.setDataUltimoContratto(data);
-
-			String[] vendita = nodes.item(17).getNodeValue().split(" x ");
-			String[] acquisto = nodes.item(19).getNodeValue().split(" x ");
-
-
-//			qb.setVolumeUltimo(UtilFuncs.getString(nodes, 21));
-			qb.setVolumeAcquisto(acquisto[0]);
-			qb.setPrezzoAcquisto(acquisto[1]);
-			qb.setPrezzoVendita(vendita[1]);
-			qb.setVolumeVendita(vendita[0]);
-			qb.setVolumeTotale(nodes.item(21).getNodeValue());
-			qb.setMaxAnno(nodes.item(28).getNodeValue());
-			qb.setMaxOggi(nodes.item(7).getNodeValue());
-			qb.setMinOggi(nodes.item(9).getNodeValue());
-			qb.setMinAnno(nodes.item(30).getNodeValue());
-
-			data = nodes.item(31).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qb.setDataMinAnno(data);
-			data = nodes.item(29).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qb.setDataMaxAnno(data);
-			//			qb.setCedola(UtilFuncs.getString(nodes, 61));
-			qb.setLottoMinimo(nodes.item(50).getNodeValue());
-			//			qb.setDataStaccoCedola(UtilFuncs.getString(nodes, 63));
-			qb.setAperturaChiusuraPrecedente(nodes.item(5).getNodeValue());
-			//			qb.setScadenza(UtilFuncs.getString(nodes, 57));
-
+			
+	
+			qb.setName(UtilFuncs.getString(nodes, 1));		//Nome			
+			qb.setISIN(UtilFuncs.getString(nodes, 3));		//ISIN
+			qb.setValuta(UtilFuncs.getString(nodes, 5));		//Valuta
+			qb.setMercato(UtilFuncs.getString(nodes, 7));	//Mercato
+			qb.setFaseMercato(UtilFuncs.getString(nodes, 11));//Fase Mercato
+			qb.setPrezzoUltimoContratto(UtilFuncs.getString(nodes, 13));	//Ultimo Prezzo
+			qb.setVariazionePercentuale(UtilFuncs.getString(nodes, 15));	//Var %
+			qb.setVariazioneAssoluta(UtilFuncs.getString(nodes, 17));	//Var Ass
+			qb.setDataUltimoContratto(UtilFuncs.getString(nodes, 19));
+			qb.setVolumeUltimo(UtilFuncs.getString(nodes, 21));
+			qb.setVolumeAcquisto(UtilFuncs.getString(nodes, 23));
+			qb.setPrezzoAcquisto(UtilFuncs.getString(nodes, 25));
+			qb.setPrezzoVendita(UtilFuncs.getString(nodes, 27));
+			qb.setVolumeVendita(UtilFuncs.getString(nodes, 29));
+			qb.setVolumeTotale(UtilFuncs.getString(nodes, 31));
+			qb.setMaxAnno(UtilFuncs.getString(nodes, 39));
+			qb.setMaxOggi(UtilFuncs.getString(nodes, 37));
+			qb.setMinOggi(UtilFuncs.getString(nodes, 43));
+			qb.setMinAnno(UtilFuncs.getString(nodes, 45));
+			qb.setDataMinAnno(UtilFuncs.getString(nodes, 47));
+			qb.setDataMaxAnno(UtilFuncs.getString(nodes, 41));
+			qb.setCedola(UtilFuncs.getString(nodes, 61));
+			qb.setLottoMinimo(UtilFuncs.getString(nodes, 59));
+			qb.setDataStaccoCedola(UtilFuncs.getString(nodes, 63));
+			qb.setAperturaChiusuraPrecedente(UtilFuncs.getString(nodes, 51));
+			qb.setScadenza(UtilFuncs.getString(nodes, 57));
+			
 			return qb;	
 		}
 		catch (IOException e) {
@@ -215,56 +166,35 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//ul[@class='info']/li/*/text() | //div[@id='panelVariazioneContainer']//span/text() | " +
-					"//div[@id='ctl00_ContentPlaceHolder1_od1_pnlOdometer']//img/@src | //span[@id='ctl00_ContentPlaceHolder1_updateLabel']/text() | " +
-					"//div[@id='SchedaIndici_Left']/span/text()";
+			String pattern = "//table[@class='table_dati']//td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-
-
-
+			
+			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
-
+			
+			
 			Quotation_Fund qf = new Quotation_Fund();
-
-			qf.setName(nodes.item(0).getNodeValue());
-			qf.setISIN(nodes.item(12).getNodeValue());
-			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());
-			qf.setCategoriaAssociati(nodes.item(16).getNodeValue());
-
-			String data = nodes.item(11).getNodeValue();
-			data = data.split(" ")[data.split(" ").length-1];
-
-			qf.setDataUltimoPrezzo(data);
-
-			qf.setNomeGestore(nodes.item(19).getNodeValue());
-			//			qf.setPerformance1Anno(performance1Anno)
-			//			qf.setPerformance1Mese(performance1Mese)
-			//			qf.setPerformance3Anni(performance3Anni)
-			//			qf.setPerformance3Mesi(performance3Mesi)
-			//			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
-			//			qf.setSite(site)
-			String ultimoprezzo = "";
-			String r;
-
-			for(int i=3;i<=10;i++)
-			{
-
-				r = nodes.item(i).getNodeValue();
-				r = r.substring(r.lastIndexOf("/")+1,r.indexOf("."));
-
-				if(r.matches("\\d"))
-					ultimoprezzo += r;
-				if(r.contains("dot"))
-					ultimoprezzo += ","; //that's because LOCALE is set to IT
-			}
-
-			qf.setUltimoPrezzo(ultimoprezzo);
-			qf.setValuta(nodes.item(14).getNodeValue());
-			qf.setVariazioneAssoluta(nodes.item(1).getNodeValue());
-			qf.setVariazionePercentuale(nodes.item(2).getNodeValue());
-
+			
+			qf.setName(UtilFuncs.getString(nodes, 1));
+			qf.setISIN(UtilFuncs.getString(nodes, 30));
+			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 42));
+			qf.setCategoriaAssociati(UtilFuncs.getString(nodes, 40));
+			qf.setDataUltimoPrezzo(UtilFuncs.getString(nodes, 5));
+			qf.setNomeGestore(UtilFuncs.getString(nodes, 46));
+//			qf.setPerformance1Anno(performance1Anno)
+//			qf.setPerformance1Mese(performance1Mese)
+//			qf.setPerformance3Anni(performance3Anni)
+//			qf.setPerformance3Mesi(performance3Mesi)
+			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
+//			qf.setSite(site)
+			qf.setUltimoPrezzo(UtilFuncs.getString(nodes, 2));
+			qf.setValuta(UtilFuncs.getString(nodes, 4));
+//			qf.setVariazioneAssoluta(variazioneAssoluta)
+			qf.setVariazionePercentuale(UtilFuncs.getString(nodes, 6));
+			
+			
+			
 			return qf;	
 		}
 		catch (IOException e) {

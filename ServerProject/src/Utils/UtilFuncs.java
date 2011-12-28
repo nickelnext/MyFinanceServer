@@ -17,18 +17,19 @@ public class UtilFuncs {
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
 	//	public static final String ISIN_NOT_FOUND ="ISIN_NOT_FOUND";
 	public static final String[] datePatterns = {
-		"dd/MM/yyyy",
+		
 		"dd/MM/yyyy HH.mm",
 		"dd/MM/yyyy HH.mm.ss",
 		"dd/MM/yyyy HH:mm",
 		"dd/MM/yyyy HH:mm:ss",
+		"dd/MM/yyyy", 
 		//
 		"dd/MM/yyyy - HH.mm",
 		"dd/MM/yyyy - HH.mm.ss",
 		"dd/MM/yyyy - HH:mm",
 		"dd/MM/yyyy - HH:mm:ss",
 		//
-		"dd-MM-yyyy",
+//		"dd-MM-yyyy",
 		"dd-MM-yyyy HH.mm",
 		"dd-MM-yyyy HH.mm.ss",
 		"dd-MM-yyyy HH:mm",
@@ -39,6 +40,12 @@ public class UtilFuncs {
 		//
 		"HH:mm",
 		"HH:mm:ss",
+		"dd MMMMM",
+		"ddddd MM",
+		"MMMMM dd",
+		"MM ddddd",
+		
+		
 	};
 	
 	private static String[] createEnglishPatterns(String[] it)
@@ -46,9 +53,9 @@ public class UtilFuncs {
 		String[] en = new String[it.length];
 		for (int i=0;i<it.length;i++)
 		{
-			en[i] = it[i].replace("MM", "kk");
-			en[i] = it[i].replace("dd", "MM");
-			en[i] = it[i].replace("kk", "dd");
+			en[i] = it[i].replace("M", "k");
+			en[i] = en[i].replace("d", "M");
+			en[i] = en[i].replace("k", "d");
 		}
 		return en;
 	}
@@ -83,6 +90,9 @@ public class UtilFuncs {
 	public static final String countryUs = "us";
 	public static final String countryIt = "it";
 	public static final String countryDefault = "it";
+	public static final String countryItDateUs = "itus";
+	public static final String countryUsDateIt = "usit";
+	
 
 
 
@@ -112,6 +122,12 @@ public class UtilFuncs {
 			break;
 		case UtilFuncs.countryIt:
 			l = Locale.ITALY;
+			break;
+		case UtilFuncs.countryItDateUs:
+			l = Locale.ITALY;
+			break;
+		case UtilFuncs.countryUsDateIt:
+			l = Locale.US;
 			break;
 		default:
 			l = Locale.ITALY;
@@ -166,24 +182,37 @@ public class UtilFuncs {
 
 	public static Date formatDate(String s, String country) {
 		String[] datepattern;
+		Locale l;
 		switch (country) {
 		case UtilFuncs.countryIt:
 			datepattern = datePatterns;
+			l = Locale.ITALY;
 			break;
 		case UtilFuncs.countryUs:
 			datepattern = datePatternsEng;
+			l = Locale.US;
+			break;
+		case UtilFuncs.countryUsDateIt:
+			datepattern = datePatterns;
+			l = Locale.US;
+			break;
+		case UtilFuncs.countryItDateUs:
+			datepattern = datePatternsEng;
+			l = Locale.ITALY;
 			break;
 		default:
 			datepattern = datePatterns;
+			l = Locale.ITALY;
 			break;
 		}
 		Date date = null;
 		int i=0;
 		DateFormat formatter;
 		boolean found=false;
+		
 		while(!found && i< datepattern.length)
 		{
-			formatter = new SimpleDateFormat(datepattern[i]);
+			formatter = new SimpleDateFormat(datepattern[i], l);
 			try {
 				//
 				date = formatter.parse(s);
@@ -196,10 +225,12 @@ public class UtilFuncs {
 							today.get(Calendar.DAY_OF_MONTH), date.getHours(), date.getMinutes(), date.getSeconds());
 					date = cal.getTime();
 				}
+				System.out.println("found\t" + datepattern[i]);
 				found = true;
 			}
 			catch (ParseException e) {
-				i++;
+				System.out.println(datepattern[i]);
+				i++;	
 			}
 		}
 		return date;

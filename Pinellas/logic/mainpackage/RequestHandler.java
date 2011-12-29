@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.zip.GZIPOutputStream;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;

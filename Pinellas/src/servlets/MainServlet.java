@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,12 @@ import mainpackage.RequestHandler;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+//		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
+//		gzipStream.write(result.getBytes());
+//		gzipStream.close();
+		response.setHeader("Content-Encoding", "gzip"); 
+		response.setContentType("text/html"); 
+
 		response.getWriter().write(result);
 		
 		

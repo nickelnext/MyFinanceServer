@@ -58,6 +58,7 @@ ServerProject/src/Search/Finanza_Repubblica_it_Search.java -text
 ServerProject/src/Search/Finanza_Virgilio_it_Search.java -text
 ServerProject/src/Search/Search.java -text
 ServerProject/src/Search/Yahoo_Finanza_it_Search.java -text
+ServerProject/src/Sites/Boerse_Frankfurt_de.java -text
 ServerProject/src/Sites/Borsaitaliana_it.java -text
 ServerProject/src/Sites/Borse_it.java -text
 ServerProject/src/Sites/EuroTLX_com.java -text

@@ -55,18 +55,7 @@ public abstract class Quotation {
         result.append(newLine);
 
         //determine fields declared in this class only (no fields of superclass)
-        Field[] fields = this.getClass().getDeclaredFields();        
-        
-        //TMP
-        result.append("  ");
-        result.append("name: "+this.getName());
-        result.append(newLine+"  ");
-        result.append("ISIN: "+this.getISIN());
-        result.append(newLine+"  ");
-        result.append("type: "+this.getType());
-        result.append(newLine+"  ");
-        result.append("site: "+this.getSite());
-        result.append(newLine);
+        Field[] fields = this.getClass().getDeclaredFields();
         
         //print field names paired with their values
         for ( Field field : fields  ) {
@@ -92,7 +81,7 @@ public abstract class Quotation {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
+	
 
 
 	

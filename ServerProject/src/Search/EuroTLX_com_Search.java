@@ -89,9 +89,8 @@ public class EuroTLX_com_Search extends Search {
 				break;
 			default:
 				this.setType(QuotationType.BOND);
-				break;
+				return true;
 			}
-			return true;
 			
 			
 		} catch (Exception e) {

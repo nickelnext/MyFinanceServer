@@ -3,26 +3,15 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Vector;
-
-import sun.rmi.transport.proxy.CGIHandler;
-
-import com.github.neilprosser.cjson.CJSON;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation;
-import Quotes.QuotationType;
 import Requests.Request;
 import Requests.RequestContainer;
-import Requests.RequestForced;
-import Requests.RequestQuotation;
-import Requests.RequestType;
-import Requests.RequestUpdate;
 import Search.Search;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class RequestHandler {
 

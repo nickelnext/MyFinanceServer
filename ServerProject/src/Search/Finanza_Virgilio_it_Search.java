@@ -13,7 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
 
-import Quotes.Type;
+import Quotes.QuotationType;
 import Utils.UtilFuncs;
 
 public class Finanza_Virgilio_it_Search extends Search {
@@ -50,16 +50,16 @@ public class Finanza_Virgilio_it_Search extends Search {
 			if(type.contains("Bond") || 
 					type.contains("Tit. di Stato") ||
 					type.contains("Obbligazioni"))
-				this.setType(Type.BOND);
+				this.setType(QuotationType.BOND);
 			else
 				if(type.contains("Azioni") ||
 						type.contains("T.A.H.") ||
 						type.contains("NASDAQ - National") ||
 						type.contains("NASDAQ - Unit Investment Trust"))
-					this.setType(Type.SHARE);
+					this.setType(QuotationType.SHARE);
 				else
 					if(type.contains("Fondi e SICAV"))
-						this.setType(Type.FUND);
+						this.setType(QuotationType.FUND);
 					else
 						this.setType(null);
 			//

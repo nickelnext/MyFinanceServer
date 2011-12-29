@@ -16,6 +16,7 @@ import Quotes.Quotation_Share;
 import Requests.Request;
 import Search.Search;
 
+import com.github.neilprosser.cjson.CJSON;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,17 +37,17 @@ public class RequestHandler {
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
-//		tmpList.add(new Request("IT0003856405"));
-		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
-		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "Borsaitaliana_it"));
-		tmpList.add(new Request("IT0004220627"));
-		tmpList.add(new Request("IT0003926547"));
+//		tmpList.add(new Request("FNC"));
+//		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
+//		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "Borsaitaliana_it"));
+//		tmpList.add(new Request("IT0004220627"));
+//		tmpList.add(new Request("IT0003926547"));
 //		tmpList.add(new Request("IT0001233417"));
-		tmpList.add(new Request("LU0336083497"));
-//		tmpList.add(new Request("US38259P5089"));
-		tmpList.add(new Request("IT0003406334"));
+//		tmpList.add(new Request("LU0336083497"));
+//		tmpList.add(new Request("US38259P5089", QuotationType.SHARE, "Yahoo_Finanza_it"));
+		tmpList.add(new Request("IT0003406334", QuotationType.FUND, "Yahoo_Finanza_it"));
 //		tmpList.add(new Request("IT0004168826"));
-		tmpList.add(new Request("IT0000382983"));
+//		tmpList.add(new Request("IT0000382983"));
 		
 		
 		
@@ -59,9 +60,11 @@ public class RequestHandler {
 	
 		
 		
-		String responseQuot = doStuff(jason0);
-//		ArrayList<Quotation> resListQuot = decodeQuotations(responseQuot);
-		QuotationContainer pannula = decodeQuotations(responseQuot);
+		String cJsonResp = doStuff(jason0);
+		System.out.println(cJsonResp);
+		String jsonResp = CJSON.unpack(cJsonResp);
+		System.out.println(jsonResp);
+		QuotationContainer pannula = decodeQuotations(CJSON.unpack(jsonResp));
 
 		
 			
@@ -142,13 +145,16 @@ public class RequestHandler {
 	
 
 
-	public static String doStuff(String jason) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException, IllegalStateException{
-		String res;
-//		ArrayList<Quotation> tmp = processRequests(decodeRequests(jason));
-		QuotationContainer tmp = processRequests(decodeRequests(jason));
+	public static String doStuff(String jasonReq) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException, IllegalStateException{
+		String jasonResp, cJasonResp;
+		QuotationContainer quot = processRequests(decodeRequests(jasonReq));
 		Gson converter = new Gson();
-		res = converter.toJson(tmp);		
-		return res;
+		//convert to json string
+		jasonResp = converter.toJson(quot);
+		//compress with cjson
+		cJasonResp = CJSON.pack(jasonResp);
+		
+		return cJasonResp;
 	}
 	
 	

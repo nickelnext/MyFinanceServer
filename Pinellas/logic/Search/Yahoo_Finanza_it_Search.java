@@ -37,27 +37,28 @@ public class Yahoo_Finanza_it_Search extends Search {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text() | " +
-					"//tr[@class='yui-dt-odd']/td/text()";
+			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a | " +
+					"//tr[@class='yui-dt-odd']/td";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+			
+			System.out.println(nodes.getLength());
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 			
 			String s = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22" + Utils.UtilFuncs.ISIN_REPLACE + "%22%29&env=store://datatables.org/alltableswithkeys";
-			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getNodeValue()));
+			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getFirstChild().getNodeValue()));
 
-			
-			switch (nodes.item(4).getNodeValue()) { //type
-			case "Obbligazioni":
-				this.setType(QuotationType.BOND);
-				break;
+			if(nodes.item(4).getFirstChild().getNodeValue() == null){
+				return false;				
+			}
+			switch (nodes.item(4).getFirstChild().getNodeValue()) { //type
 			case "Azione":
 				this.setType(QuotationType.SHARE);
 				break;
 			default:
 				this.setType(null);
-				break;
+				return false;
 			}
 			
 			return true;

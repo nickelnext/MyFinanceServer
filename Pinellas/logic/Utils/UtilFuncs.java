@@ -1,12 +1,7 @@
 package Utils;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import org.w3c.dom.Document;
@@ -16,58 +11,13 @@ public class UtilFuncs {
 
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
 	//	public static final String ISIN_NOT_FOUND ="ISIN_NOT_FOUND";
-	public static final String[] datePatterns = {
-		"dd/MM/yyyy",
-		"dd/MM/yyyy HH.mm",
-		"dd/MM/yyyy HH.mm.ss",
-		"dd/MM/yyyy HH:mm",
-		"dd/MM/yyyy HH:mm:ss",
-		//
-		"dd/MM/yyyy - HH.mm",
-		"dd/MM/yyyy - HH.mm.ss",
-		"dd/MM/yyyy - HH:mm",
-		"dd/MM/yyyy - HH:mm:ss",
-		//
-		"dd-MM-yyyy",
-		"dd-MM-yyyy HH.mm",
-		"dd-MM-yyyy HH.mm.ss",
-		"dd-MM-yyyy HH:mm",
-		"dd-MM-yyyy HH:mm:ss",
-		//
-		"HH.mm",
-		"HH.mm.ss",
-		//
-		"HH:mm",
-		"HH:mm:ss",
-	};
-	public static final String[] datePatternsEng = {
-		"MM/dd/yyyy",
-		"MM/dd/yyyy HH.mm",
-		"MM/dd/yyyy HH.mm.ss",
-		"MM/dd/yyyy HH:mm",
-		"MM/dd/yyyy HH:mm:ss",
-		//
-		"MM/dd/yyyy - HH.mm",
-		"MM/dd/yyyy - HH.mm.ss",
-		"MM/dd/yyyy - HH:mm",
-		"MM/dd/yyyy - HH:mm:ss",
-		//
-		"MM-dd-yyyy",
-		"MM-dd-yyyy HH.mm",
-		"MM-dd-yyyy HH.mm.ss",
-		"MM-dd-yyyy HH:mm",
-		"MM-dd-yyyy HH:mm:ss",
-		//
-		"HH.mm",
-		"HH.mm.ss",
-		//
-		"HH:mm",
-		"HH:mm:ss",
-	};
 
 	public static final String countryUs = "us";
 	public static final String countryIt = "it";
 	public static final String countryDefault = "it";
+	public static final String countryItDateUs = "itus";
+	public static final String countryUsDateIt = "usit";
+	
 
 
 
@@ -97,6 +47,12 @@ public class UtilFuncs {
 			break;
 		case UtilFuncs.countryIt:
 			l = Locale.ITALY;
+			break;
+		case UtilFuncs.countryItDateUs:
+			l = Locale.ITALY;
+			break;
+		case UtilFuncs.countryUsDateIt:
+			l = Locale.US;
 			break;
 		default:
 			l = Locale.ITALY;
@@ -145,52 +101,4 @@ public class UtilFuncs {
 			return Integer.valueOf(string);
 		}
 	}
-
-	//	01/11/11 - 11.33.42
-
-
-	public static Date formatDate(String s, String country) {
-		String[] datepattern;
-		switch (country) {
-		case UtilFuncs.countryIt:
-			datepattern = datePatterns;
-			break;
-		case UtilFuncs.countryUs:
-			datepattern = datePatternsEng;
-			break;
-		default:
-			datepattern = datePatterns;
-			break;
-		}
-		Date date = null;
-		int i=0;
-		DateFormat formatter;
-		boolean found=false;
-		while(!found && i< datepattern.length)
-		{
-			formatter = new SimpleDateFormat(datepattern[i]);
-			try {
-				//
-				date = formatter.parse(s);
-				if(!datepattern[i].contains("/") && !datepattern[i].contains("-"))
-				{
-					//only time of the day i set, no date, so we need to add it using calendar
-					GregorianCalendar today = new GregorianCalendar();
-					@SuppressWarnings("deprecation")
-					GregorianCalendar cal = new GregorianCalendar(today.get(Calendar.YEAR), today.get(Calendar.MONTH), 
-							today.get(Calendar.DAY_OF_MONTH), date.getHours(), date.getMinutes(), date.getSeconds());
-					date = cal.getTime();
-				}
-				found = true;
-			}
-			catch (ParseException e) {
-				i++;
-			}
-		}
-		return date;
-	}
-	
-	
-	
-
 }

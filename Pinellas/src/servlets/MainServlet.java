@@ -64,8 +64,8 @@ import mainpackage.RequestHandler;
 //		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
 //		gzipStream.write(result.getBytes());
 //		gzipStream.close();
-		response.setHeader("Content-Encoding", "gzip"); 
-		response.setContentType("text/html"); 
+//		response.setHeader("Content-Encoding", "gzip"); 
+//		response.setContentType("text/html"); 
 
 		response.getWriter().write(result);
 		

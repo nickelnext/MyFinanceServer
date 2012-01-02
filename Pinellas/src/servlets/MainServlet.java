@@ -43,6 +43,7 @@ import mainpackage.RequestHandler;
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	    throws ServletException, IOException {
+		long startTime = System.currentTimeMillis();
 //		String username = request.getParameter("username");
 //		String password = request.getParameter("password");
 		String jason = request.getParameter("json");
@@ -65,7 +66,10 @@ import mainpackage.RequestHandler;
 //		gzipStream.close();
 //		response.setHeader("Content-Encoding", "gzip"); 
 //		response.setContentType("text/html"); 
-
+		long endTime = System.currentTimeMillis();
+		long seconds = (endTime - startTime) / 1000;
+		
+		System.out.println("Servlet totale: " + seconds + " secondi");
 		response.getWriter().write(result);
 		
 		

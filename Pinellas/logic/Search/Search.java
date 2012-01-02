@@ -12,8 +12,8 @@ public abstract class Search {
 		return type;
 	}
 
-	public void setType(QuotationType type) {
-		this.type = type;
+	public void setType(QuotationType bond) {
+		this.type = bond;
 	}
 
 	public abstract boolean search(String ISIN, String searchUrl);

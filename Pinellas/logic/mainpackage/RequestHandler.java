@@ -324,7 +324,9 @@ public class RequestHandler {
 
 					//instantiate the requestedSite_Search parser to search for idCode in searchLink url
 					System.out.println("instantiating "+requestedSite+"_Search class..."+" parsing "+searchLink);				
-					idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
+					long startTime = System.currentTimeMillis();
+					idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();					
+					
 
 					//launch idFinder and immediately verify the boolean return value
 					if(!idFinder.search(req.getIdCode(), searchLink)){
@@ -338,8 +340,13 @@ public class RequestHandler {
 						found = true;
 
 						completeLink = idFinder.getCompleteLink();
-
-						//Instantiate the second parser to find details of the quotation 
+						long endTime = System.currentTimeMillis();
+						long seconds = (endTime - startTime);
+						System.out.println("Search totale: " + seconds + " millisecondi");
+						
+						//Instantiate the second parser to find details of the quotation
+						long startTime1 = System.currentTimeMillis();
+						
 						SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
 
 						//launch the right parser based on the quotation type
@@ -394,7 +401,9 @@ public class RequestHandler {
 							System.out.println("Parsing Error! null Quotation!");
 							found = false; 						
 						}
-
+						long endTime1 = System.currentTimeMillis();
+						long seconds1 = (endTime1 - startTime1);
+						System.out.println("Parse totale: " + seconds1 + " millisecondi");
 						rp.updateRankingTables(found, req.getReqType(), idFinder.getType(), requestedSite, db);
 					}
 

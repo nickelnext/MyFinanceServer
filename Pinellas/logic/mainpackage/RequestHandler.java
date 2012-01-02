@@ -38,14 +38,14 @@ public class RequestHandler {
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
 //		tmpList.add(new Request("FNC"));
-//		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
-//		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "Borsaitaliana_it"));
+		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
+		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__"));
 //		tmpList.add(new Request("IT0004220627"));
 //		tmpList.add(new Request("IT0003926547"));
 //		tmpList.add(new Request("IT0001233417"));
 //		tmpList.add(new Request("LU0336083497"));
 //		tmpList.add(new Request("US38259P5089", QuotationType.SHARE, "Yahoo_Finanza_it"));
-		tmpList.add(new Request("IT0003406334", QuotationType.FUND, "Yahoo_Finanza_it"));
+//		tmpList.add(new Request("IT0003406334", QuotationType.FUND, "Yahoo_Finanza_it"));
 //		tmpList.add(new Request("IT0004168826"));
 //		tmpList.add(new Request("IT0000382983"));
 		
@@ -160,16 +160,21 @@ public class RequestHandler {
 	
 	public static QuotationContainer processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
+		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
 		
 		MyDatabase db = new MyDatabase("pinella", "pinella", "pinella87");
 		// connection with database
+		
+		long startTimeDB = System.currentTimeMillis();
 		if ( !db.connect() ) { 
 			System.out.println("Database connection error.");
 			System.out.println( db.getError() );
 			System.exit(0);
 		}
-
+		long endTimeDB = System.currentTimeMillis();
+		long secondsDB = (endTimeDB - startTimeDB);
+		System.out.println("Connessione DB: " + secondsDB + " millisecondi");
 		RequestPolicies rp = new RequestPolicies();
 		
 		//extract 
@@ -234,7 +239,7 @@ public class RequestHandler {
 
 				case UPDATE:	//QUOTATION TYPE KNOWN, POSSIBLY PREFERRED SITE
 					//select the provider based on the quotation type [precedence precedence to the preferred site]
-					System.out.println("------------->>UPDATE CAZO");
+					System.out.println("------------->>UPDATE");
 					//verify whether or not preferredSite is specified 
 					if(preferred && req.getPreferredSite() != "__NONE__"){
 						//get search url from HT siteNameTable
@@ -404,7 +409,11 @@ public class RequestHandler {
 						long endTime1 = System.currentTimeMillis();
 						long seconds1 = (endTime1 - startTime1);
 						System.out.println("Parse totale: " + seconds1 + " millisecondi");
+						long startTime2 = System.currentTimeMillis();
 						rp.updateRankingTables(found, req.getReqType(), idFinder.getType(), requestedSite, db);
+						long endTime2 = System.currentTimeMillis();
+						long seconds2 = (endTime2 - startTime2);
+						System.out.println("Update Ranking: " + seconds2 + " millisecondi");
 					}
 
 				}

@@ -152,9 +152,9 @@ public class RequestHandler {
 		//convert to json string
 		jasonResp = converter.toJson(quot);
 		//compress with cjson
-		cJasonResp = CJSON.pack(jasonResp);
+//		cJasonResp = CJSON.pack(jasonResp);
 		
-		return cJasonResp;
+		return jasonResp;
 	}
 	
 	

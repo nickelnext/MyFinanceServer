@@ -163,7 +163,7 @@ public class RequestHandler {
 		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
 		
-		MyDatabase db = new MyDatabase("pinella", "pinella", "pinella87");
+		MyDatabase db = new MyDatabase("pinella", "root", "allanonkelt");
 		// connection with database
 		
 		long startTimeDB = System.currentTimeMillis();
@@ -338,7 +338,9 @@ public class RequestHandler {
 
 						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
 						found = false;
-
+						long endTime = System.currentTimeMillis();
+						long seconds = (endTime - startTime);
+						System.out.println("Search totale: " + seconds + " millisecondi");
 					}else{
 
 						System.out.println("IdCode "+req.getIdCode()+" found (type = "+idFinder.getType()+")");

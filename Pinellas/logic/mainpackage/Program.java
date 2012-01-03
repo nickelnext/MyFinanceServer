@@ -4,15 +4,16 @@ import java.net.URL;
 
 import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
+import Search.Search;
 
 public class Program {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
 
 
-				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-				Quotation_Bond q = s.parseBOND(new URL(
-						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
+//				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//				Quotation_Bond q = s.parseBOND(new URL(
+//						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 				
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
@@ -20,7 +21,7 @@ public class Program {
 //		System.out.println(q.toString());
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Boerse_Frankfurt_de").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL("http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=XS0650262875"));
-		System.out.println(q.toString());
+//		System.out.println(q.toString());
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
@@ -86,8 +87,9 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-//				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-//				src.search("A2A", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+				Search src = (Search)Class.forName("Search.Boerse_Frankfurt_de_Search").newInstance();
+				boolean k = src.search("DE000A1H3JZ8", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
+				System.out.println(k);
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
 //				System.out.println(qs.toString());

@@ -17,7 +17,7 @@ public class MyDatabase {
    private boolean connected;    // Flag che indica se la connessione è attiva o meno
 
    static final String DRIVER = "com.mysql.jdbc.Driver";
-   static final String DB_URL = "jdbc:mysql://localhost:3309/";
+   static final String DB_URL = "jdbc:mysql://myfinance.no-ip.org:3309/";
    
    public MyDatabase(String dbName) { this(dbName, "", ""); }
 

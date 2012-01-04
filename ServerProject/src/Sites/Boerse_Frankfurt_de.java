@@ -108,54 +108,6 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 	}
 	public Quotation_Fund parseFUND(URL url)
 	{
-		try 
-		{
-			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
-
-			Tidy tidy = new Tidy();
-			tidy.setQuiet(true);
-			tidy.setShowWarnings(false);
-			tidy.setFixBackslash(true);
-			Document response = tidy.parseDOM(buffInput, null);
-
-			XPathFactory factory = XPathFactory.newInstance();
-			XPath xPath=factory.newXPath();
-			String pattern = "//table[@class='table_dati']//td";
-			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-			
-			
-			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
-			
-			
-			Quotation_Fund qf = new Quotation_Fund();
-			
-			qf.setName(UtilFuncs.getString(nodes, 1));
-			qf.setISIN(UtilFuncs.getString(nodes, 30));
-			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 42));
-			qf.setCategoriaAssociati(UtilFuncs.getString(nodes, 40));
-			qf.setDataUltimoPrezzo(UtilFuncs.getString(nodes, 5));
-			qf.setNomeGestore(UtilFuncs.getString(nodes, 46));
-//			qf.setPerformance1Anno(performance1Anno)
-//			qf.setPerformance1Mese(performance1Mese)
-//			qf.setPerformance3Anni(performance3Anni)
-//			qf.setPerformance3Mesi(performance3Mesi)
-			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
-//			qf.setSite(site)
-			qf.setUltimoPrezzo(UtilFuncs.getString(nodes, 2));
-			qf.setValuta(UtilFuncs.getString(nodes, 4));
-//			qf.setVariazioneAssoluta(variazioneAssoluta)
-			qf.setVariazionePercentuale(UtilFuncs.getString(nodes, 6));
-			
-			
-			
-			return qf;	
-		}
-		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-		} 
-		catch (XPathExpressionException e) {
-		}
 		return null;
 	}
 	@Override

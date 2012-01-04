@@ -1,9 +1,6 @@
 package mainpackage;
 import java.io.IOException;
-import java.net.URL;
 
-import Handlers.SiteInterface;
-import Quotes.Quotation_Bond;
 import Search.Search;
 
 public class Program {
@@ -88,8 +85,9 @@ public class Program {
 //				System.out.println(qy.toString());
 		//		search
 				Search src = (Search)Class.forName("Search.Boerse_Frankfurt_de_Search").newInstance();
-				boolean k = src.search("DE000A1H3JZ8", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
+				boolean k = src.search("XS0209139244", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
 				System.out.println(k);
+				System.out.println(src.getCompleteLink());
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
 //				System.out.println(qs.toString());

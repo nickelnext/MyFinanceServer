@@ -1,7 +1,9 @@
 package mainpackage;
 import java.io.IOException;
+import java.net.URL;
 
-import Search.Search;
+import Handlers.SiteInterface;
+import Quotes.Quotation_Share;
 
 public class Program {
 
@@ -13,16 +15,19 @@ public class Program {
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 				
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
+		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
 //		Quotation_Bond q = s.parseBTP(new URL("http://www.eurotlx.com/home3/popup.php?dd=T1MZ14"));
 //		System.out.println(q.toString());
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Boerse_Frankfurt_de").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL("http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=XS0650262875"));
 //		System.out.println(q.toString());
 		
+		Quotation_Share qs = s.parseSHARE(new URL(
+				"http://www.eurotlx.com/home3/popup.php?dd=GOOG-U"));
+		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
-//		System.out.println(qs.toString());
+		System.out.println(qs.toString());
 		
 		
 //		System.out.println(Calendar.getInstance().get(Calendar.getInstance().YEAR));
@@ -84,17 +89,25 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-				Search src = (Search)Class.forName("Search.Boerse_Frankfurt_de_Search").newInstance();
-				boolean k = src.search("XS0209139244", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
-				System.out.println(k);
-				System.out.println(src.getCompleteLink());
+//				Search src = (Search)Class.forName("Search.Boerse_Frankfurt_de_Search").newInstance();
+//				boolean k = src.search("XS0209139244", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
+//				System.out.println(k);
+//				System.out.println(src.getCompleteLink());
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
 //				System.out.println(qs.toString());
 				
 //		Search src = (Search)Class.forName("Search.Finanza_Virgilio_it_Search").newInstance();
-//		src.search("IT0004220627", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
-
+//		boolean k;
+		//BOND
+//		k = src.search("IT0004572910", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
+//		System.out.println(k);
+//		System.out.println(src.getCompleteLink());
+		
+		//azione
+//		k = src.search("US38259P5089", "http://economia.virgilio.it/ricerca/index.html?qs=__ISIN__HERE__&m=&canale=tutto");
+//		System.out.println(k);
+//		System.out.println(src.getCompleteLink());
 
 //				Search src = (Search)Class.forName("Search.Yahoo_Finanza_it_Search").newInstance();
 //				src.search("IT0003990402", "http://it.finance.yahoo.com/lookup?s=__ISIN__HERE__");

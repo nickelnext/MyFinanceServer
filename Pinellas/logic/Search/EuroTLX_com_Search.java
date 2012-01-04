@@ -85,8 +85,8 @@ public class EuroTLX_com_Search extends Search {
 				this.setType(null);
 				break;
 			case "Azioni / DR":
-				this.setType(null);
-				break;
+				this.setType(QuotationType.SHARE);
+				return true;
 			default:
 				this.setType(QuotationType.BOND);
 				return true;

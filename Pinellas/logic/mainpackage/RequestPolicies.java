@@ -67,7 +67,7 @@ public class RequestPolicies {
 	public Vector getSiteSearch(MyDatabase db) {
 		//kinda sigleton pattern
 		if(this.siteSearch == null){
-			this.siteSearch = db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_type_search_rate;");
+			this.siteSearch = db.execQuery("SELECT DISTINCT Name,SearchUrl FROM tbl_name_type_search_rate;");
 			this.setSiteNameTable(this.siteSearch);
 		}
 		return siteSearch;

@@ -107,6 +107,60 @@ public class EuroTLX_com implements SiteInterface {
 	}
 	public Quotation_Share parseSHARE(URL url)
 	{
+		try 
+		{
+			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
+
+			Tidy tidy = new Tidy();
+			tidy.setQuiet(true);
+			tidy.setShowWarnings(false);
+			tidy.setFixBackslash(true);
+			Document response = tidy.parseDOM(buffInput, null);
+
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xPath=factory.newXPath();
+			String pattern = "//div[@class='popup-tables-holder']//td//text() | //div[@class='popup-tables-holder']//th/text() " +
+					"| //div[@class='popup-nav']//text() | //ul[@class='product-description']//text()";
+			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+
+			for(int i=0;i<nodes.getLength();i++)
+				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
+			
+			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+				return null;
+			
+			Quotation_Share qs = new Quotation_Share();
+			qs.setCountry(UtilFuncs.countryUs);
+			qs.setName(nodes.item(7).getNodeValue());		//Nome			
+			qs.setISIN(nodes.item(1).getNodeValue());		//ISIN
+//			qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
+//			qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
+			qs.setPrezzoUltimoContratto(nodes.item(42).getNodeValue());
+			qs.setVariazionePercentuale(nodes.item(14).getNodeValue());
+//			qs.setVariazioneAssoluta(UtilFuncs.getString(nodes, 21));
+			qs.setDataOraUltimoAcquisto(nodes.item(46).getNodeValue());
+//			qs.setPrezzoAcquisto(UtilFuncs.getString(nodes, 31));
+//			qs.setPrezzoVendita(UtilFuncs.getString(nodes, 33));
+			qs.setQuantitaUltimo(nodes.item(44).getNodeValue());
+//			qs.setQuantitaAcquisto(UtilFuncs.getString(nodes, 29));
+//			qs.setQuantitaVendita(UtilFuncs.getString(nodes, 35));
+//			qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));
+//			qs.setMaxOggi(UtilFuncs.getString(nodes, 43));
+//			qs.setMinOggi(UtilFuncs.getString(nodes, 47));
+			qs.setMaxAnno(nodes.item(58).getNodeValue());
+			qs.setMinAnno(nodes.item(56).getNodeValue());
+//			qs.setDataMaxAnno(dataMaxAnno);
+//			qs.setDataMinAnno(dataMinAnno);
+			qs.setChiusuraPrecedente(nodes.item(49).getNodeValue());
+			
+			return qs;	
+		}
+		catch (IOException e) {
+			System.out.println("ISIN NON TROVATO");	
+		} 
+		catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	public Quotation_Fund parseFUND(URL url) {

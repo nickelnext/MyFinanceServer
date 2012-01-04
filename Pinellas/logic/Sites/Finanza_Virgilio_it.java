@@ -66,6 +66,9 @@ public class Finanza_Virgilio_it implements SiteInterface {
 //			qs.setDataMinAnno(dataMinAnno);
 			qs.setChiusuraPrecedente(UtilFuncs.getString(nodes, 51));
 			
+			System.out.println(qs.toString());
+			
+			
 			return qs;	
 		}
 		catch (IOException e) {

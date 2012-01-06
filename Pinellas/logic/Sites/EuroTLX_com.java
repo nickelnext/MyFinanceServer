@@ -3,6 +3,10 @@ package Sites;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -131,19 +135,37 @@ public class EuroTLX_com implements SiteInterface {
 			
 			Quotation_Share qs = new Quotation_Share();
 			qs.setCountry(UtilFuncs.countryUs);
+			
+			String stringOpening = nodes.item(85).getNodeValue().split(" ")[0];
+			String stringClosing = nodes.item(85).getNodeValue().split(" ")[1];
+			SimpleDateFormat s = new SimpleDateFormat("HH:mm");
+			Date dateOpening = s.parse(stringOpening);
+			Date dateClosing = s.parse(stringClosing);
+			
+			//if the market's closed, then we have the normal parsing
+			if(Calendar.getInstance().before(dateOpening) || Calendar.getInstance().after(dateClosing))
+			{
+				qs.setPrezzoUltimoContratto(nodes.item(42).getNodeValue());
+				qs.setQuantitaUltimo(nodes.item(44).getNodeValue());
+				qs.setDataOraUltimoAcquisto(nodes.item(46).getNodeValue());
+			}
+			//the market's open, then we have the 5 level book for prices.
+			else
+			{
+				qs.setDataOraUltimoAcquisto(nodes.item(10).getNodeValue());
+				qs.setPrezzoAcquisto(nodes.item(22).getNodeValue());
+				qs.setPrezzoVendita(nodes.item(21).getNodeValue());
+				qs.setQuantitaAcquisto(nodes.item(23).getNodeValue());
+				qs.setQuantitaVendita(nodes.item(20).getNodeValue());
+			}
+			
 			qs.setName(nodes.item(7).getNodeValue());		//Nome			
 			qs.setISIN(nodes.item(1).getNodeValue());		//ISIN
 //			qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
 //			qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
-			qs.setPrezzoUltimoContratto(nodes.item(42).getNodeValue());
 			qs.setVariazionePercentuale(nodes.item(14).getNodeValue());
 //			qs.setVariazioneAssoluta(UtilFuncs.getString(nodes, 21));
-			qs.setDataOraUltimoAcquisto(nodes.item(46).getNodeValue());
-//			qs.setPrezzoAcquisto(UtilFuncs.getString(nodes, 31));
-//			qs.setPrezzoVendita(UtilFuncs.getString(nodes, 33));
-			qs.setQuantitaUltimo(nodes.item(44).getNodeValue());
-//			qs.setQuantitaAcquisto(UtilFuncs.getString(nodes, 29));
-//			qs.setQuantitaVendita(UtilFuncs.getString(nodes, 35));
+			
 //			qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));
 //			qs.setMaxOggi(UtilFuncs.getString(nodes, 43));
 //			qs.setMinOggi(UtilFuncs.getString(nodes, 47));
@@ -159,6 +181,9 @@ public class EuroTLX_com implements SiteInterface {
 			System.out.println("ISIN NON TROVATO");	
 		} 
 		catch (XPathExpressionException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

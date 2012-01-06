@@ -46,11 +46,13 @@ public class EuroTLX_com implements SiteInterface {
 			
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+			
+			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-//			for(int i=0;i<nodes.getLength();i++)
-//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
+			for(int i=0;i<nodes.getLength();i++)
+				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
 			
 			
 			Quotation_Bond qb = new Quotation_Bond();
@@ -61,10 +63,35 @@ public class EuroTLX_com implements SiteInterface {
 			qb.setValuta(nodes.item(104).getNodeValue());		//Valuta
 			qb.setMercato("EuroTLX");	//Mercato
 //			qb.setFaseMercato(UtilFuncs.getString(nodes, 52));//Fase Mercato
-			qb.setPrezzoUltimoContratto(nodes.item(44).getNodeValue());	//Ultimo Prezzo
+			
+			String stringOpening = nodes.item(90).getNodeValue().split(" ")[0];
+			String stringClosing = nodes.item(90).getNodeValue().split(" ")[1];
+			SimpleDateFormat s = new SimpleDateFormat("HH:mm");
+			Date dateOpening = s.parse(stringOpening);
+			Date dateClosing = s.parse(stringClosing);
+			
+			//if the market's closed, then we have the normal parsing
+			if(Calendar.getInstance().before(dateOpening) || Calendar.getInstance().after(dateClosing))
+			{
+				qb.setPrezzoUltimoContratto(nodes.item(44).getNodeValue());
+				qb.setVolumeUltimo(nodes.item(46).getNodeValue());
+				qb.setDataUltimoContratto(nodes.item(48).getNodeValue());
+			}
+			//the market's open, then we have the 5 level book for prices.
+			else
+			{
+				qb.setDataUltimoContratto(nodes.item(12).getNodeValue());
+				qb.setPrezzoAcquisto(nodes.item(24).getNodeValue());
+				qb.setPrezzoVendita(nodes.item(23).getNodeValue());
+				qb.setVolumeAcquisto(nodes.item(25).getNodeValue());
+				qb.setVolumeVendita(nodes.item(22).getNodeValue());
+			}
+			
+			
+//			qb.setPrezzoUltimoContratto(nodes.item(44).getNodeValue());	//Ultimo Prezzo
 			qb.setVariazionePercentuale(nodes.item(16).getNodeValue());	//Var %
 //			qb.setVariazioneAssoluta(nodes.item(17).getFirstChild().getNodeValue());	//Var Ass
-			qb.setDataUltimoContratto(nodes.item(48).getNodeValue());
+//			qb.setDataUltimoContratto(nodes.item(48).getNodeValue());
 //			qb.setVolumeUltimo(UtilFuncs.getString(nodes, 46));
 //			qb.setVolumeAcquisto(UtilFuncs.getString(nodes, 91));
 //			qb.setPrezzoAcquisto(UtilFuncs.getString(nodes, 84));
@@ -88,6 +115,9 @@ public class EuroTLX_com implements SiteInterface {
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
 		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 

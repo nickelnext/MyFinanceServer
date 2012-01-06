@@ -64,8 +64,16 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			String data = nodes.item(11).getNodeValue();
 			data = data.replaceAll("[^0-9/.\\s]", "");
 			data = data.trim();
-			data = data.split("  ")[1] + " - " + data.split("  ")[0];
+			try
+			{
+				data = data.split("  ")[1] + " - " + data.split("  ")[0];
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
 				
+			}
+			
+			
 			qs.setDataOraUltimoAcquisto(data);
 			
 			String[] vendita = nodes.item(26).getNodeValue().split(" x ");
@@ -177,10 +185,20 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			qb.setVariazioneAssoluta(nodes.item(1).getNodeValue());	//Var Ass
 			
 			String data = nodes.item(11).getNodeValue();
+//			System.out.println(">"+data+ "<");
 			data = data.replaceAll("[^0-9/.\\s]", "");
+//			System.out.println(">"+data+ "<");
 			data = data.trim();
-			data = data.split("  ")[1] + " - " + data.split("  ")[0];
-
+			try
+			{
+				data = data.split("  ")[1] + " - " + data.split("  ")[0];
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				
+			}
+//			System.out.println(">"+data+ "<");
+			
 			qb.setDataUltimoContratto(data);
 
 			String[] vendita = nodes.item(26).getNodeValue().split(" x ");

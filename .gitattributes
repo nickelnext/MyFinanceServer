@@ -8,7 +8,6 @@ Pinellas/WebContent/WEB-INF/lib/jtidy-r938.jar -text
 Pinellas/WebContent/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar -text
 Pinellas/WebContent/WEB-INF/web.xml -text
 Pinellas/WebContent/index.jsp -text
-Pinellas/logic/Handlers/Site.java -text
 Pinellas/logic/Handlers/SiteInterface.java -text
 Pinellas/logic/Quotes/Quotation.java -text
 Pinellas/logic/Quotes/QuotationContainer.java -text

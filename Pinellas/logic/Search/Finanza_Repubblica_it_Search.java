@@ -51,20 +51,23 @@ public class Finanza_Repubblica_it_Search extends Search {
 					else
 					{
 						System.out.println("No Bond no Share: what is it?");
+						//TODO
 						return false;
 					}
 				return true;
-				
-			}
-			
-				return false;
 
-			
+			}
+
+			return false;
+
+
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			//TODO
 		}
 		return false;
 	}

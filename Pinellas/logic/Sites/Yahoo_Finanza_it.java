@@ -78,6 +78,11 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		catch(Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	public Quotation_Bond parseCTZ(URL url)

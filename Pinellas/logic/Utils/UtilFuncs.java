@@ -10,8 +10,36 @@ import org.w3c.dom.NodeList;
 public class UtilFuncs {
 
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
-	//	public static final String ISIN_NOT_FOUND ="ISIN_NOT_FOUND";
+	//errors
+	
+	//isin
+	public static final String ERROR_ISIN_LOCALLY_NOT_FOUND = "ISIN_LOCALLY_NOT_FOUND";
+	public static final String ERROR_ISIN_GLOBALLY_NOT_FOUND = "ISIN_GLOBALLY_NOT_FOUND";
+	public static final String ERROR_ISIN_INVALID_LENGTH = "ERROR_ISIN_INVALID_LENGTH";
+	
+	
+	//quotation
+	public static final String ERROR_QUOTATION_NULL = "ERROR_QUOTATION_NULL";
+	
+	//exceptions
+	public static final String ERROR_PARSE_EXCEPTION = "ERROR_PARSE_EXCEPTION";
+	public static final String ERROR_PARSING_XML_EXCEPTION = "ERROR_PARSING_XML_EXCEPTION";
+	public static final String ERROR_PARSING_HTML_EXCEPTION = "ERROR_PARSING_HTML_EXCEPTION";
+	public static final String ERROR_ARRAY_INDEXOUTOFBOUND_EXCEPTION = "ERROR_ARRAY_INDEXOUTOFBOUND_EXCEPTION";
+	public static final String ERROR_STRING_INDEXOUTOFBOUND_EXCEPTION = "ERROR_STRING_INDEXOUTOFBOUND_EXCEPTION";
+	public static final String ERROR_IO_EXCEPTION = "ERROR_IO_EXCEPTION";
+	public static final String ERROR_SAX_EXCEPTION = "ERROR_SAX_EXCEPTION";
+	public static final String ERROR_PARSING_DATE_EXCEPTION = "ERROR_PARSING_DATE_EXCEPTION";
+	
+	//numbers
+	public static final String ERROR_NOT_A_NUMBER = "ERROR_NOT_A_NUMBER";
 
+	
+	//responses
+	public static final String ERROR_NONE = "ERROR_NONE";
+	public static final String ERROR_OK = "ERROR_OK";
+	
+	
 	public static final String countryUs = "us";
 	public static final String countryIt = "it";
 	public static final String countryDefault = "it";
@@ -29,7 +57,15 @@ public class UtilFuncs {
 	}
 	public static String getString(Document doc, String nodeName)
 	{
-			return doc.getElementsByTagName(nodeName).item(0).getFirstChild().getNodeValue();
+			try
+			{
+				return doc.getElementsByTagName(nodeName).item(0).getFirstChild().getNodeValue();
+			}
+			catch(Exception e)
+			{
+				//TODO
+				return null;
+			}
 	}
 
 

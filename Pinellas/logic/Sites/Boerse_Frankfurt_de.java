@@ -42,8 +42,8 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-			for(int i=0; i<nodes.getLength();i++)
-				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
+//			for(int i=0; i<nodes.getLength();i++)
+//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
 			Quotation_Bond qb = new Quotation_Bond();
 			
 			qb.setCountry(UtilFuncs.countryUsDateIt);
@@ -83,9 +83,11 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
 			e.printStackTrace();
+			//TODO
 		}
 		return null;
 	}
@@ -112,7 +114,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 	}
 	@Override
 	public Quotation_Share parseSHARE(URL url) {
-		// TODO Auto-generated method stub
+		// TODO VA FATTOOOOOO
 		return null;
 	}
 }

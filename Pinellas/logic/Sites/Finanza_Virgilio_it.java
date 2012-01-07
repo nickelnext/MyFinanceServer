@@ -67,37 +67,45 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			try
 			{
 				data = data.split("  ")[1] + " - " + data.split("  ")[0];
+				String[] vendita = nodes.item(26).getNodeValue().split(" x ");
+				String[] acquisto = nodes.item(28).getNodeValue().split(" x ");
+				qs.setPrezzoAcquisto(acquisto[1]);
+				qs.setPrezzoVendita(vendita[1]);
+				qs.setQuantitaAcquisto(acquisto[0]);
+				qs.setQuantitaVendita(vendita[0]);
+				data = nodes.item(40).getNodeValue();
+				data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
+				Calendar.getInstance();
+				data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
+				qs.setDataMinAnno(data);
+				data = nodes.item(38).getNodeValue();
+				data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
+				Calendar.getInstance();
+				data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
+				qs.setDataMaxAnno(data);
+				
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
-				
+				//TODO
+			}
+			catch(StringIndexOutOfBoundsException e)
+			{
+				//TODO
 			}
 			
 			
 			qs.setDataOraUltimoAcquisto(data);
 			
-			String[] vendita = nodes.item(26).getNodeValue().split(" x ");
-			String[] acquisto = nodes.item(28).getNodeValue().split(" x ");
 			
-			qs.setPrezzoAcquisto(acquisto[1]);
-			qs.setPrezzoVendita(vendita[1]);
+			
 //			qs.setQuantitaUltimo(UtilFuncs.getString(nodes, 27));
-			qs.setQuantitaAcquisto(acquisto[0]);
-			qs.setQuantitaVendita(vendita[0]);
+			
 			qs.setQuantitaTotale(nodes.item(30).getNodeValue());
 			qs.setMaxOggi(nodes.item(16).getNodeValue());
 			qs.setMinOggi(nodes.item(18).getNodeValue());
 			
-			data = nodes.item(40).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qs.setDataMinAnno(data);
-			data = nodes.item(38).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qs.setDataMaxAnno(data);
+			
 			
 			qs.setMaxAnno(nodes.item(37).getNodeValue());
 			qs.setMinAnno(nodes.item(39).getNodeValue());
@@ -147,10 +155,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 					"//div[@id='SchedaIndici_Left']/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			for(int i=0;i<nodes.getLength();i++)
-			{
-				System.out.println(i + "\t"  + nodes.item(i).getNodeValue());
-			}
+//			for(int i=0;i<nodes.getLength();i++)
+//			{
+//				System.out.println(i + "\t"  + nodes.item(i).getNodeValue());
+//			}
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
@@ -167,7 +175,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			
 			String ultimoprezzo = "";
 			String r;
-
+			
+			try
+			{
+			
 			   for(int i=3;i<=10;i++)
 			   {
 
@@ -179,7 +190,13 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			    if(r.contains("dot"))
 			     ultimoprezzo += ","; //that's because LOCALE is set to IT
 			   }
+			
 			qb.setPrezzoUltimoContratto(ultimoprezzo);	//Ultimo Prezzo
+			}
+			catch(StringIndexOutOfBoundsException e)
+			{
+				//TODO
+			}		
 			
 			qb.setVariazionePercentuale(nodes.item(2).getNodeValue());	//Var %
 			qb.setVariazioneAssoluta(nodes.item(1).getNodeValue());	//Var Ass
@@ -192,40 +209,44 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			try
 			{
 				data = data.split("  ")[1] + " - " + data.split("  ")[0];
+				String[] vendita = nodes.item(26).getNodeValue().split(" x ");
+				String[] acquisto = nodes.item(28).getNodeValue().split(" x ");
+				qb.setVolumeAcquisto(acquisto[0]);
+				qb.setPrezzoAcquisto(acquisto[1]);
+				qb.setPrezzoVendita(vendita[1]);
+				qb.setVolumeVendita(vendita[0]);
+				data = nodes.item(40).getNodeValue();
+				data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
+				Calendar.getInstance();
+				data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
+				qb.setDataMinAnno(data);
+				data = nodes.item(38).getNodeValue();
+				data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
+				Calendar.getInstance();
+				data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
+				qb.setDataMaxAnno(data);
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
-				
+				//TODO
+			}
+			catch(StringIndexOutOfBoundsException e)
+			{
+				//TODO
 			}
 //			System.out.println(">"+data+ "<");
 			
 			qb.setDataUltimoContratto(data);
 
-			String[] vendita = nodes.item(26).getNodeValue().split(" x ");
-			String[] acquisto = nodes.item(28).getNodeValue().split(" x ");
-
 
 			qb.setVolumeUltimo(nodes.item(20).getNodeValue());
-			qb.setVolumeAcquisto(acquisto[0]);
-			qb.setPrezzoAcquisto(acquisto[1]);
-			qb.setPrezzoVendita(vendita[1]);
-			qb.setVolumeVendita(vendita[0]);
 			qb.setVolumeTotale(nodes.item(30).getNodeValue());
 			qb.setMaxAnno(nodes.item(37).getNodeValue());
 			qb.setMaxOggi(nodes.item(16).getNodeValue());
 			qb.setMinOggi(nodes.item(18).getNodeValue());
 			qb.setMinAnno(nodes.item(39).getNodeValue());
 
-			data = nodes.item(40).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qb.setDataMinAnno(data);
-			data = nodes.item(38).getNodeValue();
-			data = data.substring(data.indexOf("[")+1, data.indexOf("]"));
-			Calendar.getInstance();
-			data = data + "/" + Calendar.getInstance().get(Calendar.YEAR);
-			qb.setDataMaxAnno(data);
+			
 			//			qb.setCedola(UtilFuncs.getString(nodes, 61));
 			qb.setLottoMinimo(nodes.item(59).getNodeValue());
 			//			qb.setDataStaccoCedola(UtilFuncs.getString(nodes, 63));
@@ -236,8 +257,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			//TODO
 		}
 		return null;
 	}
@@ -273,10 +296,33 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());
 			qf.setCategoriaAssociati(nodes.item(16).getNodeValue());
 
-			String data = nodes.item(11).getNodeValue();
-			data = data.split(" ")[data.split(" ").length-1];
+			try{
+				String data = nodes.item(11).getNodeValue();
+				data = data.split(" ")[data.split(" ").length-1];
+				qf.setDataUltimoPrezzo(data);
+				
+				String ultimoprezzo = "";
+				String r;
 
-			qf.setDataUltimoPrezzo(data);
+				for(int i=3;i<=10;i++)
+				{
+
+					r = nodes.item(i).getNodeValue();
+					r = r.substring(r.lastIndexOf("/")+1,r.indexOf("."));
+
+					if(r.matches("\\d"))
+						ultimoprezzo += r;
+					if(r.contains("dot"))
+						ultimoprezzo += ","; //that's because LOCALE is set to IT
+				}
+
+				qf.setUltimoPrezzo(ultimoprezzo);
+			}
+			catch(IndexOutOfBoundsException e)
+			{
+				//TODO
+			}
+			
 
 			qf.setNomeGestore(nodes.item(19).getNodeValue());
 			//			qf.setPerformance1Anno(performance1Anno)
@@ -285,22 +331,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			//			qf.setPerformance3Mesi(performance3Mesi)
 			//			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
 			//			qf.setSite(site)
-			String ultimoprezzo = "";
-			String r;
-
-			for(int i=3;i<=10;i++)
-			{
-
-				r = nodes.item(i).getNodeValue();
-				r = r.substring(r.lastIndexOf("/")+1,r.indexOf("."));
-
-				if(r.matches("\\d"))
-					ultimoprezzo += r;
-				if(r.contains("dot"))
-					ultimoprezzo += ","; //that's because LOCALE is set to IT
-			}
-
-			qf.setUltimoPrezzo(ultimoprezzo);
+			
 			qf.setValuta(nodes.item(14).getNodeValue());
 			qf.setVariazioneAssoluta(nodes.item(1).getNodeValue());
 			qf.setVariazionePercentuale(nodes.item(2).getNodeValue());
@@ -309,8 +340,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			//TODO
 		}
 		return null;
 	}

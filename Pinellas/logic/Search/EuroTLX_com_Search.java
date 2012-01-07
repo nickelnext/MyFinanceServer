@@ -29,7 +29,7 @@ public class EuroTLX_com_Search extends Search {
 			// Construct data
 			String data = URLEncoder.encode("isin", "UTF-8") + "=" + URLEncoder.encode(ISIN, "UTF-8");
 			data += "&" + URLEncoder.encode("nisi", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8");
-		    data += "&" + URLEncoder.encode("cercaisin", "UTF-8") + "=" + URLEncoder.encode("TROVA", "UTF-8");
+			data += "&" + URLEncoder.encode("cercaisin", "UTF-8") + "=" + URLEncoder.encode("TROVA", "UTF-8");
 
 			// Send data
 			URL url = new URL("http://www.eurotlx.com/strumenti/ricerca-avanzata.php");
@@ -42,7 +42,7 @@ public class EuroTLX_com_Search extends Search {
 			// Get the response
 			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line;
-			
+
 			String webPage = "";
 			while ((line = rd.readLine()) != null) {
 				webPage += line;
@@ -50,17 +50,16 @@ public class EuroTLX_com_Search extends Search {
 			wr.close();
 			rd.close();
 			InputStream is = null;
-			
+
 			try {
 				is = new ByteArrayInputStream(webPage.getBytes("UTF-8"));
-			
-				} catch (UnsupportedEncodingException e) {
-			
+
+			} catch (UnsupportedEncodingException e) {
+				//TODO
 				e.printStackTrace();
-			
-				}
-			
-			
+			}
+
+
 			Tidy tidy = new Tidy();
 			tidy.setQuiet(true);
 			tidy.setShowWarnings(false);
@@ -71,9 +70,9 @@ public class EuroTLX_com_Search extends Search {
 			XPath xPath=factory.newXPath();
 			String pattern = "//div[@class='bottom-instrument-data']//td/a/@onclick | //div[@class='bottom-instrument-data']//td[@class='col-2']/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-			
+
 			this.setCompleteLink("http://www.eurotlx.com" +nodes.item(0).getNodeValue().split("'")[1]);
-			
+
 			switch (nodes.item(1).getNodeValue()) { //type
 			case "CERT-X":
 				this.setType(null);
@@ -91,13 +90,12 @@ public class EuroTLX_com_Search extends Search {
 				this.setType(QuotationType.BOND);
 				return true;
 			}
-			
-			
+
+
 		} catch (Exception e) {
+			//TODO
 			e.printStackTrace();
 		}
-		
-		
 		return false;
 	}
 }

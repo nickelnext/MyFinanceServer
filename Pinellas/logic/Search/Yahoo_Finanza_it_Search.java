@@ -64,8 +64,10 @@ public class Yahoo_Finanza_it_Search extends Search {
 		}
 		catch (IOException e) {
 			System.out.println("ISIN NON TROVATO");	
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			//TODO
 		}
 		return false;
 	}

@@ -50,8 +50,8 @@ public class Finanza_Virgilio_it_Search extends Search {
 
 			if(arr.size()<2)		//No nodes, probably a 404 error
 				return false;
-			for(int i=0;i<arr.size();i++)
-				System.out.println("get "+ i + " = " + arr.get(i));
+//			for(int i=0;i<arr.size();i++)
+//				System.out.println("get "+ i + " = " + arr.get(i));
 
 
 
@@ -82,9 +82,11 @@ public class Finanza_Virgilio_it_Search extends Search {
 			}
 			catch (IOException e) {
 				System.out.println("ISIN NON TROVATO");	
+				//TODO
 			} 
 			catch (XPathExpressionException e) {
 				e.printStackTrace();
+				//TODO
 			}
 			return false;
 		}

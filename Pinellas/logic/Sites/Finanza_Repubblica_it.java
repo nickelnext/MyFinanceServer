@@ -150,9 +150,11 @@ public class Finanza_Repubblica_it implements SiteInterface {
 	}
 	catch (IOException e) {
 		System.out.println("ISIN NON TROVATO");	
+		//TODO
 	} 
 	catch (XPathExpressionException e) {
-		System.out.println("ISIN NON TROVATO");	
+		System.out.println("ISIN NON TROVATO");
+		//TODO
 	}
 	return null;
 		
@@ -174,13 +176,13 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			String pattern = "//div[@class='TLB-scheda-body-container']//li/b";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 			
-			System.out.println(nodes.getLength());
-			
-			
-			for(int i=0; i<nodes.getLength(); i++)
-			{
-				System.out.println(i + "\t" + nodes.item(i).getFirstChild().getNodeValue());
-			}
+//			System.out.println(nodes.getLength());
+//			
+//			
+//			for(int i=0; i<nodes.getLength(); i++)
+//			{
+//				System.out.println(i + "\t" + nodes.item(i).getFirstChild().getNodeValue());
+//			}
 			
 			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
@@ -210,9 +212,11 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			return qf;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println("ISIN NON TROVATO");
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			//TODO
 		}
 		return null;
 	}

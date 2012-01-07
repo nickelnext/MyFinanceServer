@@ -163,7 +163,7 @@ public class RequestHandler {
 		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
 		
-		MyDatabase db = new MyDatabase("pinella", "myfinance", "myfinance");
+		MyDatabase db = new MyDatabase("pinella", "root", "myfinance");
 		// connection with database
 		
 		long startTimeDB = System.currentTimeMillis();

@@ -37,14 +37,14 @@ public class Boerse_Frankfurt_de_Search extends Search {
 			String pattern = "//h4/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			System.out.println("nodes.getlength "  +nodes.getLength());
+//			System.out.println("nodes.getlength "  +nodes.getLength());
 			
 			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 			
 			String s = nodes.item(0).getNodeValue().split(",")[0];
-			System.out.println(s);
+//			System.out.println(s);
 
 			this.setCompleteLink(searchUrl);
 			switch (s) {
@@ -67,10 +67,16 @@ public class Boerse_Frankfurt_de_Search extends Search {
 
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println("ISIN NON TROVATO");
+			//TODO
 		} 
 		catch (XPathExpressionException e) {
 			e.printStackTrace();
+			//TODO
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			//TODO
 		}
 		return false;
 	}

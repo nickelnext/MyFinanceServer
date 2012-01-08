@@ -116,6 +116,7 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			
 			qs.setName(UtilFuncs.getString(doc, "Name"));		//Nome			
 			qs.setISIN(UtilFuncs.getString(doc, "Symbol"));		//ISIN
+			
 //		qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
 //		qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
 			qs.setPrezzoUltimoContratto(UtilFuncs.getString(doc, "LastTradePriceOnly"));	//Ultimo Prezzo		qs.setVariazionePercentuale(UtilFuncs.getString(nodes, 19));

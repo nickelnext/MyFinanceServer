@@ -10,7 +10,12 @@ import org.w3c.dom.NodeList;
 public class UtilFuncs {
 
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
-	//errors
+	
+	
+	//APP
+	public static final String SERVER_VERSION = "0.8";
+	public static final String CLIENT_SUPPORTED = "0.8";
+	
 	
 	//isin
 	public static final String ERROR_ISIN_LOCALLY_NOT_FOUND = "ISIN_LOCALLY_NOT_FOUND";
@@ -38,6 +43,15 @@ public class UtilFuncs {
 	//responses
 	public static final String ERROR_NONE = "ERROR_NONE";
 	public static final String ERROR_OK = "ERROR_OK";
+	
+	//database
+	public static final String ERROR_DATABASE_CONNECTION = "ERROR_DATABASE_CONNECTION";
+	public static final String ERROR_INVALID_SQL = "ERROR_INVALID_SQL";
+	public static final String ERROR_EMPTY_TABLE = "ERROR_EMPTY_TABLE";
+	public static final String ERROR_INVALID_TABLE = "ERROR_INVALID_TABLE";
+	//json
+	public static final String ERROR_JSON_PACKING = "ERROR_JSON_PACKING";
+	
 	
 	
 	public static final String countryUs = "us";

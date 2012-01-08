@@ -14,8 +14,8 @@ public class RequestPolicies {
 	
 	private Vector siteSearch;
 	private Vector shareList;
-	private Vector  bondList;
-	private Vector  fundList;
+	private Vector bondList;
+	private Vector fundList;
 	private Hashtable<String, String> siteNameTable;
 	  
 	
@@ -111,7 +111,7 @@ public class RequestPolicies {
 	}
 	
 	public void updateRankingTables(boolean found, RequestType rType, QuotationType qType, String siteName, MyDatabase db){
-		
+		//TODO rimuovere apicetti storti.
 		if(found){
 			if(rType.equals(RequestType.QUOTATION) || rType.equals(RequestType.UPDATE)){
 				db.updateQuery("UPDATE `tbl_name_type_search_rate` SET   `Hits`=`Hits`+'1' , `Total`=`Total`+'1' , `Rating`=(`Hits`+'1')/(`Total`+'1')*100 WHERE `tbl_name_type_search_rate`.`Name` = '"+siteName+"' AND `tbl_name_type_search_rate`.`Type` = '"+qType+"';");

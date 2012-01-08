@@ -71,6 +71,9 @@ public class EuroTLX_com_Search extends Search {
 			String pattern = "//div[@class='bottom-instrument-data']//td/a/@onclick | //div[@class='bottom-instrument-data']//td[@class='col-2']/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
+			for(int i=0;i<nodes.getLength();i++)
+				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
+			
 			this.setCompleteLink("http://www.eurotlx.com" +nodes.item(0).getNodeValue().split("'")[1]);
 
 			switch (nodes.item(1).getNodeValue()) { //type
@@ -83,7 +86,7 @@ public class EuroTLX_com_Search extends Search {
 			case "ABS":
 				this.setType(null);
 				break;
-			case "Azioni / DR":
+			case "AZIONI / DR":
 				this.setType(QuotationType.SHARE);
 				return true;
 			default:

@@ -50,7 +50,7 @@ public class EuroTLX_com implements SiteInterface {
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
+		
 			//			for(int i=0;i<nodes.getLength();i++)
 			//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
 
@@ -167,6 +167,9 @@ public class EuroTLX_com implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
+			if(nodes.item(91).getNodeValue()!="Equity") //checking if it's a share.
+				return null;
+			
 			Quotation_Share qs = new Quotation_Share();
 			qs.setCountry(UtilFuncs.countryUs);
 
@@ -198,6 +201,7 @@ public class EuroTLX_com implements SiteInterface {
 			//			qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
 			//			qs.setFaseMercato(UtilFuncs.getString(nodes, 15));	
 			qs.setVariazionePercentuale(nodes.item(14).getNodeValue());
+			qs.setValuta(nodes.item(92).getNodeValue());
 			//			qs.setVariazioneAssoluta(UtilFuncs.getString(nodes, 21));
 
 			//			qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));

@@ -9,9 +9,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import mainpackage.ErrorHandler;
-import mainpackage.Errors;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
@@ -40,14 +37,11 @@ public class Boerse_Frankfurt_de_Search extends Search {
 			String pattern = "//h4/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-//			System.out.println("nodes.getlength "  +nodes.getLength());
-			
-			
+
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return false;
 			
 			String s = nodes.item(0).getNodeValue().split(",")[0];
-//			System.out.println(s);
 
 			this.setCompleteLink(searchUrl);
 			switch (s) {
@@ -70,17 +64,14 @@ public class Boerse_Frankfurt_de_Search extends Search {
 
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		catch (ArrayIndexOutOfBoundsException e)
 		{
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

@@ -76,11 +76,10 @@ public class Borsaitaliana_it_Search extends Search {
 			return true;
 		}
 		catch (IOException e) {
-			//TODO
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println(e.getMessage());	
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

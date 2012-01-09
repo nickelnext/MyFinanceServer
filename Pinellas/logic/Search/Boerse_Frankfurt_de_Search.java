@@ -9,6 +9,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import mainpackage.ErrorHandler;
+import mainpackage.Errors;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
@@ -71,6 +74,7 @@ public class Boerse_Frankfurt_de_Search extends Search {
 			//TODO
 		} 
 		catch (XPathExpressionException e) {
+			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
 			e.printStackTrace();
 			//TODO
 		}

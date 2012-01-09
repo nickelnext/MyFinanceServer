@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import mainpackage.ErrorHandler;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -15,6 +17,8 @@ public class UtilFuncs {
 	//APP
 	public static final String SERVER_VERSION = "0.8";
 	public static final String CLIENT_SUPPORTED = "0.8";
+	
+	
 	
 	
 	//isin

@@ -7,6 +7,7 @@ public class QuotationContainer {
 	private ArrayList<Quotation_Bond> bondList;
 	private ArrayList<Quotation_Fund> fundList;
 	private ArrayList<Quotation_Share> shareList;
+	private String comments;
 
 	
 	
@@ -45,6 +46,15 @@ public class QuotationContainer {
 	public void setShareList(ArrayList<Quotation_Share> shareList) {
 		this.shareList = shareList;
 	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	
 	
 
 

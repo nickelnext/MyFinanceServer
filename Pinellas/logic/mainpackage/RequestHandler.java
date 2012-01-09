@@ -160,7 +160,7 @@ public class RequestHandler {
 	
 	public static QuotationContainer processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
-		System.out.println("PROCESS REQUESTS!");
+//		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
 		
 		MyDatabase db = new MyDatabase("pinella", "root", "myfinance");
@@ -168,8 +168,7 @@ public class RequestHandler {
 		
 		long startTimeDB = System.currentTimeMillis();
 		if ( !db.connect() ) { 
-			System.out.println("Database connection error.");
-			System.out.println( db.getError() );
+			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
 			System.exit(0);
 		}
 		long endTimeDB = System.currentTimeMillis();
@@ -322,7 +321,7 @@ public class RequestHandler {
 				searchLink = nameSearchPath[1];
 
 				if(null == requestedSite || null == searchLink){
-					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
+//					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
 				}else{
 
 
@@ -336,7 +335,8 @@ public class RequestHandler {
 					//launch idFinder and immediately verify the boolean return value
 					if(!idFinder.search(req.getIdCode(), searchLink)){
 
-						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
+//						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
+						ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 						found = false;
 						long endTime = System.currentTimeMillis();
 						long seconds = (endTime - startTime);
@@ -405,7 +405,8 @@ public class RequestHandler {
 							System.out.println("BELLA Lì for"+quot.getISIN());
 							//aggiornamento ranking se è quotation Request					
 						}else {//negative outcome: reset found to false in order to force the parsing of the next provider
-							System.out.println("Parsing Error! null Quotation!");
+//							System.out.println("Parsing Error! null Quotation!");
+							ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 							found = false; 						
 						}
 						long endTime1 = System.currentTimeMillis();
@@ -422,6 +423,7 @@ public class RequestHandler {
 			}//end while(!found && !noMoreSites)
 			if(!found){
 				//do something DEFINIRE QUOTATION INVALIDA
+				ErrorHandler.setError(Errors.ERROR_ISIN_GLOBALLY_NOT_FOUND, req.getIdCode());
 			}
 			System.out.println("\n\n");
 		}//end FOR ALL requests			
@@ -429,6 +431,7 @@ public class RequestHandler {
 		db.disconnect();
 		
 //		return quotList;
+		result.setComments(ErrorHandler.getAllErrors());
 		return result;
 
 

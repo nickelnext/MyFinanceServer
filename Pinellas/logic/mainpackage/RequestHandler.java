@@ -422,8 +422,9 @@ public class RequestHandler {
 			if(!found){
 				//do something DEFINIRE QUOTATION INVALIDA
 				ErrorHandler.setError(Errors.ERROR_ISIN_GLOBALLY_NOT_FOUND, req.getIdCode());
-				quot.setISIN(req.getIdCode());
-				result.getInvalidList().add((Quotation_Invalid)quot);
+				Quotation invQuot = new Quotation_Invalid();
+				invQuot.setISIN(req.getIdCode());
+				result.getInvalidList().add((Quotation_Invalid)invQuot);
 			}
 			System.out.println("\n\n");
 		}//end FOR ALL requests			

@@ -82,12 +82,10 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			return qb;
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -128,18 +126,6 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
-			System.out.println(nodes.getLength());
-
-
-			for(int i=0; i<nodes.getLength(); i++)
-			{
-				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
-			}
-
-
-			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
-
 
 			Quotation_Fund qf = new Quotation_Fund();
 
@@ -175,16 +161,13 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			return qf;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		catch (StringIndexOutOfBoundsException e) {
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -206,10 +189,6 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			String pattern = "//div[@class='info']//text() | //table[@class='halfsingle']//text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			
-			for(int i=0;i<nodes.getLength();i++)
-				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
-			
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
@@ -253,16 +232,13 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		catch (StringIndexOutOfBoundsException e) {
-			e.printStackTrace();
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

@@ -70,18 +70,11 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			return qb;	
 
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch(Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -138,13 +131,11 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			qs.setChiusuraPrecedente(UtilFuncs.getString(doc, "PreviousClose"));
 			return qs;	
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return null;
 		

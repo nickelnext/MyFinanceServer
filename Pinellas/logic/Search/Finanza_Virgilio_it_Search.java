@@ -50,44 +50,38 @@ public class Finanza_Virgilio_it_Search extends Search {
 
 			if(arr.size()<2)		//No nodes, probably a 404 error
 				return false;
-//			for(int i=0;i<arr.size();i++)
-//				System.out.println("get "+ i + " = " + arr.get(i));
+
+			this.setCompleteLink(arr.get(0));
 
 
-
-				this.setCompleteLink(arr.get(0));
-
-
-				//TODO
-				//continuare
-				//			System.out.println("TYPE=" + nodes.item(2).getNodeValue());
-				String type = arr.get(1);
-				if(type.contains("Bond") || 
-						type.contains("Tit. di Stato") ||
-						type.contains("Obbligazioni"))
-					this.setType(QuotationType.BOND);
+			//TODO
+			//continuare
+//			System.out.println("TYPE=" + nodes.item(2).getNodeValue());
+			String type = arr.get(1);
+			if(type.contains("Bond") || 
+					type.contains("Tit. di Stato") ||
+					type.contains("Obbligazioni"))
+				this.setType(QuotationType.BOND);
+			else
+				if(type.contains("Milano - Azioni") ||
+						type.contains("Milano - T.A.H.") ||
+						type.contains("NASDAQ - National") ||
+						type.contains("NASDAQ - Unit Investment Trust"))
+					this.setType(QuotationType.SHARE);
 				else
-					if(type.contains("Milano - Azioni") ||
-							type.contains("Milano - T.A.H.") ||
-							type.contains("NASDAQ - National") ||
-							type.contains("NASDAQ - Unit Investment Trust"))
-						this.setType(QuotationType.SHARE);
+					if(type.contains("Fondi e SICAV"))
+						this.setType(QuotationType.FUND);
 					else
-						if(type.contains("Fondi e SICAV"))
-							this.setType(QuotationType.FUND);
-						else
-							this.setType(null);
-				//
-				return true;
-			}
-			catch (IOException e) {
-				System.out.println("ISIN NON TROVATO");	
-				//TODO
-			} 
-			catch (XPathExpressionException e) {
-				e.printStackTrace();
-				//TODO
-			}
-			return false;
+						this.setType(null);
+			//
+			return true;
 		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		} 
+		catch (XPathExpressionException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
 	}
+}

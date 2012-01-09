@@ -12,6 +12,11 @@ public class ErrorHandler {
 	{
 		errors.add(e.toString());
 	}
+	public static void setError(Errors e, String comment)
+	{
+		errors.add(e.toString()+ " " + comment);
+	}
+	
 	public static void removeError(Errors e)
 	{
 		errors.remove(e.toString());

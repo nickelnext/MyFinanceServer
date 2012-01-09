@@ -50,10 +50,6 @@ public class EuroTLX_com implements SiteInterface {
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-		
-			//			for(int i=0;i<nodes.getLength();i++)
-			//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
-
 
 			Quotation_Bond qb = new Quotation_Bond();
 
@@ -114,15 +110,13 @@ public class EuroTLX_com implements SiteInterface {
 			return qb;
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println(e.getMessage());
 		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch(StringIndexOutOfBoundsException e)	{
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		
 		return null;
@@ -216,15 +210,14 @@ public class EuroTLX_com implements SiteInterface {
 			return qs;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (StringIndexOutOfBoundsException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

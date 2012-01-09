@@ -55,8 +55,7 @@ public class EuroTLX_com_Search extends Search {
 				is = new ByteArrayInputStream(webPage.getBytes("UTF-8"));
 
 			} catch (UnsupportedEncodingException e) {
-				//TODO
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 
 
@@ -71,9 +70,6 @@ public class EuroTLX_com_Search extends Search {
 			String pattern = "//div[@class='bottom-instrument-data']//td/a/@onclick | //div[@class='bottom-instrument-data']//td[@class='col-2']/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			for(int i=0;i<nodes.getLength();i++)
-				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
-			
 			this.setCompleteLink("http://www.eurotlx.com" +nodes.item(0).getNodeValue().split("'")[1]);
 
 			switch (nodes.item(1).getNodeValue()) { //type
@@ -96,8 +92,7 @@ public class EuroTLX_com_Search extends Search {
 
 
 		} catch (Exception e) {
-			//TODO
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

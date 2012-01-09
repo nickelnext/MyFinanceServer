@@ -76,10 +76,9 @@ public class Finanza_Repubblica_it implements SiteInterface {
 						
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println(e.getMessage());	
 		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} 
 		return null;
 	}
@@ -149,12 +148,10 @@ public class Finanza_Repubblica_it implements SiteInterface {
 		return qs;	
 	}
 	catch (IOException e) {
-		System.out.println("ISIN NON TROVATO");	
-		//TODO
+		System.out.println(e.getMessage());
 	} 
 	catch (XPathExpressionException e) {
-		System.out.println("ISIN NON TROVATO");
-		//TODO
+		System.out.println(e.getMessage());
 	}
 	return null;
 		
@@ -212,11 +209,10 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			return qf;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

@@ -69,11 +69,10 @@ public class Borsaitaliana_it implements SiteInterface {
 			return qs;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -148,11 +147,10 @@ public class Borsaitaliana_it implements SiteInterface {
 			return qb;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -202,11 +200,10 @@ public class Borsaitaliana_it implements SiteInterface {
 			return qf;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

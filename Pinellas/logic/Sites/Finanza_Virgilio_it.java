@@ -87,11 +87,11 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}
 			catch(StringIndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}
 			
 			
@@ -114,9 +114,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			return qs;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
+			System.out.println(e.getMessage());	
 		} 
 		catch (XPathExpressionException e) {
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -195,7 +196,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			}
 			catch(StringIndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}		
 			
 			qb.setVariazionePercentuale(nodes.item(2).getNodeValue());	//Var %
@@ -228,13 +229,13 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}
 			catch(StringIndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}
-//			System.out.println(">"+data+ "<");
+			
 			
 			qb.setDataUltimoContratto(data);
 
@@ -256,11 +257,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			return qb;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -320,7 +320,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			}
 			catch(IndexOutOfBoundsException e)
 			{
-				//TODO
+				System.out.println(e.getMessage());
 			}
 			
 
@@ -339,11 +339,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			return qf;	
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

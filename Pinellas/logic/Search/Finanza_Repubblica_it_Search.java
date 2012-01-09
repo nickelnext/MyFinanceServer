@@ -63,11 +63,10 @@ public class Finanza_Repubblica_it_Search extends Search {
 
 		}
 		catch (IOException e) {
-			System.out.println("ISIN NON TROVATO");	
-			//TODO
+			System.out.println(e.getMessage());
 		} 
 		catch (XPathExpressionException e) {
-			//TODO
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

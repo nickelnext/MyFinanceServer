@@ -16,7 +16,7 @@ public class ErrorHandler {
 	{
 		errors.add(e.toString()+ " " + comment);
 	}
-	
+
 	public static void removeError(Errors e)
 	{
 		errors.remove(e.toString());
@@ -25,10 +25,16 @@ public class ErrorHandler {
 	{
 		String ret = "";
 		if(errors.size()==0)
+		{
 			ret = Errors.ERROR_OK.toString();
-		for(int i=0;i<errors.size();i++)
-			ret += errors.get(i) + spacer;
-		return ret;	
+			return ret;
+		}
+		else
+		{
+			for(int i=0;i<errors.size();i++)
+				ret += errors.get(i) + spacer;
+			return ret;
+		}
 	}
 	public static ArrayList<String> getErrors() {
 		return errors;

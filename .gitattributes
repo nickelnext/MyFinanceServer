@@ -33,6 +33,8 @@ Pinellas/logic/Sites/Finanza_Repubblica_it.java -text
 Pinellas/logic/Sites/Finanza_Virgilio_it.java -text
 Pinellas/logic/Sites/Yahoo_Finanza_it.java -text
 Pinellas/logic/Utils/UtilFuncs.java -text
+Pinellas/logic/mainpackage/ErrorHandler.java -text
+Pinellas/logic/mainpackage/Errors.java -text
 Pinellas/logic/mainpackage/MyDatabase.java -text
 Pinellas/logic/mainpackage/Program.java -text
 Pinellas/logic/mainpackage/RequestHandler.java -text

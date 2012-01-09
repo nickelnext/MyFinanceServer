@@ -161,8 +161,8 @@ public class EuroTLX_com implements SiteInterface {
 					"| //div[@class='popup-nav']//text() | //ul[@class='product-description']//text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			for(int i=0;i<nodes.getLength();i++)
-				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
+//			for(int i=0;i<nodes.getLength();i++)
+//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;

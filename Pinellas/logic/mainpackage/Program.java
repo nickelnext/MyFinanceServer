@@ -3,7 +3,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation_Bond;
+import Quotes.Quotation_Fund;
+import Quotes.Quotation_Share;
 
 public class Program {
 
@@ -14,21 +15,28 @@ public class Program {
 //				Quotation_Bond q = s.parseBOND(new URL(
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 				
-		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
+//		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
 //		Quotation_Bond q = s.parseBTP(new URL("http://www.eurotlx.com/home3/popup.php?dd=T1MZ14"));
 //		System.out.println(q.toString());
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.Boerse_Frankfurt_de").newInstance();
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Boerse_Frankfurt_de").newInstance();
 //		Quotation_Bond q = s.parseBOND(new URL("http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=XS0650262875"));
-		Quotation_Bond q = s.parseBOND(new URL("http://finanza.economia.virgilio.it/borsa-italiana/titoli-stato/cct-1mz14-ind_IT0004224041.html"));
-		System.out.println(q.toString());
+//		Quotation_Bond q = s.parseBOND(new URL("http://finanza.economia.virgilio.it/borsa-italiana/titoli-stato/cct-1mz14-ind_IT0004224041.html"));
+//		System.out.println(q.toString());
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://www.eurotlx.com/home3/popup.php?dd=GOOG-U"));
+
+//		Quotation_Fund qs = s.parseFUND(new URL(
+//				"http://www.boerse-frankfurt.de/EN/index.aspx?pageID=104&ISIN=FR0010135103"));
+		Quotation_Share qs = s.parseSHARE(new URL(
+				"http://www.boerse-frankfurt.de/EN/index.aspx?pageID=35&ISIN=DE0007100000"));
+		
+		
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
-//		System.out.println(qs.toString());
+		System.out.println(qs.toString());
 		
 		
 //		System.out.println(Calendar.getInstance().get(Calendar.getInstance().YEAR));

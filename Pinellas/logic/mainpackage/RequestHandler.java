@@ -12,6 +12,7 @@ import Quotes.QuotationContainer;
 import Quotes.QuotationType;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
+import Quotes.Quotation_Invalid;
 import Quotes.Quotation_Share;
 import Requests.Request;
 import Search.Search;
@@ -184,8 +185,6 @@ public class RequestHandler {
 			System.out.println("EMPTY NAME_SEARCH TABLE");
 		}
 		
-		//arrayList to be returned 
-		ArrayList<Quotation> quotList = new ArrayList<Quotation>();
 		Search idFinder;
 		
 		//FOR ALL THE REQUESTS IN THE LIST
@@ -390,7 +389,6 @@ public class RequestHandler {
 						if(null != quot){//positive outcome of parse function: set the remaining fields of the quotation and add to quotList
 							quot.setSite(requestedSite);
 							quot.setISIN(req.getIdCode());
-							quotList.add(quot);
 							switch (quot.getType()) {
 							case FUND:
 								result.getFundList().add((Quotation_Fund)quot);
@@ -405,7 +403,7 @@ public class RequestHandler {
 							System.out.println("BELLA Lì for"+quot.getISIN());
 							//aggiornamento ranking se è quotation Request					
 						}else {//negative outcome: reset found to false in order to force the parsing of the next provider
-//							System.out.println("Parsing Error! null Quotation!");
+//							System.out.println("Parsing Error! null Quotation!");							
 							ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 							found = false; 						
 						}
@@ -424,6 +422,8 @@ public class RequestHandler {
 			if(!found){
 				//do something DEFINIRE QUOTATION INVALIDA
 				ErrorHandler.setError(Errors.ERROR_ISIN_GLOBALLY_NOT_FOUND, req.getIdCode());
+				quot.setISIN(req.getIdCode());
+				result.getInvalidList().add((Quotation_Invalid)quot);
 			}
 			System.out.println("\n\n");
 		}//end FOR ALL requests			

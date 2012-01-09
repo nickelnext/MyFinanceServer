@@ -14,6 +14,7 @@ Pinellas/logic/Quotes/QuotationContainer.java -text
 Pinellas/logic/Quotes/QuotationType.java -text
 Pinellas/logic/Quotes/Quotation_Bond.java -text
 Pinellas/logic/Quotes/Quotation_Fund.java -text
+Pinellas/logic/Quotes/Quotation_Invalid.java -text
 Pinellas/logic/Quotes/Quotation_Share.java -text
 Pinellas/logic/Requests/Request.java -text
 Pinellas/logic/Requests/RequestContainer.java -text

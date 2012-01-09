@@ -23,7 +23,7 @@ public class ErrorHandler {
 	}
 	public static String getAllErrors()
 	{
-		String ret = "";
+		String ret = Errors.ERROR_OK.toString();
 		for(int i=0;i<errors.size();i++)
 			ret += errors.get(i) + spacer;
 		return ret;	

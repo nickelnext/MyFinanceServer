@@ -18,6 +18,7 @@ import Utils.UtilFuncs;
 
 public class Yahoo_Finanza_it implements SiteInterface {
 
+	private final String siteUrl = "http://it.finance.yahoo.com/";
 
 	public Quotation_Bond parseBOT(URL url)
 	{
@@ -33,7 +34,7 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			Document doc = db.parse(url.openStream());
 
 			Quotation_Bond qb = new Quotation_Bond();
-			
+			qb.setSite(siteUrl);
 			//this setCountry is for parsing in the right way the dates in
 			//american style MM/dd/yyyyy, default is european style.
 			qb.setCountry(UtilFuncs.countryUs);
@@ -104,7 +105,7 @@ public class Yahoo_Finanza_it implements SiteInterface {
 			Document doc = db.parse(url.openStream());
 
 			Quotation_Share qs = new Quotation_Share();
-
+			qs.setSite(siteUrl);
 			qs.setCountry(UtilFuncs.countryUs);
 			
 			qs.setName(UtilFuncs.getString(doc, "Name"));		//Nome			

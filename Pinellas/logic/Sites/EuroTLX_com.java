@@ -26,6 +26,8 @@ import Utils.UtilFuncs;
 
 public class EuroTLX_com implements SiteInterface {
 
+	private final String siteUrl = "http://www.eurotlx.com/";
+	
 	public Quotation_Bond parseBTP(URL url)
 	{
 		try 
@@ -52,7 +54,7 @@ public class EuroTLX_com implements SiteInterface {
 				return null;
 
 			Quotation_Bond qb = new Quotation_Bond();
-
+			qb.setSite(siteUrl);
 			qb.setCountry(UtilFuncs.countryUs);
 			qb.setName(nodes.item(14).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(1).getNodeValue());		//ISIN
@@ -165,6 +167,7 @@ public class EuroTLX_com implements SiteInterface {
 				return null;
 			
 			Quotation_Share qs = new Quotation_Share();
+			qs.setSite(siteUrl);
 			qs.setCountry(UtilFuncs.countryUs);
 
 			String stringOpening = nodes.item(85).getNodeValue().split(" ")[0];

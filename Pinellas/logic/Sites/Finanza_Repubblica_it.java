@@ -22,6 +22,8 @@ import Quotes.Quotation_Share;
 
 public class Finanza_Repubblica_it implements SiteInterface {
 
+	private final String siteUrl = "http://bloomberg.finanza.repubblica.it/";
+	
 	public Quotation_Bond parseBTP(URL url)
 	{
 		try 
@@ -45,7 +47,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 				return null;
 			
 			Quotation_Bond qb = new Quotation_Bond();
-			
+			qb.setSite(siteUrl);
 			qb.setName(UtilFuncs.getString(nodes, 7));		//Nome			
 			qb.setISIN(UtilFuncs.getString(nodes, 55));		//ISIN
 //			qb.setValuta(nodes.item(5).getFirstChild().getNodeValue());		//Valuta
@@ -122,7 +124,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			return null;
 		
 		Quotation_Share qs = new Quotation_Share();
-		
+		qs.setSite(siteUrl);
 		qs.setName(nodes.item(0).getNodeValue());		//Nome		
 //		qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
 //		qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
@@ -187,7 +189,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			
 			
 			Quotation_Fund qf = new Quotation_Fund();
-			
+			qf.setSite(siteUrl);
 			qf.setName(UtilFuncs.getString(nodes, 4));
 			qf.setISIN(UtilFuncs.getString(nodes, 9));
 			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 6));

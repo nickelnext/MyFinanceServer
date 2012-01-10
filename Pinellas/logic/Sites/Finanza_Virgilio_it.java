@@ -22,6 +22,8 @@ import Quotes.Quotation_Share;
 
 public class Finanza_Virgilio_it implements SiteInterface {
 
+	private final String siteUrl = "http://finanza.economia.virgilio.it/";
+	
 	public Quotation_Share parseSHARE(URL url)
 	{
 		try
@@ -51,7 +53,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Share qs = new Quotation_Share();
-
+			qs.setSite(siteUrl);
 			qs.setName(nodes.item(0).getNodeValue());		//Nome			
 			qs.setISIN(nodes.item(51).getNodeValue());		//ISIN
 			qs.setLottoMinimo(nodes.item(59).getNodeValue());
@@ -166,7 +168,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Bond qb = new Quotation_Bond();
-
+			qb.setSite(siteUrl);
 
 			qb.setName(nodes.item(0).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(51).getNodeValue());		//ISIN
@@ -290,7 +292,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Fund qf = new Quotation_Fund();
-
+			qf.setSite(siteUrl);
 			qf.setName(nodes.item(0).getNodeValue());
 			qf.setISIN(nodes.item(12).getNodeValue());
 			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());

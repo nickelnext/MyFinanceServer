@@ -22,6 +22,8 @@ import Quotes.Quotation_Share;
 
 public class Borsaitaliana_it implements SiteInterface {
 
+	private final String siteUrl = "http://www.borsaitaliana.it/";
+	
 	public Quotation_Share parseSHARE(URL url)
 	{
 		try 
@@ -43,6 +45,8 @@ public class Borsaitaliana_it implements SiteInterface {
 				return null;
 			
 			Quotation_Share qs = new Quotation_Share();
+			
+			qs.setSite(siteUrl);
 			
 //			qs.setName(UtilFuncs.getString(nodes, 1));		//Nome			
 			qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
@@ -116,7 +120,7 @@ public class Borsaitaliana_it implements SiteInterface {
 			
 			Quotation_Bond qb = new Quotation_Bond();
 			
-	
+			qb.setSite(siteUrl);
 			qb.setName(UtilFuncs.getString(nodes, 1));		//Nome			
 			qb.setISIN(UtilFuncs.getString(nodes, 3));		//ISIN
 			qb.setValuta(UtilFuncs.getString(nodes, 5));		//Valuta
@@ -177,7 +181,7 @@ public class Borsaitaliana_it implements SiteInterface {
 			
 			
 			Quotation_Fund qf = new Quotation_Fund();
-			
+			qf.setSite(siteUrl);
 			qf.setName(UtilFuncs.getString(nodes, 1));
 			qf.setISIN(UtilFuncs.getString(nodes, 30));
 			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 42));

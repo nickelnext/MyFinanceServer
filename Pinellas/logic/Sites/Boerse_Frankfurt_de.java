@@ -47,7 +47,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			//			for(int i=0; i<nodes.getLength();i++)
 			//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
 			Quotation_Bond qb = new Quotation_Bond();
-			qb.setSite(siteUrl);
+			qb.setSiteUrl(siteUrl);
 			qb.setCountry(UtilFuncs.countryUsDateIt);
 			qb.setName(nodes.item(0).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(86).getNodeValue());		//ISIN
@@ -130,7 +130,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 
 
 			Quotation_Fund qf = new Quotation_Fund();
-			qf.setSite(siteUrl);
+			qf.setSiteUrl(siteUrl);
 			qf.setName(nodes.item(0).getNodeValue());
 			
 			String isin = nodes.item(1).getNodeValue();
@@ -154,7 +154,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 //			qf.setPerformance3Anni(UtilFuncs.getString(nodes, 15));
 //			qf.setPerformance3Mesi(UtilFuncs.getString(nodes, 13));
 			qf.setPrezzoPrecedente(nodes.item(34).getNodeValue());
-//			qf.setSite(site)
+//			qf.setSiteUrl(site)
 			qf.setUltimoPrezzo(nodes.item(5).getNodeValue());
 			qf.setValuta(nodes.item(75).getNodeValue());
 			qf.setVariazioneAssoluta(nodes.item(10).getNodeValue());
@@ -206,7 +206,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			
 			
 			Quotation_Share qs = new Quotation_Share();
-			qs.setSite(siteUrl);
+			qs.setSiteUrl(siteUrl);
 			qs.setName(nodes.item(0).getNodeValue());		//Nome		
 			qs.setISIN(isin);		//ISIN
 //			qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));

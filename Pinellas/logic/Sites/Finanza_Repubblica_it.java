@@ -47,7 +47,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 				return null;
 			
 			Quotation_Bond qb = new Quotation_Bond();
-			qb.setSite(siteUrl);
+			qb.setSiteUrl(siteUrl);
 			qb.setName(UtilFuncs.getString(nodes, 7));		//Nome			
 			qb.setISIN(UtilFuncs.getString(nodes, 55));		//ISIN
 //			qb.setValuta(nodes.item(5).getFirstChild().getNodeValue());		//Valuta
@@ -124,7 +124,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			return null;
 		
 		Quotation_Share qs = new Quotation_Share();
-		qs.setSite(siteUrl);
+		qs.setSiteUrl(siteUrl);
 		qs.setName(nodes.item(0).getNodeValue());		//Nome		
 //		qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
 //		qs.setLottoMinimo(UtilFuncs.getString(nodes, 13));
@@ -189,7 +189,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			
 			
 			Quotation_Fund qf = new Quotation_Fund();
-			qf.setSite(siteUrl);
+			qf.setSiteUrl(siteUrl);
 			qf.setName(UtilFuncs.getString(nodes, 4));
 			qf.setISIN(UtilFuncs.getString(nodes, 9));
 			qf.setBenchmarkDichiarato(UtilFuncs.getString(nodes, 6));
@@ -201,7 +201,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			qf.setPerformance3Anni(UtilFuncs.getString(nodes, 15));
 			qf.setPerformance3Mesi(UtilFuncs.getString(nodes, 13));
 			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 1));
-//			qf.setSite(site)
+//			qf.setSiteUrl(site)
 			qf.setUltimoPrezzo(UtilFuncs.getString(nodes, 0));
 			qf.setValuta(UtilFuncs.getString(nodes, 5));
 //			qf.setVariazioneAssoluta(variazioneAssoluta)

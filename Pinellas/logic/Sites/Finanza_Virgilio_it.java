@@ -53,7 +53,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Share qs = new Quotation_Share();
-			qs.setSite(siteUrl);
+			qs.setSiteUrl(siteUrl);
 			qs.setName(nodes.item(0).getNodeValue());		//Nome			
 			qs.setISIN(nodes.item(51).getNodeValue());		//ISIN
 			qs.setLottoMinimo(nodes.item(59).getNodeValue());
@@ -168,7 +168,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Bond qb = new Quotation_Bond();
-			qb.setSite(siteUrl);
+			qb.setSiteUrl(siteUrl);
 
 			qb.setName(nodes.item(0).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(51).getNodeValue());		//ISIN
@@ -292,7 +292,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 
 
 			Quotation_Fund qf = new Quotation_Fund();
-			qf.setSite(siteUrl);
+			qf.setSiteUrl(siteUrl);
 			qf.setName(nodes.item(0).getNodeValue());
 			qf.setISIN(nodes.item(12).getNodeValue());
 			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());
@@ -332,7 +332,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			//			qf.setPerformance3Anni(performance3Anni)
 			//			qf.setPerformance3Mesi(performance3Mesi)
 			//			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
-			//			qf.setSite(site)
+			//			qf.setSiteUrl(site)
 			
 			qf.setValuta(nodes.item(14).getNodeValue());
 			qf.setVariazioneAssoluta(nodes.item(1).getNodeValue());

@@ -39,8 +39,8 @@ public class RequestHandler {
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
 //		tmpList.add(new Request("FNC"));
-		tmpList.add(new Request("IT0004572910", QuotationType.BOND, "__NONE__"));
-		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__"));
+		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, "__NONE__",null));
+		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__",null));
 //		tmpList.add(new Request("IT0004220627"));
 //		tmpList.add(new Request("IT0003926547"));
 //		tmpList.add(new Request("IT0001233417"));
@@ -196,7 +196,9 @@ public class RequestHandler {
 			boolean found;
 			boolean noMoreSites;
 			boolean valid;
-			boolean preferred = true;
+			boolean firstAttempt = true;
+			boolean isPreferred;
+			boolean isIgnored;
 			Quotation quot = null; //object representing the response to the current request
 			String[] nameSearchPath = new String[2];
 
@@ -206,7 +208,7 @@ public class RequestHandler {
 			int randomIdx = (int)(Math.random() * rp.getSiteSearch(db).size()); //for random extraction of the provider 
 			int quotIdx = 0;
 			int updateIdx = 0;
-			int forcedIdx = 0;
+//			int forcedIdx = 0;
 			int threshold;
 			found = false;
 			noMoreSites = false;
@@ -235,15 +237,15 @@ public class RequestHandler {
 					break;//end case QUOTATION
 
 
-				case UPDATE:	//QUOTATION TYPE KNOWN, POSSIBLY PREFERRED SITE
+				case UPDATE:	//QUOTATION TYPE KNOWN, POSSIBLY PREFERRED SITE AND IGNORED SITES
 					//select the provider based on the quotation type [precedence precedence to the preferred site]
 					System.out.println("------------->>UPDATE");
 					//verify whether or not preferredSite is specified 
-					if(preferred && req.getPreferredSite() != "__NONE__"){
+					if(firstAttempt && req.getPreferredSite() != "__NONE__"){
 						//get search url from HT siteNameTable
 						nameSearchPath[0] = req.getPreferredSite();
 						nameSearchPath[1] = rp.getSiteNameTable().get(req.getPreferredSite());
-						preferred = false;
+						firstAttempt = false;
 					}
 					else{//no preferred site, or preferred site already parsed with negative result
 						//search of providers by type
@@ -269,47 +271,59 @@ public class RequestHandler {
 							if((updateIdx + 1) >= threshold){//verify whether all the providers have been "inspected"
 								noMoreSites = true;
 							}
-							valid = !nameSearchPath[0].equals(req.getPreferredSite());
+
+							//dereferentiation to increase readability
+							isPreferred = nameSearchPath[0].equals(req.getPreferredSite());
+							if(req.getIgnoredSites() != null){
+								isIgnored = req.getIgnoredSites().contains(nameSearchPath[0]);
+							}else{
+								isIgnored = false;
+							}
+							
+							// if the selected provider is neither in the ignoredSites list, nor the preferredSite (already considered), it is valid.
+							if(!isIgnored && !isPreferred){ 
+								valid = true;
+							}
 							updateIdx++;
-						}
+						}//end while(!valid && !noMoreSites)
 
 					}	
 					break;//end case UPDATE
 
-
-				case FORCED:	//TYPE IS KNOWN.. PROVIDERS IN ignoredSites MUST BE IGNORED
-					System.out.println("------------->>FORCED");
-					//int forcedIdx = 0;
-					valid = false;
-					//to be valid, the provider must be not included in ignoredSites list
-					while(!valid && !noMoreSites){
-						switch (req.getQuotType()) {
-						case FUND:
-							nameSearchPath = (String[]) rp.getFundList(db).elementAt(forcedIdx);
-							threshold = rp.getFundList(db).size();
-							break;
-						case BOND:
-							nameSearchPath = (String[]) rp.getBondList(db).elementAt(forcedIdx);
-							threshold = rp.getBondList(db).size();
-							break;
-						case SHARE:
-							nameSearchPath = (String[]) rp.getShareList(db).elementAt(forcedIdx);
-							threshold = rp.getShareList(db).size();
-							break;
-						default:
-							threshold = 0;
-							break;
-						}
-						if(!req.getIgnoredSites().contains(nameSearchPath[0])){// if the selected provider is not in the ignoredSite list, it is valid. 
-							valid = true;
-						}
-						if(forcedIdx + 1 >= threshold){
-							noMoreSites = true;
-						}
-						forcedIdx++;
-					}
-
-					break;//end case FORCED
+//
+//				case FORCED:	//TYPE IS KNOWN.. PROVIDERS IN ignoredSites MUST BE IGNORED
+//					System.out.println("------------->>FORCED");
+//					//int forcedIdx = 0;
+//					valid = false;
+//					//to be valid, the provider must be not included in ignoredSites list
+//					while(!valid && !noMoreSites){
+//						switch (req.getQuotType()) {
+//						case FUND:
+//							nameSearchPath = (String[]) rp.getFundList(db).elementAt(forcedIdx);
+//							threshold = rp.getFundList(db).size();
+//							break;
+//						case BOND:
+//							nameSearchPath = (String[]) rp.getBondList(db).elementAt(forcedIdx);
+//							threshold = rp.getBondList(db).size();
+//							break;
+//						case SHARE:
+//							nameSearchPath = (String[]) rp.getShareList(db).elementAt(forcedIdx);
+//							threshold = rp.getShareList(db).size();
+//							break;
+//						default:
+//							threshold = 0;
+//							break;
+//						}
+//						if(!req.getIgnoredSites().contains(nameSearchPath[0])){// if the selected provider is not in the ignoredSite list, it is valid. 
+//							valid = true;
+//						}
+//						if(forcedIdx + 1 >= threshold){
+//							noMoreSites = true;
+//						}
+//						forcedIdx++;
+//					}
+//
+//					break;//end case FORCED
 
 				default:
 					break;

@@ -116,59 +116,40 @@ public class RequestHandler {
 	 */
 
 
-	public static ArrayList<Request> decodeRequests(String json){
+	public static ArrayList<Request> decodeRequests(String json) throws JsonSyntaxException{
 		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste	
 		ArrayList<Request> res;
 		Gson converter = new Gson();	
 		Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
-		try
-		{
 		res = converter.fromJson(json, typeOfT);
-		}
-		catch (JsonSyntaxException e){
-			//TODO res=...error
-			res=null;
-		}
 		return res;
 	}
 
-	public static QuotationContainer decodeQuotations(String json){
+	public static QuotationContainer decodeQuotations(String json) throws JsonSyntaxException{
 		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
 		QuotationContainer res;
 		Gson converter = new Gson();	
 		Type typeOfT = new TypeToken<QuotationContainer>(){}.getType();
-		try
-		{
 		res = converter.fromJson(json, typeOfT);
-		}
-		catch(JsonSyntaxException  e){
-			//TODO
-			res=null;
-		}
 		return res;
 	}
 
 
-	public static ArrayList<Quotation> decodeQuotations2(String json){
+	public static ArrayList<Quotation> decodeQuotations2(String json) throws JsonSyntaxException{
 		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
 		ArrayList<Quotation> res;
 		Gson converter = new Gson();	
 		Type typeOfT = new TypeToken<ArrayList<Quotation>>(){}.getType();
-		try
-		{
+		
 		res = converter.fromJson(json, typeOfT);
-		}
-		catch(JsonSyntaxException  e){
-			//TODO
-			res=null;
-		}
+		
 		return res;
 	}
 
 
 
 
-	public static String doStuff(String jasonReq){
+	public static String doStuff(String jasonReq) throws MalformedURLException, InstantiationException, IllegalAccessException, ClassNotFoundException, JsonSyntaxException{
 		String jasonResp; 
 //		String cJasonResp;
 		QuotationContainer quot;
@@ -183,7 +164,7 @@ public class RequestHandler {
 	}
 
 
-	public static QuotationContainer processRequests(ArrayList<Request> arrReq){
+	public static QuotationContainer processRequests(ArrayList<Request> arrReq) throws MalformedURLException, InstantiationException, IllegalAccessException, ClassNotFoundException{
 
 		//		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
@@ -366,12 +347,7 @@ public class RequestHandler {
 					//instantiate the requestedSite_Search parser to search for idCode in searchLink url
 					System.out.println("instantiating "+requestedSite+"_Search class..."+" parsing "+searchLink);				
 					long startTime = System.currentTimeMillis();
-					try {
-						idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
-					} catch (InstantiationException | IllegalAccessException
-							| ClassNotFoundException e) {
-						// TODO 
-					}					
+					idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();			
 
 
 					//launch idFinder and immediately verify the boolean return value
@@ -421,25 +397,19 @@ public class RequestHandler {
 								quot = detailsParser.parseCTZ(new URL (completeLink));
 								break;
 							 */							case BOND:
-								 try {
+								
 									quot = detailsParser.parseBOND(new URL (completeLink));
-								} catch (MalformedURLException e) {
-									// TODO
-								}
+								
 								 break;
 							 case SHARE:
-								 try {
+								
 									quot = detailsParser.parseSHARE(new URL (completeLink));
-								} catch (MalformedURLException e) {
-									// TODO
-								}
+								
 								 break;
 							 case FUND:
-								 try {
+								
 									quot = detailsParser.parseFUND(new URL (completeLink));
-								} catch (MalformedURLException e) {
-									// TODO
-								}
+								
 								 break;
 							 default:
 								 break;					

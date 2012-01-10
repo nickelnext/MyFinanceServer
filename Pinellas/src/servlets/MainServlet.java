@@ -49,18 +49,7 @@ import mainpackage.RequestHandler;
 		String jason = request.getParameter("json");
 		String result = null;
 		
-		try {
-			result = RequestHandler.doStuff(jason);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		result = RequestHandler.doStuff(jason);
 //		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
 //		gzipStream.write(result.getBytes());
 //		gzipStream.close();

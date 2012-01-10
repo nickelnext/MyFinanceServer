@@ -19,6 +19,7 @@ import Search.Search;
 
 import com.github.neilprosser.cjson.CJSON;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 public class RequestHandler {
@@ -32,44 +33,44 @@ public class RequestHandler {
 	 */
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
-		
+
 		//TEST:
 		//creo una lista di richieste  e la faccio processare dall'handler
 		//poi stampo il contenuto delle quotation ritornate
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
-//		tmpList.add(new Request("FNC"));
+		//		tmpList.add(new Request("FNC"));
 		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, "__NONE__",null));
 		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__",null));
-//		tmpList.add(new Request("IT0004220627"));
-//		tmpList.add(new Request("IT0003926547"));
-//		tmpList.add(new Request("IT0001233417"));
-//		tmpList.add(new Request("LU0336083497"));
-//		tmpList.add(new Request("US38259P5089", QuotationType.SHARE, "Yahoo_Finanza_it"));
-//		tmpList.add(new Request("IT0003406334", QuotationType.FUND, "Yahoo_Finanza_it"));
-//		tmpList.add(new Request("IT0004168826"));
-//		tmpList.add(new Request("IT0000382983"));
-		
-		
-		
-		
-		
-		
+		//		tmpList.add(new Request("IT0004220627"));
+		//		tmpList.add(new Request("IT0003926547"));
+		//		tmpList.add(new Request("IT0001233417"));
+		//		tmpList.add(new Request("LU0336083497"));
+		//		tmpList.add(new Request("US38259P5089", QuotationType.SHARE, "Yahoo_Finanza_it"));
+		//		tmpList.add(new Request("IT0003406334", QuotationType.FUND, "Yahoo_Finanza_it"));
+		//		tmpList.add(new Request("IT0004168826"));
+		//		tmpList.add(new Request("IT0000382983"));
+
+
+
+
+
+
 		Gson giasone0 = new Gson();
 		String jason0 = giasone0.toJson(tmpList);
 		System.out.println(jason0);
-	
-		
-		
+
+
+
 		String cJsonResp = doStuff(jason0);
 		System.out.println(cJsonResp);
 		String jsonResp = CJSON.unpack(cJsonResp);
 		System.out.println(jsonResp);
 		QuotationContainer pannula = decodeQuotations(CJSON.unpack(jsonResp));
 
-		
-			
-		
+
+
+
 		for (Quotation_Bond qb : pannula.getBondList()) {
 			System.out.println("-->BOND LIST:");
 			System.out.println(qb.toString());
@@ -82,7 +83,7 @@ public class RequestHandler {
 			System.out.println("-->SHARE LIST:");
 			System.out.println(qs.toString());
 		}
-		
+
 		if(pannula.getBondList().size()==0){
 			System.out.println("BOND NULLO");
 		}
@@ -92,81 +93,104 @@ public class RequestHandler {
 		if(pannula.getFundList().size()==0){
 			System.out.println("FUND NULLO");
 		}
-		
-		
+
+
 	}		
 
-	
+
 	// decode the compressed json string, convert it to Arraylist<Request> and return it	
-/*	public static ArrayList<Request> decodeRequests(String cjson){
+	/*	public static ArrayList<Request> decodeRequests(String cjson){
 		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
-		
+
 		ArrayList<Request> res;
 		Gson converter = new Gson();
-		
+
 		String json = CJSON.unpack(cjson);
 //		System.out.println(jason);
 		Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
 		res = converter.fromJson(json, typeOfT);
-		
+
 		return res;
-		
-	}
-*/
-	
-	
-	public static ArrayList<Request> decodeRequests(String json) throws IllegalStateException{
-	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste	
-	ArrayList<Request> res;
-	Gson converter = new Gson();	
-	Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
-	res = converter.fromJson(json, typeOfT);	
-	return res;
-	}
-	
-	public static QuotationContainer decodeQuotations(String json) throws IllegalStateException{
-	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
-	QuotationContainer res;
-	Gson converter = new Gson();	
-	Type typeOfT = new TypeToken<QuotationContainer>(){}.getType();
-	res = converter.fromJson(json, typeOfT);	
-	return res;
-	}
 
-	
-	public static ArrayList<Quotation> decodeQuotations2(String json) throws IllegalStateException{
-	//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
-	ArrayList<Quotation> res;
-	Gson converter = new Gson();	
-	Type typeOfT = new TypeToken<ArrayList<Quotation>>(){}.getType();
-	res = converter.fromJson(json, typeOfT);	
-	return res;
 	}
-
-	
+	 */
 
 
-	public static String doStuff(String jasonReq) throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException, IllegalStateException{
-		String jasonResp, cJasonResp;
-		QuotationContainer quot = processRequests(decodeRequests(jasonReq));
+	public static ArrayList<Request> decodeRequests(String json){
+		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste	
+		ArrayList<Request> res;
+		Gson converter = new Gson();	
+		Type typeOfT = new TypeToken<ArrayList<Request>>(){}.getType();
+		try
+		{
+		res = converter.fromJson(json, typeOfT);
+		}
+		catch (JsonSyntaxException e){
+			//TODO res=...error
+			res=null;
+		}
+		return res;
+	}
+
+	public static QuotationContainer decodeQuotations(String json){
+		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
+		QuotationContainer res;
+		Gson converter = new Gson();	
+		Type typeOfT = new TypeToken<QuotationContainer>(){}.getType();
+		try
+		{
+		res = converter.fromJson(json, typeOfT);
+		}
+		catch(JsonSyntaxException  e){
+			//TODO
+			res=null;
+		}
+		return res;
+	}
+
+
+	public static ArrayList<Quotation> decodeQuotations2(String json){
+		//TODO modificare a seconda di come decideremo di comprimere/convertire le  richieste
+		ArrayList<Quotation> res;
+		Gson converter = new Gson();	
+		Type typeOfT = new TypeToken<ArrayList<Quotation>>(){}.getType();
+		try
+		{
+		res = converter.fromJson(json, typeOfT);
+		}
+		catch(JsonSyntaxException  e){
+			//TODO
+			res=null;
+		}
+		return res;
+	}
+
+
+
+
+	public static String doStuff(String jasonReq){
+		String jasonResp; 
+//		String cJasonResp;
+		QuotationContainer quot;
+		quot = processRequests(decodeRequests(jasonReq));
 		Gson converter = new Gson();
 		//convert to json string
 		jasonResp = converter.toJson(quot);
 		//compress with cjson
-//		cJasonResp = CJSON.pack(jasonResp);
-		
+		//		cJasonResp = CJSON.pack(jasonResp);
+
 		return jasonResp;
 	}
-	
-	
-	public static QuotationContainer processRequests(ArrayList<Request> arrReq)throws InstantiationException, IllegalAccessException, ClassNotFoundException, MalformedURLException {
 
-//		System.out.println("PROCESS REQUESTS!");
+
+	public static QuotationContainer processRequests(ArrayList<Request> arrReq){
+
+		//		System.out.println("PROCESS REQUESTS!");
 		QuotationContainer result = new QuotationContainer();
-		
+
 		MyDatabase db = new MyDatabase("pinella", "root", "myfinance");
 		// connection with database
-		
+
 		long startTimeDB = System.currentTimeMillis();
 		if ( !db.connect() ) { 
 			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
@@ -176,17 +200,17 @@ public class RequestHandler {
 		long secondsDB = (endTimeDB - startTimeDB);
 		System.out.println("Connessione DB: " + secondsDB + " millisecondi");
 		RequestPolicies rp = new RequestPolicies();
-		
+
 		//extract 
-//		rp.setSiteSearch(db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;"));
-//		rp.setSiteNameTable(rp.getSiteSearch(db));
-		
+		//		rp.setSiteSearch(db.execQuery("SELECT DISTINCT Name,SearchPath FROM tbl_name_search_rate;"));
+		//		rp.setSiteNameTable(rp.getSiteSearch(db));
+
 		if(0 == rp.getSiteSearch(db).size()){
 			System.out.println("EMPTY NAME_SEARCH TABLE");
 		}
-		
-		Search idFinder;
-		
+
+		Search idFinder = null;
+
 		//FOR ALL THE REQUESTS IN THE LIST
 		for (int countRequests = 0; countRequests < arrReq.size(); countRequests++){							
 
@@ -208,11 +232,11 @@ public class RequestHandler {
 			int randomIdx = (int)(Math.random() * rp.getSiteSearch(db).size()); //for random extraction of the provider 
 			int quotIdx = 0;
 			int updateIdx = 0;
-//			int forcedIdx = 0;
+			//			int forcedIdx = 0;
 			int threshold;
 			found = false;
 			noMoreSites = false;
-			
+
 
 			//iteration to get quotation details based on the type of request [continue until the information is found or there are no more providers(failure)]
 			while(!found && !noMoreSites){
@@ -279,7 +303,7 @@ public class RequestHandler {
 							}else{
 								isIgnored = false;
 							}
-							
+
 							// if the selected provider is neither in the ignoredSites list, nor the preferredSite (already considered), it is valid.
 							if(!isIgnored && !isPreferred){ 
 								valid = true;
@@ -290,51 +314,51 @@ public class RequestHandler {
 					}	
 					break;//end case UPDATE
 
-//
-//				case FORCED:	//TYPE IS KNOWN.. PROVIDERS IN ignoredSites MUST BE IGNORED
-//					System.out.println("------------->>FORCED");
-//					//int forcedIdx = 0;
-//					valid = false;
-//					//to be valid, the provider must be not included in ignoredSites list
-//					while(!valid && !noMoreSites){
-//						switch (req.getQuotType()) {
-//						case FUND:
-//							nameSearchPath = (String[]) rp.getFundList(db).elementAt(forcedIdx);
-//							threshold = rp.getFundList(db).size();
-//							break;
-//						case BOND:
-//							nameSearchPath = (String[]) rp.getBondList(db).elementAt(forcedIdx);
-//							threshold = rp.getBondList(db).size();
-//							break;
-//						case SHARE:
-//							nameSearchPath = (String[]) rp.getShareList(db).elementAt(forcedIdx);
-//							threshold = rp.getShareList(db).size();
-//							break;
-//						default:
-//							threshold = 0;
-//							break;
-//						}
-//						if(!req.getIgnoredSites().contains(nameSearchPath[0])){// if the selected provider is not in the ignoredSite list, it is valid. 
-//							valid = true;
-//						}
-//						if(forcedIdx + 1 >= threshold){
-//							noMoreSites = true;
-//						}
-//						forcedIdx++;
-//					}
-//
-//					break;//end case FORCED
+					//
+					//				case FORCED:	//TYPE IS KNOWN.. PROVIDERS IN ignoredSites MUST BE IGNORED
+					//					System.out.println("------------->>FORCED");
+					//					//int forcedIdx = 0;
+					//					valid = false;
+					//					//to be valid, the provider must be not included in ignoredSites list
+					//					while(!valid && !noMoreSites){
+					//						switch (req.getQuotType()) {
+					//						case FUND:
+					//							nameSearchPath = (String[]) rp.getFundList(db).elementAt(forcedIdx);
+					//							threshold = rp.getFundList(db).size();
+					//							break;
+					//						case BOND:
+					//							nameSearchPath = (String[]) rp.getBondList(db).elementAt(forcedIdx);
+					//							threshold = rp.getBondList(db).size();
+					//							break;
+					//						case SHARE:
+					//							nameSearchPath = (String[]) rp.getShareList(db).elementAt(forcedIdx);
+					//							threshold = rp.getShareList(db).size();
+					//							break;
+					//						default:
+					//							threshold = 0;
+					//							break;
+					//						}
+					//						if(!req.getIgnoredSites().contains(nameSearchPath[0])){// if the selected provider is not in the ignoredSite list, it is valid. 
+					//							valid = true;
+					//						}
+					//						if(forcedIdx + 1 >= threshold){
+					//							noMoreSites = true;
+					//						}
+					//						forcedIdx++;
+					//					}
+					//
+					//					break;//end case FORCED
 
 				default:
 					break;
 				}//end switch req.getReqType() 
 				System.out.println(req.getIdCode());
-				
+
 				requestedSite = nameSearchPath[0];
 				searchLink = nameSearchPath[1];
 
 				if(null == requestedSite || null == searchLink){
-//					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
+					//					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
 				}else{
 
 
@@ -342,13 +366,18 @@ public class RequestHandler {
 					//instantiate the requestedSite_Search parser to search for idCode in searchLink url
 					System.out.println("instantiating "+requestedSite+"_Search class..."+" parsing "+searchLink);				
 					long startTime = System.currentTimeMillis();
-					idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();					
-					
+					try {
+						idFinder = (Search) Class.forName("Search."+requestedSite+"_Search").newInstance();
+					} catch (InstantiationException | IllegalAccessException
+							| ClassNotFoundException e) {
+						// TODO 
+					}					
+
 
 					//launch idFinder and immediately verify the boolean return value
 					if(!idFinder.search(req.getIdCode(), searchLink)){
 
-//						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
+						//						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
 						ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 						found = false;
 						long endTime = System.currentTimeMillis();
@@ -363,16 +392,23 @@ public class RequestHandler {
 						long endTime = System.currentTimeMillis();
 						long seconds = (endTime - startTime);
 						System.out.println("Search totale: " + seconds + " millisecondi");
-						
+
 						//Instantiate the second parser to find details of the quotation
 						long startTime1 = System.currentTimeMillis();
-						
-						SiteInterface detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
+
+						SiteInterface detailsParser = null;
+						try {
+							detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
+						} catch (InstantiationException
+								| IllegalAccessException
+								| ClassNotFoundException e) {
+							// TODO
+						}
 
 						//launch the right parser based on the quotation type
 						if(null != idFinder.getType()){					
 							switch (idFinder.getType()) {
-/*							case BTP:
+							/*							case BTP:
 								quot = detailsParser.parseBTP(new URL (completeLink));
 								break;
 							case BOT:
@@ -384,17 +420,29 @@ public class RequestHandler {
 							case CTZ:
 								quot = detailsParser.parseCTZ(new URL (completeLink));
 								break;
-*/							case BOND:
-								quot = detailsParser.parseBOND(new URL (completeLink));
-								break;
-							case SHARE:
-								quot = detailsParser.parseSHARE(new URL (completeLink));
-								break;
-							case FUND:
-								quot = detailsParser.parseFUND(new URL (completeLink));
-								break;
-							default:
-								break;					
+							 */							case BOND:
+								 try {
+									quot = detailsParser.parseBOND(new URL (completeLink));
+								} catch (MalformedURLException e) {
+									// TODO
+								}
+								 break;
+							 case SHARE:
+								 try {
+									quot = detailsParser.parseSHARE(new URL (completeLink));
+								} catch (MalformedURLException e) {
+									// TODO
+								}
+								 break;
+							 case FUND:
+								 try {
+									quot = detailsParser.parseFUND(new URL (completeLink));
+								} catch (MalformedURLException e) {
+									// TODO
+								}
+								 break;
+							 default:
+								 break;					
 							}
 						}else {
 							quot = null;
@@ -417,7 +465,7 @@ public class RequestHandler {
 							System.out.println("BELLA Lì for"+quot.getISIN());
 							//aggiornamento ranking se è quotation Request					
 						}else {//negative outcome: reset found to false in order to force the parsing of the next provider
-//							System.out.println("Parsing Error! null Quotation!");							
+							//							System.out.println("Parsing Error! null Quotation!");							
 							ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 							found = false; 						
 						}
@@ -442,10 +490,10 @@ public class RequestHandler {
 			}
 			System.out.println("\n\n");
 		}//end FOR ALL requests			
-					
+
 		db.disconnect();
-		
-//		return quotList;
+
+		//		return quotList;
 		result.setComments(ErrorHandler.getAllErrors());
 		return result;
 

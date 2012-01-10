@@ -64,12 +64,15 @@ public class MyDatabase {
 				connected = true;
 			} else {
 				System.out.println("Manca il nome del database!!");
-				System.out.println("Scrivere il nome del database da utilizzare all'interno del file \"config.xml\"");
-				System.exit(0);
 			}
-		} catch (Exception e) 
+		} 
+		catch (SQLException e1) 
 		{ 
-			error = e.getMessage(); 
+			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
+		}
+		catch (ClassNotFoundException e) 
+		{ 
+			//TODO
 		}
 		return connected;
 	}
@@ -97,7 +100,7 @@ public class MyDatabase {
 			}
 			rs.close();     // Chiudo il ResultSet
 			stmt.close();   // Chiudo lo Statement
-		} catch (Exception e) 
+		} catch (SQLException e) 
 		{ 
 			e.printStackTrace(); 
 			error = e.getMessage(); 
@@ -124,7 +127,7 @@ public class MyDatabase {
 			}
 			rs.close();     // Chiudo il ResultSet
 			stmt.close();   // Chiudo lo Statement
-		} catch (Exception e) 
+		} catch (SQLException e) 
 		{ 
 			e.printStackTrace(); 
 			error = e.getMessage(); 
@@ -146,7 +149,7 @@ public class MyDatabase {
 			number = stmt.executeUpdate(query);
 			result = true;
 			stmt.close();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			error = e.getMessage();
 			result = false;
@@ -163,7 +166,7 @@ public class MyDatabase {
 			number = stmt.executeUpdate(query);
 			result = true;
 			stmt.close();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			error = e.getMessage();
 			result = false;
@@ -176,7 +179,8 @@ public class MyDatabase {
 		try {
 			db.close();
 			connected = false;
-		} catch (Exception e) { e.printStackTrace(); }
+		} catch (SQLException e) { 
+			error = e.getMessage(); }
 	}
 
 	public boolean isConnected() { return connected; }   // Ritorna TRUE se la connessione con il Database è attiva

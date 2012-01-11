@@ -12,9 +12,9 @@ public class ErrorHandler {
 	{
 		errors.add(e.toString());
 	}
-	public static void setError(Errors e, String comment)
+	public static void setError(Errors e, String ISIN)
 	{
-		errors.add(e.toString()+ " " + comment);
+		errors.add(e.toString()+ " " + ISIN);
 	}
 
 	public static void removeError(Errors e)

@@ -8,6 +8,7 @@ public enum Errors {
 	//requests
 	ERROR_INVALID_JSON,
 	ERROR_INVALID_REQUEST,
+	ERROR_INVALID_REQUEST_TYPE,
 	//responses
 	ERROR_NONE,
 	ERROR_OK,

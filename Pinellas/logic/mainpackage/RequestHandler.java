@@ -331,6 +331,9 @@ public class RequestHandler {
 					//					break;//end case FORCED
 
 				default:
+					noMoreSites = true;
+					System.out.println("Invalid Request type");
+					ErrorHandler.setError(Errors.ERROR_INVALID_REQUEST_TYPE);
 					break;
 				}//end switch req.getReqType() 
 				System.out.println(req.getIdCode());

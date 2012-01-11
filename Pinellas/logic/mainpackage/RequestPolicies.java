@@ -1,4 +1,5 @@
 package mainpackage;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
@@ -62,6 +63,32 @@ public class RequestPolicies {
 		this.siteNameTable = siteNameTable;
 	}
 
+	
+	
+	public ArrayList<TypeSiteObject> getSiteType(MyDatabase db) {
+		Vector types = db.execQuery("SELECT DISTINCT Type FROM tbl_name_type_search_rate;");
+		ArrayList<TypeSiteObject> res = new ArrayList<TypeSiteObject>();
+		Iterator<Object> iter1 = types.iterator();
+		//for all the types
+		while(iter1.hasNext()){
+			String[] tmpType = (String[])iter1.next();
+			Vector sites = db.execQuery("SELECT name FROM tbl_name_type_search_rate WHERE Type=\""+tmpType[0]+"\";" );
+			Iterator<Object> iter2 = sites.iterator();
+			ArrayList<String> tmpListSites = new ArrayList<String>();
+			//for all the sites which support this type
+			while(iter2.hasNext()){
+				String[] tmpSite = (String[])iter2.next();
+				tmpListSites.add(tmpSite[0]);
+			}
+			TypeSiteObject tmpObj = new TypeSiteObject(tmpType[0], tmpListSites);
+			res.add(tmpObj);
+		}
+		return res;
+	}
+
+	
+
+	
 	
 	
 	public Vector getSiteSearch(MyDatabase db) {

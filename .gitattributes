@@ -40,7 +40,10 @@ Pinellas/logic/mainpackage/MyDatabase.java -text
 Pinellas/logic/mainpackage/Program.java -text
 Pinellas/logic/mainpackage/RequestHandler.java -text
 Pinellas/logic/mainpackage/RequestPolicies.java -text
+Pinellas/logic/mainpackage/TypeSiteObject.java -text
+Pinellas/logic/mainpackage/VersionHandler.java -text
 Pinellas/src/servlets/MainServlet.java -text
+Pinellas/src/servlets/VersionServlet.java -text
 ServerProject/src/Handlers/Site.java -text
 ServerProject/src/Handlers/SiteInterface.java -text
 ServerProject/src/MyDatabase.java -text

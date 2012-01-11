@@ -19,4 +19,14 @@
     <servlet-name>MainServlet</servlet-name>
     <url-pattern>/MainServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VersionServlet</display-name>
+    <servlet-name>VersionServlet</servlet-name>
+    <servlet-class>servlets.VersionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VersionServlet</servlet-name>
+    <url-pattern>/VersionServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

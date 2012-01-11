@@ -6,13 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Quotes.QuotationContainer;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-
 import mainpackage.Errors;
 import mainpackage.RequestHandler;
+import Utils.UtilFuncs;
+
+import com.google.gson.JsonSyntaxException;
 
 
 /**
@@ -57,7 +55,7 @@ implements javax.servlet.Servlet {
 		String result = null;
 		if(jason == null || jason.isEmpty())
 		{
-			result = createError(Errors.ERROR_INVALID_JSON.toString());
+			result = UtilFuncs.createError(Errors.ERROR_INVALID_JSON.toString());
 		}
 		else
 		{
@@ -67,21 +65,21 @@ implements javax.servlet.Servlet {
 			} 
 			catch (InstantiationException e)
 			{
-				result = createError("InstantiationException");
+				result = UtilFuncs.createError("InstantiationException");
 			} catch (IllegalAccessException e) {
 				// TODO
-				result = createError("IllegalAccessException");
+				result = UtilFuncs.createError("IllegalAccessException");
 			} catch (ClassNotFoundException e) {
 				// TODO
-				result = createError("ClassNotFoundException");
+				result = UtilFuncs.createError("ClassNotFoundException");
 			} catch (JsonSyntaxException e) {
 				// TODO
-				result = createError("JsonSyntaxException");
+				result = UtilFuncs.createError(Errors.ERROR_INVALID_JSON.toString());
 			}
 			catch (Exception e)
 			{
 				// TODO
-				result = createError("GenericException");
+				result = UtilFuncs.createError(Errors.ERROR_INVALID_REQUEST.toString());
 			}
 			
 			//		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
@@ -98,12 +96,5 @@ implements javax.servlet.Servlet {
 
 	}   	  	    
 	
-	private String createError(String error)
-	{
-		QuotationContainer q = new QuotationContainer();
-		q.setComments(error);
-		Gson g = new Gson();
-		return g.toJson(q);
-	}
 
 }

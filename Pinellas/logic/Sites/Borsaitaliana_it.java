@@ -44,7 +44,7 @@ public class Borsaitaliana_it implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-			Quotation_Share qs = new Quotation_Share();
+			Quotation_Share qs = new Quotation_Share(UtilFuncs.countryDefault);
 			
 			qs.setSite(siteUrl);
 			
@@ -118,7 +118,7 @@ public class Borsaitaliana_it implements SiteInterface {
 				return null;
 			
 			
-			Quotation_Bond qb = new Quotation_Bond();
+			Quotation_Bond qb = new Quotation_Bond(UtilFuncs.countryDefault);
 			
 			qb.setSite(siteUrl);
 			qb.setName(UtilFuncs.getString(nodes, 1));		//Nome			
@@ -180,7 +180,7 @@ public class Borsaitaliana_it implements SiteInterface {
 				return null;
 			
 			
-			Quotation_Fund qf = new Quotation_Fund();
+			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
 			qf.setSite(siteUrl);
 			qf.setName(UtilFuncs.getString(nodes, 1));
 			qf.setISIN(UtilFuncs.getString(nodes, 30));

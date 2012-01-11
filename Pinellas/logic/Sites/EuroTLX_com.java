@@ -53,9 +53,8 @@ public class EuroTLX_com implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
-			Quotation_Bond qb = new Quotation_Bond();
+			Quotation_Bond qb = new Quotation_Bond(UtilFuncs.countryUs);
 			qb.setSiteUrl(siteUrl);
-			qb.setCountry(UtilFuncs.countryUs);
 			qb.setName(nodes.item(14).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(1).getNodeValue());		//ISIN
 			qb.setValuta(nodes.item(104).getNodeValue());		//Valuta
@@ -166,9 +165,8 @@ public class EuroTLX_com implements SiteInterface {
 			if(nodes.item(91).getNodeValue()!="Equity") //checking if it's a share.
 				return null;
 			
-			Quotation_Share qs = new Quotation_Share();
+			Quotation_Share qs = new Quotation_Share(UtilFuncs.countryUs);
 			qs.setSiteUrl(siteUrl);
-			qs.setCountry(UtilFuncs.countryUs);
 
 			String stringOpening = nodes.item(85).getNodeValue().split(" ")[0];
 			String stringClosing = nodes.item(85).getNodeValue().split(" ")[1];

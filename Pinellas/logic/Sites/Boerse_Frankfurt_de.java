@@ -46,9 +46,8 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 
 			//			for(int i=0; i<nodes.getLength();i++)
 			//				System.out.println(i + "\t" + nodes.item(i).getNodeValue());
-			Quotation_Bond qb = new Quotation_Bond();
+			Quotation_Bond qb = new Quotation_Bond(UtilFuncs.countryUsDateIt);
 			qb.setSiteUrl(siteUrl);
-			qb.setCountry(UtilFuncs.countryUsDateIt);
 			qb.setName(nodes.item(0).getNodeValue());		//Nome			
 			qb.setISIN(nodes.item(86).getNodeValue());		//ISIN
 			qb.setValuta(nodes.item(104).getNodeValue());		//Valuta
@@ -129,7 +128,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 				return null;
 
 
-			Quotation_Fund qf = new Quotation_Fund();
+			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
 			qf.setSiteUrl(siteUrl);
 			qf.setName(nodes.item(0).getNodeValue());
 			
@@ -205,7 +204,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			isin = isin.split(" ")[1];
 			
 			
-			Quotation_Share qs = new Quotation_Share();
+			Quotation_Share qs = new Quotation_Share(UtilFuncs.countryDefault);
 			qs.setSiteUrl(siteUrl);
 			qs.setName(nodes.item(0).getNodeValue());		//Nome		
 			qs.setISIN(isin);		//ISIN

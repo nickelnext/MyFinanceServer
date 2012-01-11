@@ -18,6 +18,7 @@ import Handlers.SiteInterface;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
 import Quotes.Quotation_Share;
+import Utils.UtilFuncs;
 
 
 public class Finanza_Virgilio_it implements SiteInterface {
@@ -52,7 +53,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 				return null;
 
 
-			Quotation_Share qs = new Quotation_Share();
+			Quotation_Share qs = new Quotation_Share(UtilFuncs.countryDefault);
 			qs.setSiteUrl(siteUrl);
 			qs.setName(nodes.item(0).getNodeValue());		//Nome			
 			qs.setISIN(nodes.item(51).getNodeValue());		//ISIN
@@ -167,7 +168,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 				return null;
 
 
-			Quotation_Bond qb = new Quotation_Bond();
+			Quotation_Bond qb = new Quotation_Bond(UtilFuncs.countryDefault);
 			qb.setSiteUrl(siteUrl);
 
 			qb.setName(nodes.item(0).getNodeValue());		//Nome			
@@ -291,7 +292,7 @@ public class Finanza_Virgilio_it implements SiteInterface {
 				return null;
 
 
-			Quotation_Fund qf = new Quotation_Fund();
+			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
 			qf.setSiteUrl(siteUrl);
 			qf.setName(nodes.item(0).getNodeValue());
 			qf.setISIN(nodes.item(12).getNodeValue());

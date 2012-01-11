@@ -436,7 +436,7 @@ public class RequestHandler {
 							//aggiornamento ranking se è quotation Request					
 						}else {//negative outcome: reset found to false in order to force the parsing of the next provider
 							//							System.out.println("Parsing Error! null Quotation!");							
-							ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
+//							ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 							found = false; 						
 						}
 						long endTime1 = System.currentTimeMillis();

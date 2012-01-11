@@ -46,7 +46,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 			
-			Quotation_Bond qb = new Quotation_Bond();
+			Quotation_Bond qb = new Quotation_Bond(UtilFuncs.countryDefault);
 			qb.setSiteUrl(siteUrl);
 			qb.setName(UtilFuncs.getString(nodes, 7));		//Nome			
 			qb.setISIN(UtilFuncs.getString(nodes, 55));		//ISIN
@@ -123,7 +123,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 		if(nodes.getLength()==0)		//No nodes, probably a 404 error
 			return null;
 		
-		Quotation_Share qs = new Quotation_Share();
+		Quotation_Share qs = new Quotation_Share(UtilFuncs.countryDefault);
 		qs.setSiteUrl(siteUrl);
 		qs.setName(nodes.item(0).getNodeValue());		//Nome		
 //		qs.setISIN(UtilFuncs.getString(nodes, 1));		//ISIN
@@ -188,7 +188,7 @@ public class Finanza_Repubblica_it implements SiteInterface {
 				return null;
 			
 			
-			Quotation_Fund qf = new Quotation_Fund();
+			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
 			qf.setSiteUrl(siteUrl);
 			qf.setName(UtilFuncs.getString(nodes, 4));
 			qf.setISIN(UtilFuncs.getString(nodes, 9));

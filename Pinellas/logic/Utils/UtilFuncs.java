@@ -4,10 +4,12 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import mainpackage.ErrorHandler;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import Quotes.QuotationContainer;
+
+import com.google.gson.Gson;
 
 public class UtilFuncs {
 
@@ -155,4 +157,13 @@ public class UtilFuncs {
 			return Integer.valueOf(string);
 		}
 	}
+	
+	public static String createError(String error)
+	{
+		QuotationContainer q = new QuotationContainer();
+		q.setComments(error);
+		Gson g = new Gson();
+		return g.toJson(q);
+	}
+	
 }

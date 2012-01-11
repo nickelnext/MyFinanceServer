@@ -7,7 +7,7 @@ public enum Errors {
 	ERROR_ISIN_INVALID_LENGTH,
 	//requests
 	ERROR_INVALID_JSON,
-	
+	ERROR_INVALID_REQUEST,
 	//responses
 	ERROR_NONE,
 	ERROR_OK,

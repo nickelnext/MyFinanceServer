@@ -2,6 +2,8 @@ package mainpackage;
 import java.io.IOException;
 import java.net.URL;
 
+import com.google.gson.Gson;
+
 import Handlers.SiteInterface;
 import Quotes.QuotationContainer;
 import Quotes.Quotation_Fund;
@@ -40,11 +42,9 @@ public class Program {
 //		System.out.println(qs.toString());
 		
 		QuotationContainer q = new QuotationContainer();
-		System.out.println(q.getComments());
-		System.out.println(q.getBondList().getClass());
-		System.out.println(q.getFundList().size());
-		System.out.println(q.getShareList().size());
-		System.out.println(q.getInvalidList().size());
+		q.setComments("tuamadre");
+		Gson g = new Gson();
+		System.out.println(g.toJson(q));
 		
 		
 		

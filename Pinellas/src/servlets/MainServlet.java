@@ -78,6 +78,12 @@ implements javax.servlet.Servlet {
 				// TODO
 				result = createError("JsonSyntaxException");
 			}
+			catch (Exception e)
+			{
+				// TODO
+				result = createError("GenericException");
+			}
+			
 			//		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
 			//		gzipStream.write(result.getBytes());
 			//		gzipStream.close();

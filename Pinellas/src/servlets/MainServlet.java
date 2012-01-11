@@ -6,8 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Quotes.QuotationContainer;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import mainpackage.Errors;
 import mainpackage.RequestHandler;
 
 
@@ -53,26 +57,26 @@ implements javax.servlet.Servlet {
 		String result = null;
 		if(jason == null || jason.isEmpty())
 		{
-			//TODO
-			//ritornare solo una stringa d'errore "ERROR_INVALID_JSON"
+			result = createError(Errors.ERROR_INVALID_JSON.toString());
 		}
 		else
 		{
+			
 			try {
 				result = RequestHandler.doStuff(jason);
 			} 
 			catch (InstantiationException e)
 			{
-				// TODO
+				result = createError("InstantiationException");
 			} catch (IllegalAccessException e) {
 				// TODO
-				e.printStackTrace();
+				result = createError("IllegalAccessException");
 			} catch (ClassNotFoundException e) {
 				// TODO
-				e.printStackTrace();
+				result = createError("ClassNotFoundException");
 			} catch (JsonSyntaxException e) {
 				// TODO
-				e.printStackTrace();
+				result = createError("JsonSyntaxException");
 			}
 			//		GZIPOutputStream gzipStream = new GZIPOutputStream(response.getOutputStream());
 			//		gzipStream.write(result.getBytes());
@@ -87,5 +91,13 @@ implements javax.servlet.Servlet {
 		response.getWriter().write(result);
 
 	}   	  	    
+	
+	private String createError(String error)
+	{
+		QuotationContainer q = new QuotationContainer();
+		q.setComments(error);
+		Gson g = new Gson();
+		return g.toJson(q);
+	}
 
 }

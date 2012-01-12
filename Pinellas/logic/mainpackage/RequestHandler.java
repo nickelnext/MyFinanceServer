@@ -40,8 +40,8 @@ public class RequestHandler {
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
 		//		tmpList.add(new Request("FNC"));
-		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, "__NONE__",null));
-		tmpList.add(new Request("IT0004719297", QuotationType.BOND, "__NONE__",null));
+		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, null, null));
+		tmpList.add(new Request("IT0004719297", QuotationType.BOND, null, null));
 		//		tmpList.add(new Request("IT0004220627"));
 		//		tmpList.add(new Request("IT0003926547"));
 		//		tmpList.add(new Request("IT0001233417"));
@@ -246,7 +246,7 @@ public class RequestHandler {
 					//select the provider based on the quotation type [precedence precedence to the preferred site]
 					System.out.println("------------->>UPDATE");
 					//verify whether or not preferredSite is specified 
-					if(firstAttempt && req.getPreferredSite() != "__NONE__"){
+					if(firstAttempt && req.getPreferredSite() != null){
 						//get search url from HT siteNameTable
 						nameSearchPath[0] = req.getPreferredSite();
 						nameSearchPath[1] = rp.getSiteNameTable().get(req.getPreferredSite());
@@ -276,9 +276,13 @@ public class RequestHandler {
 							if((updateIdx + 1) >= threshold){//verify whether all the providers have been "inspected"
 								noMoreSites = true;
 							}
-
-							//dereferentiation to increase readability
-							isPreferred = nameSearchPath[0].equals(req.getPreferredSite());
+						
+							if(req.getPreferredSite() != null){
+								isPreferred = nameSearchPath[0].equals(req.getPreferredSite());
+							}else{
+								isPreferred = false;
+							}
+							
 							if(req.getIgnoredSites() != null){
 								isIgnored = req.getIgnoredSites().contains(nameSearchPath[0]);
 							}else{
@@ -342,7 +346,7 @@ public class RequestHandler {
 				searchLink = nameSearchPath[1];
 
 				if(null == requestedSite || null == searchLink){
-					//					System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
+									System.out.println("ERROR!! NULL VARIABLES!! \n requestedSite="+requestedSite+"\t searchLink="+searchLink);
 				}else{
 
 

@@ -399,7 +399,8 @@ public class RequestHandler {
 							case CTZ:
 								quot = detailsParser.parseCTZ(new URL (completeLink));
 								break;
-							 */							case BOND:
+							 */							
+							case BOND:
 								
 									quot = detailsParser.parseBOND(new URL (completeLink));
 								

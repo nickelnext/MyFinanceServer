@@ -2,21 +2,19 @@ package mainpackage;
 import java.io.IOException;
 import java.net.URL;
 
-import com.google.gson.Gson;
-
 import Handlers.SiteInterface;
-import Quotes.QuotationContainer;
-import Quotes.Quotation_Fund;
-import Quotes.Quotation_Share;
+import Quotes.Quotation_Bond;
+
+import com.google.gson.Gson;
 
 public class Program {
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
 
 
-//				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-//				Quotation_Bond q = s.parseBOND(new URL(
-//						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
+				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+				Quotation_Bond q = s.parseBOND(new URL(
+						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 				
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
@@ -41,8 +39,8 @@ public class Program {
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
 //		System.out.println(qs.toString());
 		
-		QuotationContainer q = new QuotationContainer();
-		q.setComments("tuamadre");
+//		QuotationContainer q = new QuotationContainer();
+//		q.setComments("tuamadre");
 		Gson g = new Gson();
 		System.out.println(g.toJson(q));
 		

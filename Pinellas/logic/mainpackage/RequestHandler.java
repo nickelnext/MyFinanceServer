@@ -357,7 +357,7 @@ public class RequestHandler {
 					if(!idFinder.search(req.getIdCode(), searchLink)){
 
 						//						System.out.println("IdCode "+req.getIdCode()+" not found.. let's try with the next provider");
-						ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
+//						ErrorHandler.setError(Errors.ERROR_ISIN_LOCALLY_NOT_FOUND,requestedSite+" "+req.getIdCode());
 						found = false;
 						long endTime = System.currentTimeMillis();
 						long seconds = (endTime - startTime);
@@ -376,13 +376,8 @@ public class RequestHandler {
 						long startTime1 = System.currentTimeMillis();
 
 						SiteInterface detailsParser = null;
-						try {
-							detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
-						} catch (InstantiationException
-								| IllegalAccessException
-								| ClassNotFoundException e) {
-							// TODO
-						}
+						detailsParser = (SiteInterface)Class.forName("Sites."+requestedSite).newInstance();
+						
 
 						//launch the right parser based on the quotation type
 						if(null != idFinder.getType()){					

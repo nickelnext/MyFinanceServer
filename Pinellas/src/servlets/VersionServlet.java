@@ -31,8 +31,8 @@ public class VersionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doPost(request, response);
-		String serverVersion = VersionHandler.getVersion();
-		response.getWriter().write("Yoh Yoh: ciao bellissimo, se vuoi la grana devi farmi una post..!\n con amore, \n VersionServlet #"+serverVersion);
+		//String serverVersion = VersionHandler.getVersion();
+		response.getWriter().write("Yoh Yoh: \n"+VersionHandler.getVersion()+VersionHandler.getVersionStuff());
 		
 	}
 
@@ -45,11 +45,11 @@ public class VersionServlet extends HttpServlet {
 		String serverVersion = VersionHandler.getVersion();
 
 		System.out.println(serverVersion);
-		String result = "";
+		String result;
 
 		//version is null or empty, or clientHASH is different from serverHASH
-		if(clientVersion==null || clientVersion.isEmpty() || clientVersion!=serverVersion)
-			result = VersionHandler.getVersionStuff();
+		if(clientVersion==null || clientVersion.isEmpty() || !clientVersion.equals(serverVersion))
+			result = serverVersion+"__PULITO__"+VersionHandler.getVersionStuff();
 		//returns an "OK" withouth all the data.
 		else
 			result = "OK";

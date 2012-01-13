@@ -9,18 +9,10 @@ public class VersionHandler {
 
 	public static String getVersion()
 	{
-		MyDatabase db = new MyDatabase("pinella", "root", "myfinance");
-		String result = "";
-		if ( !db.connect() ) { 
-			ErrorHandler.setError(Errors.ERROR_DATABASE_CONNECTION);
-			result = ErrorHandler.getAllErrors();
-		}
-		else
-		{
-			RequestPolicies rp = new RequestPolicies();
-			result = "" +rp.getSiteType(db).hashCode();
-		}
-		return result;
+		int serverVersion = getVersionStuff().hashCode();
+		String res = ""+serverVersion;
+		return res;
+		
 	}
 
 		public static String getVersionStuff(){

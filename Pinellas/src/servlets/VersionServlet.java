@@ -30,7 +30,10 @@ public class VersionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		//doPost(request, response);
+		String serverVersion = VersionHandler.getVersion();
+		response.getWriter().write("Yoh Yoh: ciao bellissimo, se vuoi la grana devi farmi una post..!\n con amore, \n VersionServlet #"+serverVersion);
+		
 	}
 
 	/**
@@ -41,6 +44,7 @@ public class VersionServlet extends HttpServlet {
 		String clientVersion = request.getParameter("clientVersion");
 		String serverVersion = VersionHandler.getVersion();
 
+		System.out.println(serverVersion);
 		String result = "";
 
 		//version is null or empty, or clientHASH is different from serverHASH
@@ -52,6 +56,7 @@ public class VersionServlet extends HttpServlet {
 		//pack or not?
 		//TODO
 		response.getWriter().write(result);
+		
 	}
 
 }

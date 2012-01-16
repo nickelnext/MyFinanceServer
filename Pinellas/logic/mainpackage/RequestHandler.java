@@ -442,6 +442,7 @@ public class RequestHandler {
 
 		//		return quotList;
 		result.setComments(ErrorHandler.getAllErrors());
+		ErrorHandler.clearError();
 		return result;
 
 

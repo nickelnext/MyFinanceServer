@@ -1,13 +1,9 @@
 package mainpackage;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
-import Handlers.SiteInterface;
+import Search.Search;
 
 public class Program {
 
@@ -31,8 +27,8 @@ public class Program {
 //				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 //				Quotation_Bond q = s.parseBOND(new URL(
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
-				
-		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
+//				
+//		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
 //		Quotation_Bond q = s.parseBTP(new URL("http://www.eurotlx.com/home3/popup.php?dd=T1MZ14"));
 //		System.out.println(q.toString());
@@ -61,14 +57,14 @@ public class Program {
 //		Gson g = new Gson();
 //		System.out.println(g.toJson(q));
 		
-		Date d = new Date();
-		System.out.println(d.getTime());
-		
-		Calendar gc  = GregorianCalendar.getInstance(Locale.US);
-		System.out.println(gc.getTime());
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY HH:mm:ss");
-		System.out.println(sdf.format(gc.getTime()));
-		
+//		Date d = new Date();
+//		System.out.println(d.getTime());
+//		
+//		Calendar gc  = GregorianCalendar.getInstance(Locale.US);
+//		System.out.println(gc.getTime());
+//		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY HH:mm:ss");
+//		System.out.println(sdf.format(gc.getTime()));
+//		
 		
 		
 //	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY hh:mm:ss", Locale.ITALY);
@@ -141,14 +137,15 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-//				Search src = (Search)Class.forName("Search.Boerse_Frankfurt_de_Search").newInstance();
-//				boolean k = src.search("XS0209139244", "http://www.boerse-frankfurt.de/EN/index.aspx?pageID=108&ISIN=__ISIN__HERE__");
-//				System.out.println(k);
+				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+				boolean k = src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+				System.out.println(k);
 //				System.out.println(src.getCompleteLink());
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
 //				System.out.println(qs.toString());
 				
+		
 //		Search src = (Search)Class.forName("Search.Finanza_Virgilio_it_Search").newInstance();
 //		boolean k;
 		//BOND
@@ -191,7 +188,7 @@ public class Program {
 //				System.out.println(qs.toString());
 
 		//		azione 
-		//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 		//		s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		
 
 		//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();

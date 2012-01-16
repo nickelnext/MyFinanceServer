@@ -280,6 +280,7 @@ public class RequestHandler {
 								}
 
 								if(req.getPreferredSite() != null){
+									ErrorHandler.setError(Errors.WARNING_NOT_FOUND_IN_PREFERRED_SITE, req.getIdCode());
 									isPreferred = nameSearchPath[0].equals(req.getPreferredSite());
 								}else{
 									isPreferred = false;

@@ -3,6 +3,7 @@ package mainpackage;
 public enum Errors {
 	//isin
 	ERROR_ISIN_LOCALLY_NOT_FOUND,
+	WARNING_NOT_FOUND_IN_PREFERRED_SITE,
 	ERROR_ISIN_GLOBALLY_NOT_FOUND,
 	ERROR_ISIN_INVALID_LENGTH,
 	//requests

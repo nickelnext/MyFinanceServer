@@ -44,10 +44,10 @@ public class Finanza_Virgilio_it implements SiteInterface {
 					"//div[@id='SchedaIndici_Left']/text()";
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-//			for(int i=0;i<nodes.getLength();i++)
-//			{
-//				System.out.println(i + "\t"  + nodes.item(i).getNodeValue());
-//			}
+			for(int i=0;i<nodes.getLength();i++)
+			{
+				System.out.println(i + "\t"  + nodes.item(i).getNodeValue());
+			}
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
@@ -90,11 +90,11 @@ public class Finanza_Virgilio_it implements SiteInterface {
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{
-				System.out.println(e.getMessage());
+				System.out.println("a");
 			}
 			catch(StringIndexOutOfBoundsException e)
 			{
-				System.out.println(e.getMessage());
+				System.out.println("s");
 			}
 			
 			

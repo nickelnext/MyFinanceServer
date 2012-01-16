@@ -1,22 +1,38 @@
 package mainpackage;
 import java.io.IOException;
-import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import Handlers.SiteInterface;
-import Quotes.Quotation_Bond;
-
-import com.google.gson.Gson;
 
 public class Program {
 
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException  {
+	public static String getTodaysDate() 
+	{
+		final Calendar c = Calendar.getInstance();
+	    c.getTime();
+	    
+	    return(new StringBuilder()
+	            .append(c.get(Calendar.MONTH) + 1).append("/")
+	            .append(c.get(Calendar.DAY_OF_MONTH)).append("/")
+	            .append(c.get(Calendar.YEAR)).append(" ")
+	            .append(c.get(Calendar.HOUR_OF_DAY)).append(":")
+	            .append(c.get(Calendar.MINUTE)).append(":")
+	            .append(c.get(Calendar.SECOND)).append(" ")).toString();
+	}
+	
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, ParseException  {
 
 
-				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-				Quotation_Bond q = s.parseBOND(new URL(
-						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
+//				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
+//				Quotation_Bond q = s.parseBOND(new URL(
+//						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 				
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
 //		Quotation_Bond q = s.parseBTP(new URL("http://www.eurotlx.com/home3/popup.php?dd=T1MZ14"));
 //		System.out.println(q.toString());
@@ -36,16 +52,36 @@ public class Program {
 		
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
-//				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/a2a_IT0001233417.html"));
+//				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/daimler_DE0007100000.html"));
 //		System.out.println(qs.toString());
+//		System.out.println(qs.getISIN());
 		
 //		QuotationContainer q = new QuotationContainer();
 //		q.setComments("tuamadre");
-		Gson g = new Gson();
-		System.out.println(g.toJson(q));
+//		Gson g = new Gson();
+//		System.out.println(g.toJson(q));
+		
+		Date d = new Date();
+		System.out.println(d.getTime());
+		
+		Calendar gc  = GregorianCalendar.getInstance(Locale.US);
+		System.out.println(gc.getTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY HH:mm:ss");
+		System.out.println(sdf.format(gc.getTime()));
 		
 		
 		
+//	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY hh:mm:ss", Locale.ITALY);
+//	    SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd/YYYY hh:mm:ss", Locale.US);
+//	    
+//	    String datadigigi = Program.getTodaysDate();
+//	    System.out.println(datadigigi);
+//	    Date d = formatter2.parse(datadigigi);
+//	    System.out.println("d = " + d);
+//	    formatter2.applyPattern(formatter.toPattern());
+//	    d = formatter2.parse(datadigigi);
+//	    System.out.println("d = " + formatter2.format(d));
+	    
 //		System.out.println(Calendar.getInstance().get(Calendar.getInstance().YEAR));
 		
 		//		SiteInterface s1 = (SiteInterface)Class.forName("Sites.Borse_it").newInstance();

@@ -135,7 +135,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			String isin = nodes.item(1).getNodeValue();
 			String type = isin.split(",")[0];
 			
-			if(type!="Funds")
+			if(!type.equals("Funds"))
 				return null;
 			
 			isin = isin.split(",")[1];
@@ -192,11 +192,12 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
-
+			
 			String isin = nodes.item(1).getNodeValue();
 			String type = isin.split(",")[0];
 			
-			if(type!="Equity")
+			
+			if(!type.equals("Equity"))
 				return null;
 			
 			isin = isin.split(",")[1];
@@ -216,7 +217,7 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			qs.setDataOraUltimoAcquisto(nodes.item(11).getNodeValue() + " - " + nodes.item(12).getNodeValue());
 			qs.setPrezzoAcquisto(nodes.item(31).getNodeValue().split(" : ")[1]);
 			qs.setPrezzoVendita(nodes.item(31).getNodeValue().split(" : ")[0]);
-			qs.setQuantitaUltimo(nodes.item(25).getNodeValue().split(" : ")[1]);
+//			qs.setQuantitaUltimo(nodes.item(25).getNodeValue().split(" : ")[1]);
 			qs.setQuantitaAcquisto(nodes.item(34).getNodeValue().split(" : ")[1]);
 			qs.setQuantitaVendita(nodes.item(34).getNodeValue().split(" : ")[0]);
 //			qs.setQuantitaTotale(UtilFuncs.getString(nodes, 37));
@@ -239,6 +240,9 @@ public class Boerse_Frankfurt_de implements SiteInterface {
 			System.out.println(e.getMessage());
 		}
 		catch (StringIndexOutOfBoundsException e) {
+			System.out.println(e.getMessage());
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println(e.getMessage());
 		}
 		return null;

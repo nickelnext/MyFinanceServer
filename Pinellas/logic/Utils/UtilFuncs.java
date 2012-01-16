@@ -3,6 +3,7 @@ package Utils;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -12,7 +13,8 @@ import Quotes.QuotationContainer;
 import com.google.gson.Gson;
 
 public class UtilFuncs {
-
+	
+	private static final Pattern ISIN_PATTERN = Pattern.compile("[A-Z]{2}([A-Z0-9]){9}[0-9]");
 	public static final String ISIN_REPLACE = "__ISIN__HERE__";
 	
 	
@@ -89,11 +91,38 @@ public class UtilFuncs {
 	}
 
 
-	public static boolean isISIN(String s)
+	private boolean checkIsinCode(String isin)
 	{
-		if(s.length()==12 && s.matches("[A-Z]{2}\\d{10}"))
-			return true;
-		return false;
+		if (isin == null) 
+		{
+			return false;
+		}
+		if (!ISIN_PATTERN.matcher(isin).matches()) 
+		{
+			return false;
+		}
+
+		StringBuffer digits = new StringBuffer();
+		for (int i = 0; i < 11; i++) 
+		{
+			digits.append(Character.digit(isin.charAt(i), 36));
+		}
+		digits.reverse();
+		int sum = 0;
+		for (int i = 0; i < digits.length(); i++) 
+		{
+			int digit = Character.digit(digits.charAt(i), 36);
+			if (i % 2 == 0) 
+			{
+				digit *= 2;
+			}
+			sum += digit / 10;
+			sum += digit % 10;
+		}
+
+		int checkDigit = Character.digit(isin.charAt(11), 36);
+		int tensComplement = (sum % 10 == 0) ? 0 : ((sum / 10) + 1) * 10 - sum;
+		return checkDigit == tensComplement;
 	}
 	public static float repFloat(String string, String country) {
 		Locale l;

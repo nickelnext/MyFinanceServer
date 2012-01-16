@@ -40,8 +40,8 @@ public class RequestHandler {
 		ArrayList<Request> tmpList = new ArrayList<Request>();
 
 		//		tmpList.add(new Request("FNC"));
-		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, null, null));
-		tmpList.add(new Request("IT0004719297", QuotationType.BOND, null, null));
+//		tmpList.add(new Request("IT0004572910",  QuotationType.BOND, null, null));
+//		tmpList.add(new Request("IT0004719297", QuotationType.BOND, null, null));
 		//		tmpList.add(new Request("IT0004220627"));
 		//		tmpList.add(new Request("IT0003926547"));
 		//		tmpList.add(new Request("IT0001233417"));

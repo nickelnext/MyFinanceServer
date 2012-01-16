@@ -91,7 +91,7 @@ public class UtilFuncs {
 	}
 
 
-	private boolean checkIsinCode(String isin)
+	static public boolean checkIsinCode(String isin)
 	{
 		if (isin == null) 
 		{

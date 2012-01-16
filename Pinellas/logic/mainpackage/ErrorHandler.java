@@ -7,7 +7,11 @@ public class ErrorHandler {
 	static private ArrayList<String> errors = new ArrayList<String>();
 	static private String spacer = "; ";
 
-
+	static void clearError()
+	{
+		errors.clear();
+	}
+	
 	public static void setError(Errors e)
 	{
 		errors.add(e.toString());

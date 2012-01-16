@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import Handlers.SiteInterface;
 import Quotes.Quotation;
 import Quotes.QuotationContainer;
-import Quotes.QuotationType;
 import Quotes.Quotation_Bond;
 import Quotes.Quotation_Fund;
 import Quotes.Quotation_Invalid;

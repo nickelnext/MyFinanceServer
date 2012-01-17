@@ -201,7 +201,8 @@ public class RequestHandler {
 			boolean found;
 			boolean noMoreSites;
 			boolean valid;
-			boolean firstAttempt = true;
+			boolean firstAttempt = true; //check variable (first iteration in the loop for update requests)
+			boolean firstWithoutPreferred = true; //check variable (first iteration in the loop not considering the preferred site in update requests)
 			boolean isPreferred;
 			boolean isIgnored;
 			Quotation quot = null; //object representing the response to the current request
@@ -249,8 +250,9 @@ public class RequestHandler {
 						System.out.println("------------->>UPDATE");
 						//verify whether or not preferredSite is specified 
 						if(firstAttempt && req.getPreferredSite() != null){
-							//get search url from HT siteNameTable
-							nameSearchPath[0] = req.getPreferredSite();
+							System.out.println("Preferred site:"+req.getPreferredSite());
+							//get search url from HT siteNameTable						
+							nameSearchPath[0] = req.getPreferredSite();						
 							nameSearchPath[1] = rp.getSiteNameTable().get(req.getPreferredSite());
 							firstAttempt = false;
 						}
@@ -278,10 +280,13 @@ public class RequestHandler {
 								if((updateIdx + 1) >= threshold){//verify whether all the providers have been "inspected"
 									noMoreSites = true;
 								}
-
+								
+								
 								if(req.getPreferredSite() != null){
-									ErrorHandler.setError(Errors.WARNING_NOT_FOUND_IN_PREFERRED_SITE, req.getIdCode());
-									isPreferred = nameSearchPath[0].equals(req.getPreferredSite());
+									if(firstWithoutPreferred){
+										ErrorHandler.setError(Errors.WARNING_NOT_FOUND_IN_PREFERRED_SITE, req.getIdCode());
+									}
+									isPreferred = nameSearchPath[0].equals(req.getPreferredSite());									
 								}else{
 									isPreferred = false;
 								}
@@ -296,7 +301,8 @@ public class RequestHandler {
 								if(!isIgnored && !isPreferred){ 
 									valid = true;
 								}
-								updateIdx++;
+								firstWithoutPreferred = false;
+								updateIdx++;							
 							}//end while(!valid && !noMoreSites)
 
 						}	

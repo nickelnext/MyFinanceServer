@@ -138,8 +138,9 @@ public class Program {
 //				System.out.println(qy.toString());
 		//		search
 				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-				boolean k = src.search("IT0004572910", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+				boolean k = src.search("GR0138001673", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
 				System.out.println(k);
+				System.out.println(src.getType());
 //				System.out.println(src.getCompleteLink());
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));

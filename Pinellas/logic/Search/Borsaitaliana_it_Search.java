@@ -61,10 +61,10 @@ public class Borsaitaliana_it_Search extends Search {
 							if(this.getCompleteLink().contains("extramot"))
 								this.setType(QuotationType.BOND);
 							else
-								if(this.getCompleteLink().contains("obbligazioni-in-euro"))
+								if(this.getCompleteLink().contains("obbligazioni"))
 									this.setType(QuotationType.BOND);
 								else
-									if(this.getCompleteLink().contains("azioni"))
+									if(this.getCompleteLink().contains("/azioni/"))
 										this.setType(QuotationType.SHARE);
 									else
 										if(this.getCompleteLink().contains("fondi"))

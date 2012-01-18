@@ -1,9 +1,11 @@
 package mainpackage;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import Search.Search;
+import Handlers.SiteInterface;
+import Quotes.Quotation_Fund;
 
 public class Program {
 
@@ -28,7 +30,7 @@ public class Program {
 //				Quotation_Bond q = s.parseBOND(new URL(
 //						"http://www.borsaitaliana.it/borsa/obbligazioni/mot/obbligazioni-in-euro/dati-completi.html?isin=DE000UB2F5S4&lang=it"));
 //				
-//		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
+		SiteInterface s = (SiteInterface)Class.forName("Sites.Finanza_Virgilio_it").newInstance();
 //		SiteInterface s = (SiteInterface)Class.forName("Sites.EuroTLX_com").newInstance();
 //		Quotation_Bond q = s.parseBTP(new URL("http://www.eurotlx.com/home3/popup.php?dd=T1MZ14"));
 //		System.out.println(q.toString());
@@ -87,6 +89,7 @@ public class Program {
 		//		Quotation_Share q = s2.parseSHARE(new URL("http://bloomberg.finanza.repubblica.it/Company/?symbol=A2A:IM"));
 		//		System.out.println(q.toString());
 		//		Quotation_Fund q = s2.parseFUND(new URL("http://finanza.repubblica.it/Fondi_Scheda.aspx?addCode=FC.KWCARPAT"));
+//				
 //				System.out.println(q.toString());
 		//		System.out.println();
 		//		
@@ -137,10 +140,10 @@ public class Program {
 //				System.out.println("ok");
 //				System.out.println(qy.toString());
 		//		search
-				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
-				boolean k = src.search("GR0138001673", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
-				System.out.println(k);
-				System.out.println(src.getType());
+//				Search src = (Search)Class.forName("Search.Borsaitaliana_it_Search").newInstance();
+//				boolean k = src.search("GR0138001673", "http://www.borsaitaliana.it/borsa/quotazioni/azioni/cerca-titolo.html?target=search&go=y&fromhp=true&param=__ISIN__HERE__");
+//				System.out.println(k);
+//				System.out.println(src.getType());
 //				System.out.println(src.getCompleteLink());
 //				Quotation_Share qs = s.parseSHARE(new URL(src.getCompleteLink()));
 //						"http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0001233417&lang=it"));
@@ -190,7 +193,11 @@ public class Program {
 
 		//		azione 
 //				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-		//		s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		
+				Quotation_Fund q = s.parseFUND(new URL("http://finanza.economia.virgilio.it/fondi/carmignac-patrimoine-a_FC.F0GBR04F90.html"));
+				System.out.println(q.toString());
+				
+				
+//				s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		
 
 		//		SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
 		//		

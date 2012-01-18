@@ -269,84 +269,86 @@ public class Finanza_Virgilio_it implements SiteInterface {
 	}
 	public Quotation_Fund parseFUND(URL url)
 	{
-		try 
-		{
-			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
-
-			Tidy tidy = new Tidy();
-			tidy.setQuiet(true);
-			tidy.setShowWarnings(false);
-			tidy.setFixBackslash(true);
-			Document response = tidy.parseDOM(buffInput, null);
-
-			XPathFactory factory = XPathFactory.newInstance();
-			XPath xPath=factory.newXPath();
-			String pattern = "//ul[@class='info']/li/*/text() | //div[@id='panelVariazioneContainer']//span/text() | " +
-					"//div[@id='ctl00_ContentPlaceHolder1_od1_pnlOdometer']//img/@src | //span[@id='ctl00_ContentPlaceHolder1_updateLabel']/text() | " +
-					"//div[@id='SchedaIndici_Left']/span/text()";
-			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
-
-
-
-			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
-
-
-			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
-			qf.setSiteUrl(siteUrl);
-			qf.setName(nodes.item(0).getNodeValue());
-			qf.setISIN(nodes.item(12).getNodeValue());
-			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());
-			qf.setCategoriaAssociati(nodes.item(16).getNodeValue());
-
-			try{
-				String data = nodes.item(11).getNodeValue();
-				data = data.split(" ")[data.split(" ").length-1];
-				qf.setDataUltimoPrezzo(data);
-				
-				String ultimoprezzo = "";
-				String r;
-
-				for(int i=3;i<=10;i++)
-				{
-
-					r = nodes.item(i).getNodeValue();
-					r = r.substring(r.lastIndexOf("/")+1,r.indexOf("."));
-
-					if(r.matches("\\d"))
-						ultimoprezzo += r;
-					if(r.contains("dot"))
-						ultimoprezzo += ","; //that's because LOCALE is set to IT
-				}
-
-				qf.setUltimoPrezzo(ultimoprezzo);
-			}
-			catch(IndexOutOfBoundsException e)
-			{
-				System.out.println(e.getMessage());
-			}
-			
-
-			qf.setNomeGestore(nodes.item(19).getNodeValue());
-			//			qf.setPerformance1Anno(performance1Anno)
-			//			qf.setPerformance1Mese(performance1Mese)
-			//			qf.setPerformance3Anni(performance3Anni)
-			//			qf.setPerformance3Mesi(performance3Mesi)
-			//			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
-			//			qf.setSiteUrl(site)
-			
-			qf.setValuta(nodes.item(14).getNodeValue());
-			qf.setVariazioneAssoluta(nodes.item(1).getNodeValue());
-			qf.setVariazionePercentuale(nodes.item(2).getNodeValue());
-
-			return qf;	
-		}
-		catch (IOException e) {
-			System.out.println(e.getMessage());
-		} 
-		catch (XPathExpressionException e) {
-			System.out.println(e.getMessage());
-		}
+		
+//		try 
+//		{
+//			BufferedInputStream buffInput = new BufferedInputStream(url.openStream());
+//
+//			Tidy tidy = new Tidy();
+//			tidy.setQuiet(true);
+//			tidy.setShowWarnings(false);
+//			tidy.setFixBackslash(true);
+//			Document response = tidy.parseDOM(buffInput, null);
+//
+//			XPathFactory factory = XPathFactory.newInstance();
+//			XPath xPath=factory.newXPath();
+//			String pattern = "//ul[@class='info']/li/*/text() | //div[@id='panelVariazioneContainer']//span/text() | " +
+//					"//div[@id='ctl00_ContentPlaceHolder1_od1_pnlOdometer']//img/@src | //span[@id='ctl00_ContentPlaceHolder1_updateLabel']/text() | " +
+//					"//div[@id='SchedaIndici_Left']/span/text()";
+//			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+//
+//
+//
+//			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+//				return null;
+//
+//
+//			Quotation_Fund qf = new Quotation_Fund(UtilFuncs.countryDefault);
+//			qf.setSiteUrl(siteUrl);
+//			qf.setName(nodes.item(0).getNodeValue());
+//			qf.setISIN(nodes.item(12).getNodeValue());
+//			qf.setBenchmarkDichiarato(nodes.item(17).getNodeValue());
+//			qf.setCategoriaAssociati(nodes.item(16).getNodeValue());
+//
+//			try{
+//				String data = nodes.item(11).getNodeValue();
+//				data = data.split(" ")[data.split(" ").length-1];
+//				qf.setDataUltimoPrezzo(data);
+//				
+//				String ultimoprezzo = "";
+//				String r;
+//
+//				for(int i=3;i<=10;i++)
+//				{
+//
+//					r = nodes.item(i).getNodeValue();
+//					r = r.substring(r.lastIndexOf("/")+1,r.indexOf("."));
+//
+//					if(r.matches("\\d"))
+//						ultimoprezzo += r;
+//					if(r.contains("dot"))
+//						ultimoprezzo += ","; //that's because LOCALE is set to IT
+//				}
+//
+//				qf.setUltimoPrezzo(ultimoprezzo);
+//			}
+//			catch(IndexOutOfBoundsException e)
+//			{
+//				System.out.println(e.getMessage());
+//			}
+//			
+//
+//			qf.setNomeGestore(nodes.item(19).getNodeValue());
+//			//			qf.setPerformance1Anno(performance1Anno)
+//			//			qf.setPerformance1Mese(performance1Mese)
+//			//			qf.setPerformance3Anni(performance3Anni)
+//			//			qf.setPerformance3Mesi(performance3Mesi)
+//			//			qf.setPrezzoPrecedente(UtilFuncs.getString(nodes, 3));
+//			//			qf.setSiteUrl(site)
+//			
+//			qf.setValuta(nodes.item(14).getNodeValue());
+//			qf.setVariazioneAssoluta(nodes.item(1).getNodeValue());
+//			qf.setVariazionePercentuale(nodes.item(2).getNodeValue());
+//
+//			return qf;	
+//		}
+//		catch (IOException e) {
+//			System.out.println(e.getMessage());
+//		} 
+//		catch (XPathExpressionException e) {
+//			System.out.println(e.getMessage());
+//		}
+		
 		return null;
 	}
 }

@@ -249,7 +249,7 @@ public class RequestHandler {
 						//select the provider based on the quotation type [precedence precedence to the preferred site]
 						System.out.println("------------->>UPDATE");
 						//verify whether or not preferredSite is specified 
-						if(firstAttempt && req.getPreferredSite() != null){
+						if(firstAttempt && req.getPreferredSite() != null && !req.getPreferredSite().equals("")){
 							System.out.println("Preferred site:"+req.getPreferredSite());
 							//get search url from HT siteNameTable						
 							nameSearchPath[0] = req.getPreferredSite();						
@@ -282,9 +282,9 @@ public class RequestHandler {
 								}
 								
 								
-								if(req.getPreferredSite() != null){
+								if(req.getPreferredSite() != null && !req.getPreferredSite().equals("")){
 									if(firstWithoutPreferred){
-										ErrorHandler.setError(Errors.WARNING_NOT_FOUND_IN_PREFERRED_SITE, req.getIdCode());
+										ErrorHandler.setError(Errors.WARNING_NOT_FOUND_IN_PREFERRED_SITE, req.getPreferredSite()+" - "+req.getIdCode());
 									}
 									isPreferred = nameSearchPath[0].equals(req.getPreferredSite());									
 								}else{

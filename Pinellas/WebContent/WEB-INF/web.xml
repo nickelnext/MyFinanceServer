@@ -29,4 +29,14 @@
     <servlet-name>VersionServlet</servlet-name>
     <url-pattern>/VersionServlet</url-pattern>
   </servlet-mapping>
+<servlet>
+    <description></description>
+    <display-name>Historia</display-name>
+    <servlet-name>HistoryServlet</servlet-name>
+    <servlet-class>servlets.HistoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HistoryServlet</servlet-name>
+    <url-pattern>/history</url-pattern>
+  </servlet-mapping>
 </web-app>

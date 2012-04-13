@@ -9,6 +9,7 @@ Pinellas/WebContent/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar -text
 Pinellas/WebContent/WEB-INF/web.xml -text
 Pinellas/WebContent/index.jsp -text
 Pinellas/logic/Handlers/SiteInterface.java -text
+Pinellas/logic/HistoryData/Yahoo_History_Parser.java -text
 Pinellas/logic/Quotes/HistoricalData.java -text
 Pinellas/logic/Quotes/Quotation.java -text
 Pinellas/logic/Quotes/QuotationContainer.java -text

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import Handlers.SiteInterface;
+import HistoryData.Yahoo_History_Parser;
 import Quotes.Quotation_Fund;
 
 public class Program {
@@ -47,7 +48,7 @@ public class Program {
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://www.boerse-frankfurt.de/EN/index.aspx?pageID=35&ISIN=DE0007100000"));
 		
-		
+		Yahoo_History_Parser.pippopuppa("http://it.finance.yahoo.com/q/hp?s=A2A.MI&b=23&a=11&c=2011&e=23&d=00&f=2012&g=d");
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/daimler_DE0007100000.html"));
@@ -193,8 +194,8 @@ public class Program {
 
 		//		azione 
 //				SiteInterface s = (SiteInterface)Class.forName("Sites.Borsaitaliana_it").newInstance();
-				Quotation_Fund q = s.parseFUND(new URL("http://finanza.economia.virgilio.it/fondi/carmignac-patrimoine-a_FC.F0GBR04F90.html"));
-				System.out.println(q.toString());
+//				Quotation_Fund q = s.parseFUND(new URL("http://finanza.economia.virgilio.it/fondi/carmignac-patrimoine-a_FC.F0GBR04F90.html"));
+//				System.out.println(q.toString());
 				
 				
 //				s.parseSHARE(new URL("http://www.borsaitaliana.it/borsa/azioni/dati-completi.html?isin=IT0003990402&lang=it"),"IT0003990402");		

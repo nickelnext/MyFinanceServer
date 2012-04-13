@@ -18,7 +18,7 @@ import Quotes.HistoricalData;
 
 public class Yahoo_History_Parser {
 
-	public static ArrayList<HistoricalData> pippopuppa(String url)
+	public static ArrayList<HistoricalData> getHistoricalDataList(String url)
 	{
 		try 
 		{
@@ -53,18 +53,18 @@ public class Yahoo_History_Parser {
 
 				if(i%7==0)
 				{
-					date = nodes.item(i).getNodeValue();
-
-					System.out.println(i+"\t"+nodes.item(i).getNodeValue());
+					date = parseDate(nodes.item(i).getNodeValue());
+//					System.out.println(i+"\t"+ parseDate(nodes.item(i).getNodeValue()));
 				}
 				if(i%7==6)
 				{
 					val = Float.parseFloat(nodes.item(i).getNodeValue().replace(",", "."));
-					System.out.println(i+"\t"+nodes.item(i).getNodeValue());
+//					System.out.println(i+"\t"+nodes.item(i).getNodeValue());
 					arrHistory.add(new HistoricalData(date, val));
 				}
 			}
 			System.out.println(arrHistory.size());
+			return arrHistory;
 			//				System.out.println(i+"\t"+nodes.item(i).getNodeValue());
 
 		}		
@@ -79,7 +79,7 @@ public class Yahoo_History_Parser {
 		return null;
 	}
 
-	private String parseDate(String dateInLetters)
+	private static String parseDate(String dateInLetters)
 	{
 		dateInLetters = dateInLetters.replace(" ", "/");
 		String month = "";

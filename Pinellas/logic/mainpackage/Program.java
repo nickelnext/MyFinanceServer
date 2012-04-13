@@ -1,12 +1,12 @@
 package mainpackage;
 import java.io.IOException;
-import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import Handlers.SiteInterface;
-import HistoryData.Yahoo_History_Parser;
-import Quotes.Quotation_Fund;
 
 public class Program {
 
@@ -48,7 +48,63 @@ public class Program {
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://www.boerse-frankfurt.de/EN/index.aspx?pageID=35&ISIN=DE0007100000"));
 		
-		Yahoo_History_Parser.pippopuppa("http://it.finance.yahoo.com/q/hp?s=A2A.MI&b=23&a=11&c=2011&e=23&d=00&f=2012&g=d");
+		
+//		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//		Calendar cal = Calendar.getInstance();
+//		String todayString = formatter.format(cal.getTime());
+//		cal.add(Calendar.MONTH, -3);
+//		String lastMonthString = formatter.format(cal.getTime());
+//		System.out.println(todayString);
+//		System.out.println(lastMonthString);
+//		
+//		String [] arr = todayString.split("/");
+//		String todayDays = arr[0];
+//		String todayMonths = String.valueOf(Integer.parseInt(arr[1])-1);
+//		String todayYear = arr[2];
+//		arr = lastMonthString.split("/");
+//		String oldDays = arr[0];
+//		String oldMonths = String.valueOf(Integer.parseInt(arr[1])-1);;
+//		String oldYear = arr[2];
+//		
+//		String historyUrl = "http://it.finance.yahoo.com/q/hp?s=" + "<<<<<<"+ "&b="+ oldDays + "&a="+ oldMonths + "&c="+ oldYear +
+//				"&e="+ todayDays + "&d="+ todayMonths + "&f="+ todayYear + "&g=d";
+//		
+//		System.out.println(historyUrl);
+		HistoryHandler.getHistory("A2A.MI");
+		
+//		Yahoo_History_Parser.getHistoricalDataList("http://it.finance.yahoo.com/q/hp?s=A2A.MI&b=23&a=11&c=2011&e=23&d=00&f=2012&g=d");
+//		
+//		try 
+//		{
+//			String searchUrl = "http://it.finance.yahoo.com/lookup?s=" + "XS0650262875";
+//			BufferedInputStream buffInput = new BufferedInputStream(new URL(searchUrl).openStream());
+//
+//			Tidy tidy = new Tidy();
+//			tidy.setQuiet(true);
+//			tidy.setShowWarnings(false);
+//			tidy.setFixBackslash(true);
+//			Document response = tidy.parseDOM(buffInput, null);
+//
+//			XPathFactory factory = XPathFactory.newInstance();
+//			XPath xPath=factory.newXPath();
+//			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text()";
+//			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+//
+//			if(nodes.getLength()==0)		//No nodes, probably a 404 error
+//				return;
+//
+//			System.out.println(nodes.item(0).getNodeValue());
+////			String s = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22" + Utils.UtilFuncs.ISIN_REPLACE + "%22%29&env=store://datatables.org/alltableswithkeys";
+////			this.setCompleteLink(s.replace(UtilFuncs.ISIN_REPLACE, nodes.item(0).getNodeValue()));
+//		}
+//		catch (IOException e) {
+//			System.out.println(e.getMessage());
+//		} 
+//		catch (XPathExpressionException e) {
+//			System.out.println(e.getMessage());
+//		}
+//	}
+		
 		
 //		Quotation_Share qs = s.parseSHARE(new URL(
 //				"http://finanza.economia.virgilio.it/borsa-italiana/azioni/daimler_DE0007100000.html"));
@@ -205,7 +261,5 @@ public class Program {
 		//		Quotation_Bond qy = s.parseCTZ(new URL("http://www.borsaitaliana.it/borsa/obbligazioni/mot/ctz/dati-completi.html?isin=IT0004572910&lang=it"));
 		//		System.out.println(qy.toString());
 	}
-
-	
-
 }
+

@@ -14,11 +14,15 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import mainpackage.ErrorHandler;
+import mainpackage.Errors;
 import mainpackage.HistoryHandler;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.tidy.Tidy;
+
+import Utils.UtilFuncs;
 
 
 
@@ -51,50 +55,55 @@ public class HistoryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String iSIN = request.getParameter("ISIN");
 
+		//if iSIN ivalido --> gestito nella get yahooFromISIN
 		String yahoo_code = getYahooCodeFromISIN(iSIN);
 		
-		if(yahoo_code == null)
-			//esplodi
-			//TODO
-			return;
+		//if yahoo_code == null --> gestito nella getHistory
 		
 		//invoco l'handler che a sua volta invoca il parser
 		String result = HistoryHandler.getHistory(yahoo_code);
-		//scrivo il json come response
+		//scrivo come response il json che codifica l'HistoryContainer
 		response.getWriter().write(result);
 
-
+		
 	}
 
 	private String getYahooCodeFromISIN(String iSIN) {
-		try 
-		{
-			String searchUrl = "http://it.finance.yahoo.com/lookup?s=" + iSIN;
-			BufferedInputStream buffInput = new BufferedInputStream(new URL(searchUrl).openStream());
+		if(UtilFuncs.checkIsinCode(iSIN)){
+			try 
+			{
+				String searchUrl = "http://it.finance.yahoo.com/lookup?s=" + iSIN;
+				BufferedInputStream buffInput = new BufferedInputStream(new URL(searchUrl).openStream());
 
-			Tidy tidy = new Tidy();
-			tidy.setQuiet(true);
-			tidy.setShowWarnings(false);
-			tidy.setFixBackslash(true);
-			Document response = tidy.parseDOM(buffInput, null);
+				Tidy tidy = new Tidy();
+				tidy.setQuiet(true);
+				tidy.setShowWarnings(false);
+				tidy.setFixBackslash(true);
+				Document response = tidy.parseDOM(buffInput, null);
 
-			XPathFactory factory = XPathFactory.newInstance();
-			XPath xPath=factory.newXPath();
-			String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text()";
-			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
+				XPathFactory factory = XPathFactory.newInstance();
+				XPath xPath=factory.newXPath();
+				String pattern = "//table[@class='yui-dt' and @summary='YFT_SL_TABLE_SUMMARY']//td//a/text()";
+				NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			if(nodes.getLength()==0)		//No nodes, probably a 404 error
-				return null;
-			return nodes.item(0).getNodeValue();
+				if(nodes.getLength()==0)		//No nodes, probably a 404 error
+					return null;
+				return nodes.item(0).getNodeValue();
+			}
+			catch (IOException e) {
+				System.out.println(e.getMessage());
+			} 
+			catch (XPathExpressionException e) {
+				System.out.println(e.getMessage());
+			}
+			//errori nella ricerca dello yahoo code
+			ErrorHandler.setError(Errors.ERROR_YAHOO_CODE_SEARCH);
+			return null;
 		}
-		catch (IOException e) {
-			System.out.println(e.getMessage());
-		} 
-		catch (XPathExpressionException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
 		
+		ErrorHandler.setError(Errors.ERROR_INVALID_ISIN, iSIN);
+		return null;
+				
 	}
 
 

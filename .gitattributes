@@ -11,6 +11,7 @@ Pinellas/WebContent/index.jsp -text
 Pinellas/logic/Handlers/SiteInterface.java -text
 Pinellas/logic/HistoryData/Yahoo_History_Parser.java -text
 Pinellas/logic/Quotes/HistoricalData.java -text
+Pinellas/logic/Quotes/HistoryContainer.java -text
 Pinellas/logic/Quotes/Quotation.java -text
 Pinellas/logic/Quotes/QuotationContainer.java -text
 Pinellas/logic/Quotes/QuotationType.java -text

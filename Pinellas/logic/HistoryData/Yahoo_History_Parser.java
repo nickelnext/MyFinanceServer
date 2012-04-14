@@ -50,7 +50,6 @@ public class Yahoo_History_Parser {
 
 			for(int i=0;i<nodes.getLength();i++)
 			{
-
 				if(i%7==0)
 				{
 					date = parseDate(nodes.item(i).getNodeValue());
@@ -65,7 +64,7 @@ public class Yahoo_History_Parser {
 			}
 			System.out.println(arrHistory.size());
 			return arrHistory;
-			//				System.out.println(i+"\t"+nodes.item(i).getNodeValue());
+			//System.out.println(i+"\t"+nodes.item(i).getNodeValue());
 
 		}		
 		catch (IOException e) {

@@ -1,10 +1,10 @@
 package mainpackage;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 
 import Handlers.SiteInterface;
 
@@ -71,6 +71,10 @@ public class Program {
 //		
 //		System.out.println(historyUrl);
 		HistoryHandler.getHistory("A2A.MI");
+		
+		
+		 
+		
 		
 //		Yahoo_History_Parser.getHistoricalDataList("http://it.finance.yahoo.com/q/hp?s=A2A.MI&b=23&a=11&c=2011&e=23&d=00&f=2012&g=d");
 //		

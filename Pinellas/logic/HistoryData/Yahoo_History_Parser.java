@@ -22,9 +22,6 @@ public class Yahoo_History_Parser {
 	{
 		try 
 		{
-			
-			System.out.println("sono dentrooooO");
-			
 			BufferedInputStream buffInput = new BufferedInputStream(new URL(url).openStream());
 
 			Tidy tidy = new Tidy();
@@ -36,12 +33,12 @@ public class Yahoo_History_Parser {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath=factory.newXPath();
-			String pattern = "//td[@class='yfnc_tabledata1' and not(@align='center') and not(@colspan='7') and (count(../td)>2]/text()";
+			String pattern = "//*[count(td)>2]/td[@class='yfnc_tabledata1' and not(@align='center') and not(@colspan='7')]/text()";
 
 			NodeList nodes = (NodeList)xPath.evaluate(pattern, response, XPathConstants.NODESET);
 
-			
-			System.out.println("lenght " +nodes.getLength());
+
+
 			if(nodes.getLength()==0)		//No nodes, probably a 404 error
 				return null;
 
@@ -75,7 +72,6 @@ public class Yahoo_History_Parser {
 			System.out.println(e.getMessage());
 		} catch (XPathExpressionException e) {
 			System.out.println(e.getMessage());
-			e.printStackTrace();
 		} catch(StringIndexOutOfBoundsException e)	{
 			System.out.println(e.getMessage());
 		} 
